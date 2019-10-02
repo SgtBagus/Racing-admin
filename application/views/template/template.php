@@ -95,7 +95,7 @@ if($this->session->userdata('session_sop')=="") {
   <div class="wrapper">
 
     <header class="main-header">
-      <a href="<?= base_url('admin') ?>" class="logo">
+      <a href="<?= base_url() ?>" class="logo">
         <span class="logo-mini"><?= APPLICATION_SMALL  ?> </span>
         <span class="logo-lg"><?= APPLICATION  ?> </span>
       </a>
@@ -111,18 +111,18 @@ if($this->session->userdata('session_sop')=="") {
             <li class="dropdown user user-menu">
               <?php
               $id = $this->session->userdata('id');
-              $file = $this->mymodel->selectDataone('file',array('table'=>'user','table_id'=>$id));
+              $file = $this->mymodel->selectDataone('file', array('table'=>'user', 'table_id'=>$id));
               ?>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <object data="<?= base_url($file['dir'])?>" type="image/png" class="user-image" alt="User Image">
-                  <img src="https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d" class="user-image" alt="User Image" width="100px" height="100px" >
+                <object data="<?= $file['url'] ?>" type="image/png" class="user-image" alt="User Image">
+                  <img src="<?= $file['url'] ?>" class="user-image" alt="User Image" width="100px" height="100px" >
                 </object>
                 <span class="hidden-xs"><?= $this->session->userdata('name');?></span>
               </a>
               <ul class="dropdown-menu">
                 <li class="user-header">
-                  <object data="<?= base_url($file['dir'])?>" type="image/png" style="border-radius: 50%; width: 125px; height: 125px;">
-                    <img src="https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d" alt="example"  width="100px" height="100px" >
+                  <object data="<?= $file['url'] ?>" type="image/png" style="border-radius: 50%; width: 125px; height: 125px;">
+                    <img src="<?= $file['url'] ?>" alt="example"  width="100px" height="100px" >
                   </object>
                   <p>
                     <?= $this->session->userdata('name');?> - <?= $this->session->userdata('role');?>

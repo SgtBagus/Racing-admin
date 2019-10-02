@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends MY_Controller {
+class Users extends MY_Controller {
 	public function index(){
 		$this->data['page_name'] = 'User';
-		$this->template->load('template/template','admin/index', $this->data);
+		$this->template->load('template/template','users/index', $this->data);
 	}
 
 	public function json(){
@@ -64,7 +64,7 @@ class Admin extends MY_Controller {
 			$this->db->insert('user',$dt);
 			$last_id = $this->db->insert_id();	   
 			if (!empty($_FILES['file']['name'])){
-				$dir  = "webfiles/admin/";
+				$dir  = "webfiles/";
 				$config['upload_path']          = $dir;
 				$config['allowed_types']        = '*';
 				$config['file_name']           = md5('smartsoftstudio').rand(1000,100000);
@@ -82,6 +82,7 @@ class Admin extends MY_Controller {
 						'table'=> 'user',
 						'table_id'=> $last_id,
 						'status'=>'ENABLE',
+						'url' => base_url().$dir.$file['file_name'],
 						'created_at'=>date('Y-m-d H:i:s')
 					);
 					$str = $this->db->insert('file', $data);
@@ -108,7 +109,7 @@ class Admin extends MY_Controller {
 	public function edit($id){
 		$data['user'] = $this->mymodel->selectDataone('user',array('id'=>$id));
 		$data['file'] = $this->mymodel->selectDataone('file',array('table_id'=>$id,'table'=>'user'));
-		$this->load->view('admin/user-edit',$data);
+		$this->load->view('users/user-edit',$data);
 	}
 
 	public function editUser($id){
@@ -116,7 +117,7 @@ class Admin extends MY_Controller {
 		$data['file'] = $this->mymodel->selectDataone('file',array('table_id'=>$id,'table'=>'user'));
 		$data['page_name'] = 'master';
 		$data['id'] = $id;
-		$this->template->load('template/template','admin/edit-user',$data);
+		$this->template->load('template/template','users/edit-user',$data);
 	}
 
 	public function updateUser(){
@@ -129,7 +130,7 @@ class Admin extends MY_Controller {
 
 		if($_FILES['file']['name']!='')
 		{
-			$dir  = "webfiles/admin/";
+			$dir  = "webfiles/";
 			$config['upload_path']          = $dir;
 			$config['allowed_types']        = '*';
 			$config['file_name']           = md5('smartsoftstudio').rand(1000,100000);
@@ -148,6 +149,7 @@ class Admin extends MY_Controller {
 					'dir'=> $dir.$file['file_name'],
 					'table'=> 'user',
 					'table_id'=> $id,
+					'url' => base_url().$dir.$file['file_name'],
 					'updated_at'=>date('Y-m-d H:i:s')
 				);
 				$file = $this->mymodel->selectDataone('file',array('table_id'=>$id,'table'=>'user'));
@@ -220,7 +222,7 @@ class Admin extends MY_Controller {
 				$dt['password'] = md5($password);
 			}
 			if (!empty($_FILES['file']['name'])){
-				$dir  = "webfiles/admin/";
+				$dir  = "webfiles/users/";
 				$config['upload_path']          = $dir;
 				$config['allowed_types']        = '*';
 				$config['file_name']           = md5('smartsoftstudio').rand(1000,100000);
@@ -237,6 +239,7 @@ class Admin extends MY_Controller {
 						'dir'=> $dir.$file['file_name'],
 						'table'=> 'user',
 						'table_id'=> $id,
+						'url' => base_url().$dir.$file['file_name'],
 						'updated_at'=>date('Y-m-d H:i:s')
 					);
 					$file = $this->mymodel->selectDataone('file',array('table_id'=>$id,'table'=>'user'));
@@ -283,6 +286,6 @@ class Admin extends MY_Controller {
 	
 	public function editUser_redirect($id){
 		$id = $this->template->sonEncode($id);
-        header('Location: '.base_url('admin/editadmin/'.$id));
+        header('Location: '.base_url('users/editadmin/'.$id));
 	}
 }

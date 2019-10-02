@@ -41,7 +41,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Add New User </h4>
       </div>
-      <form action="<?= base_url('admin/store') ?>" id="upload" enctype="multipart/form-data">
+      <form action="<?= base_url('users/store') ?>" id="upload" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="show_error"></div>
           <small>Username</small>
@@ -85,7 +85,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Edit User </h4>
       </div>
-      <form action="<?= base_url('admin/update') ?>" id="uploads" enctype="multipart/form-data">
+      <form action="<?= base_url('users/update') ?>" id="uploads" enctype="multipart/form-data">
         <div class="modal-body" id="data-update">
 
         </div>
@@ -127,23 +127,14 @@
 
   function loaddata() {
     var t = $("#mytable").dataTable({
-      initComplete: function() {
-        var api = this.api();
-        $('#mytable_filter input')
-          .off('.DT')
-          .on('keyup.DT', function(e) {
-            if (e.keyCode == 13) {
-              api.search(this.value).draw();
-            }
-          });
-      },
       oLanguage: {
         sProcessing: "loading..."
       },
       processing: true,
       serverSide: true,
+      searching: false,
       ajax: {
-        "url": "<?= base_url('admin/json') ?>/",
+        "url": "<?= base_url('users/json') ?>/",
         "type": "POST"
       },
       columns: [{
@@ -245,7 +236,7 @@
 
   function edit(id) {
     $("#editsite").modal('show');
-    $("#data-update").load('<?= base_url('admin/edit') ?>/' + id);
+    $("#data-update").load('<?= base_url('users/edit') ?>/' + id);
   }
 
 
@@ -286,7 +277,7 @@
   });
 
   function hapus(id) {
-    var url = "<?= base_url('admin/delete') ?>/" + id;
+    var url = "<?= base_url('users/delete') ?>/" + id;
     if (confirm('Are you sure delete this data ?')) {
       window.location.href = url;
     } else {
