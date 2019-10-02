@@ -18,8 +18,13 @@ class Team extends MY_Controller {
         $this->template->load('template/template', 'team/view', $data);
     }
 
-	public function status($id,$status){
-		$this->mymodel->updateData('tbl_investor',array('status'=>$status),array('id'=>$id));
-		header('Location: '.base_url('admin/investor'));
+	public function status($id, $status){
+		$this->mymodel->updateData('tbl_team',array('status'=>$status),array('id'=>$id));
+		header('Location: '.base_url('team'));
+    }
+    
+	public function verificacion($id, $status){
+		$this->mymodel->updateData('tbl_team',array('verificacion'=>$status),array('id'=>$id));
+		header('Location: '.base_url('team'));
 	}
 }

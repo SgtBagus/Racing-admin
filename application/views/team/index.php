@@ -30,17 +30,17 @@
                     <div class="box-body">
                         <?php
                         if($_GET['delete']){
-                            echo '<div class="show_error">';
-                            echo '<div class="alert alert-danger ks-solid ks-active-border" role="alert">';
-                            echo '  <button type="button" class="close" data-dismiss="alert" aria-label="Close">';
-                            echo '      <span aria-hidden="true" class="fa fa-close"></span>';
-                            echo '  </button>';
-                            echo '  <h5 class="alert-heading"><i class="fa fa-ban"></i> Perhatian !</h5>';
-                            echo '      <ul>';
-                            echo '          <li>Team Berhasil Di Hapus</li>';
-                            echo '      </ul>';
-                            echo '</div>';
-                            echo '</div>';
+                            echo '<div class="show_error">
+                            <div class="alert alert-danger ks-solid ks-active-border" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true" class="fa fa-close"></span>
+                            </button>
+                            <h5 class="alert-heading"><i class="fa fa-ban"></i> Perhatian !</h5>
+                            <ul>
+                            <li>Team Berhasil Di Hapus</li>
+                            </ul>
+                            </div>
+                            </div>';
                         }
                         ?>
                         <div class="table-responsive">
@@ -54,6 +54,7 @@
                                         <th>Alamat</th>
                                         <th>Kota</th>
                                         <th>Nomor Whatsapp</th>
+                                        <th>Verifikasi</th>
                                         <th>Status</th>
                                         <th>Jumlah Anggota</th>
                                         <th></th>
@@ -72,14 +73,31 @@
                                             <td><?= $row['kota'] ?></td>
                                             <td><?= $row['nowa'] ?></td>
                                             <td>
+                                                <?php if($row['verificacion']=='ENABLE'){?>
+                                                    <p> Terverifikasikan </p>
+                                                    <a href="<?= base_url('team/verificacion/').$row['id'] ?>/DISABLE">
+                                                        <button type="button" class="btn btn-sm btn-sm btn-danger">
+                                                            <i class="fa fa-ban"></i> LEPAS VERIFIKASI
+                                                        </button>
+                                                    </a>
+                                                <?php }else { ?>
+                                                    <p> Belum Terverifikasi </p>
+                                                    <a href="<?= base_url('team/verificacion/').$row['id'] ?>/ENABLE">
+                                                        <button type="button" class="btn btn-sm btn-sm btn-primary">
+                                                            <i class="fa fa-check-circle"></i> VERIFIKASI
+                                                        </button>
+                                                    </a>
+                                                <?php } ?>
+                                            </td>
+                                            <td>
                                                 <?php if($row['status']=='ENABLE'){?>
-                                                    <a href="<?= base_url('admin/project/status/').$row['id'] ?>/DISABLE">
+                                                    <a href="<?= base_url('team/status/').$row['id'] ?>/DISABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-success">
                                                             <i class="fa fa-check-circle"></i> ENABLE
                                                         </button>
                                                     </a>
                                                 <?php }else { ?>
-                                                    <a href="<?= base_url('admin/project/status/').$row['id'] ?>/ENABLE">
+                                                    <a href="<?= base_url('team/status/').$row['id'] ?>/ENABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-danger">
                                                             <i class="fa fa-ban"></i> DISABLE
                                                         </button>
