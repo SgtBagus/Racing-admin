@@ -2,7 +2,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class City extends MY_Controller {
+class Motor extends MY_Controller {
 
 
 
@@ -20,9 +20,9 @@ class City extends MY_Controller {
 
 	{
 
-		$data['page_name'] = "City";
+		$data['page_name'] = "Motor";
 
-		$this->template->load('template/template','master/city/all-master_city',$data);
+		$this->template->load('template/template','master/motor/all-master_motor',$data);
 
 	}
 
@@ -30,7 +30,7 @@ class City extends MY_Controller {
 
 	{
 
-		$this->load->view('master/city/add-master_city');
+		$this->load->view('master/motor/add-master_motor');
 
 	}
 
@@ -63,7 +63,7 @@ class City extends MY_Controller {
 
 			$dt['status'] = "ENABLE";
 
-			$str = $this->db->insert('master_city', $dt);
+			$str = $this->db->insert('master_motor', $dt);
 
 			$last_id = $this->db->insert_id();$this->alert->alertsuccess('Success Send Data');   
 
@@ -93,7 +93,7 @@ class City extends MY_Controller {
 
 		$this->datatables->where('status',$status);
 
-		$this->datatables->from('master_city');
+		$this->datatables->from('master_motor');
 
 		if($status=="ENABLE"){
 
@@ -117,9 +117,10 @@ class City extends MY_Controller {
 
 	{
 
-		$data['master_city'] = $this->mymodel->selectDataone('master_city',array('id'=>$id));$data['page_name'] = "master_city";
+		$data['motor'] = $this->mymodel->selectDataone('master_motor',array('id'=>$id));
+		$data['page_name'] = "Motor";
 
-		$this->load->view('master/city/edit-master_city',$data);
+		$this->load->view('master/motor/edit-master_motor',$data);
 
 	}
 
@@ -151,7 +152,7 @@ class City extends MY_Controller {
 
 			$dt['updated_at'] = date("Y-m-d H:i:s");
 
-			$this->mymodel->updateData('master_city', $dt , array('id'=>$id));
+			$this->mymodel->updateData('master_motor', $dt , array('id'=>$id));
 
 			$this->alert->alertsuccess('Success Update Data');  }
 
@@ -173,9 +174,9 @@ class City extends MY_Controller {
 
 		{
 
-			$this->mymodel->updateData('master_city',array('status'=>$status),array('id'=>$id));
+			$this->mymodel->updateData('master_motor',array('status'=>$status),array('id'=>$id));
 
-			redirect('master/city');
+			redirect('master/motor');
 
 		}
 

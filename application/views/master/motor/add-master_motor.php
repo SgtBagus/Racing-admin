@@ -1,23 +1,17 @@
 
 
-  <!-- Content Wrapper. Contains page content -->
 
-
-
-    <form method="POST" action="<?= base_url('master/Master_city/update') ?>" id="upload-create" enctype="multipart/form-data">
-
-    <input type="hidden" name="id" value="<?= $master_city['id'] ?>">
-
-
+    <form method="POST" action="<?= base_url('master/Motor/store') ?>" id="upload-create" enctype="multipart/form-data">
 
                 <div class="show_error"></div><div class="form-group">
 
-                      <label for="form-value">Value</label>
+                      <label for="form-value">Nama Motor</label>
 
-                      <input type="text" class="form-control" id="form-value" placeholder="Masukan Value" name="dt[value]" value="<?= $master_city['value'] ?>">
+                      <input type="text" class="form-control" id="form-value" placeholder="Masukan Value" name="dt[value]">
 
                   </div>
                 <hr>
+         
 
                 <button type="submit" class="btn btn-primary btn-send" ><i class="fa fa-save"></i> Save</button>
 
@@ -25,10 +19,13 @@
 
              
 
-           
+
+
       </form>
 
 
+
+ 
   <!-- /.content-wrapper -->
 
   <script type="text/javascript">
@@ -73,10 +70,11 @@
 
                         setTimeout(function(){ 
 
-                          // window.location.href = "<?= base_url('master/Master_city') ?>";
+                           // window.location.href = "<?= base_url('master/motor') ?>";
                           $("#load-table").html('');
                           loadtable($("#select-status").val());
                           $("#modal-form").modal('hide');
+
 
                         }, 1000);
 
