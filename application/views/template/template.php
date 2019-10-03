@@ -37,8 +37,9 @@ if($this->session->userdata('session_sop')=="") {
   <script src="<?= base_url('assets/') ?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?= base_url('assets/') ?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
   <script type="text/javascript" src='https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyASx6JCkfcpuUIDho2q_G_ayRSsq4BpV2Q'></script>
-  <script src="<?=base_url()?>assets/maps/locationpicker.jquery.min.js"></script>
+  <script src="<?=base_url('assets/')?>maps/locationpicker.jquery.min.js"></script>
   <script src="<?= base_url('assets/') ?>bower_components/chart.js/Chart.js"></script>
 
   <script type="text/javascript">
@@ -233,12 +234,14 @@ if($this->session->userdata('session_sop')=="") {
   <script src="<?= base_url('assets/') ?>dist/js/adminlte.min.js"></script>
   <script src="<?= base_url('assets/') ?>dist/js/pages/dashboard.js"></script>
   <script src="<?= base_url('assets/') ?>dist/js/demo.js"></script>
+  <script src="<?= base_url('assets/') ?>plugins/input-mask/jquery.inputmask.js"></script>
+  <script src="<?= base_url('assets/') ?>plugins/input-mask/jquery.inputmask.extensions.js"></script>
   <script src="<?= base_url('assets/') ?>plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
   <script src="<?= base_url('assets/') ?>bower_components/ckeditor/ckeditor.js"></script>
   <script src="<?= base_url('assets/') ?>custom/number-separator.js"></script>
 
   <script type="text/javascript">
-
+ 
     $(document).ready(function(){
       $('#user-data-autocomplete').autocomplete({
         source: "<?php echo site_url('home/get_autocomplete');?>",
@@ -395,6 +398,7 @@ if($this->session->userdata('session_sop')=="") {
       $("#btnFile-many").html('<i class="fa fa-file"></i> Pilih Gambar Kembali (<b>'+total_file+'</b> telah Terpilih)');
     });
 
+    $('[data-mask]').inputmask();
   </script>
 </body>
 </html>
