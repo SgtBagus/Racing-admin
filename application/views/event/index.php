@@ -42,8 +42,8 @@
                     <th>Maximum Raider</th>
                     <th>Kota</th>
                     <th>Alamat</th>
-                    <th style="width:150px">Public</th>
-                    <th style="width:150px">Status</th>
+                    <th>Public</th>
+                    <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -54,7 +54,7 @@
                     ?>
                     <tr>
                       <td><?= $i ?></td>
-                      <td><img src="<?= $file['url']?>" width="100%" height="100px"></td>
+                      <td><img src="<?= $file['url']?>" width="250px" height="180px"></td>
                       <td><?= $row['title'] ?></td>
                       <td><?= $row['phone'] ?></td>
                       <td><?= date('Y-m-d', strtotime($row['tglevent'])) ?></td>

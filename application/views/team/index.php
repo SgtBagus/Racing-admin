@@ -56,14 +56,17 @@
                                         <th>Nomor Whatsapp</th>
                                         <th>Verifikasi</th>
                                         <th>Status</th>
-                                        <th>Jumlah Anggota</th>
+                                        <th>Jumlah Manajer</th>
+                                        <th>Jumlah Raider</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1;
                                     foreach ($tbl_team as $row) { 
-                                        $photo = $this->mymodel->selectDataone('file', array('table' => 'tbl_team', 'table_id' => $row['id'])); ?>
+                                        $photo = $this->mymodel->selectDataone('file', array('table' => 'tbl_team', 'table_id' => $row['id'])); 
+                                        $rowmanager = $this->mymodel->selectWithQuery("SELECT count(id) as rowmanager from tbl_manager WHERE team_id = '".$row['id']."'");
+                                        $rowraider = $this->mymodel->selectWithQuery("SELECT count(id) as rowraider from tbl_raider WHERE team_id = '".$row['id']."'");?>
                                         <tr>
                                             <td><?= $i ?></td>
                                             <td align="center"><img src="<?= $photo['url']?>" width="100px" height="100px" ></td>
@@ -104,7 +107,8 @@
                                                     </a>
                                                 <?php } ?>
                                             </td>
-                                            <td>anggota</td>
+                                            <td><?= $rowmanager[0]['rowmanager'] ?></td>
+                                            <td><?= $rowraider[0]['rowraider'] ?></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-sm btn-info" onclick="view(<?= $row['id'] ?>)">
@@ -133,7 +137,7 @@
     loadtable($("#select-status").val());
 
     function view(id) {
-        location.href = "<?= base_url('tim/view/') ?>" + id;
+        location.href = "<?= base_url('team/view/') ?>" + id;
     }
 
 

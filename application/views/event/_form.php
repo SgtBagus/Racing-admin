@@ -97,8 +97,8 @@ if($data_edit){
     <div class="show_error"></div>
   </div>
   <div class="box-footer" align="right">
-    <a href="<?= base_url('admin/project') ?> ">
-      <button type="button" class="btn btn-info"><i class="fa fa-archive"></i> Data Proyek</button>
+    <a href="<?= base_url('event') ?> ">
+      <button type="button" class="btn btn-info"><i class="fa fa-stars"></i> Data Event</button>
     </a>
     <?php if($data_edit){ ?>
       <button type="submit" class="btn btn-primary btn-send" ><i class="fa fa-edit"></i> Edit</button>

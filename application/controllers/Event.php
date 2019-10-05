@@ -45,7 +45,8 @@ class Event extends MY_Controller {
 		$this->form_validation->set_message('required', '%s');
 	}
 
-	public function store(){$this->validate();
+	public function store(){
+		$this->validate();
 		if ($this->form_validation->run() == FALSE){
 			$this->alert->alertdanger(validation_errors());
 		}else{
@@ -81,23 +82,23 @@ class Event extends MY_Controller {
 						'table'=> 'tbl_event',
 						'table_id'=> $last_id,
 						'status'=>'ENABLE',
-                        'url' => base_url() . $dir . $file['file_name'],
+						'url' => base_url() . $dir . $file['file_name'],
 						'created_at'=>date('Y-m-d H:i:s')
 					);
 					$str = $this->db->insert('file', $data);
 				}
 			}else{
-                $data = array(
-                    'name' => 'event_default.jpg',
-                    'mime' => 'image/jpg',
-                    'dir' => 'webfiles/event/event_default.png',
-                    'table' => 'tbl_event',
-                    'table_id' => $last_id,
-                    'url' => base_url().'webfiles/event/event_default.png',
-                    'status' => 'ENABLE',
-                    'created_at' => date('Y-m-d H:i:s')
-                );
-                $this->mymodel->insertData('file', $data);
+				$data = array(
+					'name' => 'event_default.jpg',
+					'mime' => 'image/jpg',
+					'dir' => 'webfiles/event/event_default.png',
+					'table' => 'tbl_event',
+					'table_id' => $last_id,
+					'url' => base_url().'webfiles/event/event_default.png',
+					'status' => 'ENABLE',
+					'created_at' => date('Y-m-d H:i:s')
+				);
+				$this->mymodel->insertData('file', $data);
 			}
 			$this->alert->alertsuccess('Success Send Data');
 		}
@@ -117,60 +118,60 @@ class Event extends MY_Controller {
 	}
 
 
-    public function update()
-    {
-        $this->validate();
-        if ($this->form_validation->run() == FALSE) {
-            $this->alert->alertdanger(validation_errors());
-        } else {
-            $id = $_POST['id'];
-            $dt = $_POST['dt'];
-            $dt['updated_at'] = date("Y-m-d H:i:s");
-            $this->mymodel->updateData('tbl_event', $dt, array('id' => $id));
+	public function update()
+	{
+		$this->validate();
+		if ($this->form_validation->run() == FALSE) {
+			$this->alert->alertdanger(validation_errors());
+		} else {
+			$id = $_POST['id'];
+			$dt = $_POST['dt'];
+			$dt['updated_at'] = date("Y-m-d H:i:s");
+			$this->mymodel->updateData('tbl_event', $dt, array('id' => $id));
 
-            $last_id = $this->db->insert_id();
-            if (!empty($_FILES['file']['name'])) {
-                $dir  = "webfiles/event/";
-                $config['upload_path']          = $dir;
-                $config['allowed_types']        = '*';
-                $config['file_name']           = md5('smartsoftstudio') . rand(1000, 100000);
+			$last_id = $this->db->insert_id();
+			if (!empty($_FILES['file']['name'])) {
+				$dir  = "webfiles/event/";
+				$config['upload_path']          = $dir;
+				$config['allowed_types']        = '*';
+				$config['file_name']           = md5('smartsoftstudio') . rand(1000, 100000);
 
-                $this->load->library('upload', $config);
-                if (!$this->upload->do_upload('file')) {
-                    $error = $this->upload->display_errors();
-                    $this->alert->alertdanger($error);
-                } else {
-                    $file = $this->upload->data();
-                    $data = array(
-                        'name' => $file['file_name'],
-                        'mime' => $file['file_type'],
-                        'dir' => $dir . $file['file_name'],
-                        'table' => 'tbl_event',
-                        'table_id' =>  $id,
-                        'url' => base_url() . $dir . $file['file_name'],
-                        'status' => 'ENABLE',
-                        'created_at' => date('Y-m-d H:i:s')
-                    );
-                    $file = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'tbl_event'));
-                    if ($file['name'] != "event_default.png") {
-                        @unlink($file['dir']);
-                    }
-                    $this->mymodel->updateData('file', $data, array('table_id' =>  $id, 'table' => 'tbl_event'));
-                }
-            }
-            $this->alert->alertsuccess('Success Send Data');
-        }
-    }
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload('file')) {
+					$error = $this->upload->display_errors();
+					$this->alert->alertdanger($error);
+				} else {
+					$file = $this->upload->data();
+					$data = array(
+						'name' => $file['file_name'],
+						'mime' => $file['file_type'],
+						'dir' => $dir . $file['file_name'],
+						'table' => 'tbl_event',
+						'table_id' =>  $id,
+						'url' => base_url() . $dir . $file['file_name'],
+						'status' => 'ENABLE',
+						'created_at' => date('Y-m-d H:i:s')
+					);
+					$file = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'tbl_event'));
+					if ($file['name'] != "event_default.png") {
+						@unlink($file['dir']);
+					}
+					$this->mymodel->updateData('file', $data, array('table_id' =>  $id, 'table' => 'tbl_event'));
+				}
+			}
+			$this->alert->alertsuccess('Success Send Data');
+		}
+	}
 
-    public function delete($id)
-    {
-        $file_dir = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'tbl_event'));
-        @unlink($file_dir['dir']);
+	public function delete($id)
+	{
+		$file_dir = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'tbl_event'));
+		@unlink($file_dir['dir']);
 
-        $this->mymodel->deleteData('file',  array('id' => $file_dir['id']));
-        $this->mymodel->deleteData('tbl_event',  array('id' => $id));
-        header('Location:'.base_url('raider'));
-    }
+		$this->mymodel->deleteData('file',  array('id' => $file_dir['id']));
+		$this->mymodel->deleteData('tbl_event',  array('id' => $id));
+		header('Location:'.base_url('raider'));
+	}
 
 
 

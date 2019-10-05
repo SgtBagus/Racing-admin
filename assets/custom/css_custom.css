@@ -247,3 +247,8 @@ a.float:hover {
 .scroll-bar::-webkit-scrollbar-thumb {
     background-color: #36b554;
 }
+
+img {
+    object-fit: cover;
+    display: inline;
+}
