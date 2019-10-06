@@ -10,12 +10,12 @@
 
     <section class="content-header">
 
-      <h1> Motor </h1>
+      <h1> Groub Gambar </h1>
 
       <ol class="breadcrumb">
 
         <li><a href="<?= base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Motor</li>
+        <li class="active">Groub Gambar</li>
 
       </ol>
 
@@ -55,18 +55,18 @@
 
                   <div class="pull-right">          <a href="javascript::void(0)" onclick="create()">
 
-        <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Motor</button> 
+        <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Groub Gambar</button> 
 
       </a>
 
 
-                  <a href="<?= base_url('fitur/ekspor/master_motor') ?>" target="_blank">
+                  <a href="<?= base_url('fitur/ekspor/master_imagegroup') ?>" target="_blank">
 
-                    <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-file-excel-o"></i> Ekspor Motor</button> 
+                    <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-file-excel-o"></i> Ekspor Groub Gambar</button> 
 
                   </a>
 
-                  <button type="button" class="btn btn-sm btn-info" onclick="$('#modal-impor').modal()"><i class="fa fa-file-excel-o"></i> Import Motor</button>
+                  <button type="button" class="btn btn-sm btn-info" onclick="$('#modal-impor').modal()"><i class="fa fa-file-excel-o"></i> Import Groub Gambar</button>
 
                   </div>
 
@@ -114,7 +114,7 @@
 
   <!-- /.content-wrapper -->
   
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" master_motor="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-form">
+  <div class="modal fade bd-example-modal-sm" tabindex="-1" master_imagegroup="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-form">
 
       <div class="modal-dialog modal-md">
 
@@ -147,13 +147,13 @@
   </div> 
 
 
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" master_motor="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-delete">
+  <div class="modal fade bd-example-modal-sm" tabindex="-1" master_imagegroup="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-delete">
 
       <div class="modal-dialog modal-sm">
 
           <div class="modal-content">
 
-              <form id="upload-delete" action="<?= base_url('master/motor/delete') ?>">
+              <form id="upload-delete" action="<?= base_url('master/imagegroup/delete') ?>">
 
               <div class="modal-header">
 
@@ -203,11 +203,11 @@
 
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-          <h4 class="modal-title">Impor Master Motor</h4>
+          <h4 class="modal-title">Impor Groub Gambar</h4>
 
         </div>
 
-        <form action="<?= base_url('fitur/impor/master_motor') ?>" method="POST"  enctype="multipart/form-data">
+        <form action="<?= base_url('fitur/impor/master_imagegroup') ?>" method="POST"  enctype="multipart/form-data">
 
 
 
@@ -307,7 +307,7 @@
 
                 serverSide: true,
 
-                ajax: {"url": "<?= base_url('master/motor/json?status=') ?>"+status, "type": "POST"},
+                ajax: {"url": "<?= base_url('master/imagegroup/json?status=') ?>"+status, "type": "POST"},
 
                 columns: [
 
@@ -333,7 +333,7 @@
 
                               if(row['status']=='ENABLE'){
 
-                                var htmls = '<a href="<?= base_url('master/motor/status/') ?>'+row['id']+'/DISABLE">'+
+                                var htmls = '<a href="<?= base_url('master/imagegroup/status/') ?>'+row['id']+'/DISABLE">'+
 
                                             '    <button type="button" class="btn btn-sm btn-sm btn-success"><i class="fa fa-home"></i> ENABLE</button>'+
 
@@ -341,7 +341,7 @@
 
                               }else{
 
-                                var htmls = '<a href="<?= base_url('master/motor/status/') ?>'+row['id']+'/ENABLE">'+
+                                var htmls = '<a href="<?= base_url('master/imagegroup/status/') ?>'+row['id']+'/ENABLE">'+
 
                                             '    <button type="button" class="btn btn-sm btn-sm btn-danger"><i class="fa fa-home"></i> DISABLE</button>'+
 
@@ -389,22 +389,22 @@
 
       function edit(id) {
 
-            // location.href = "<?= base_url('master/motor/edit/') ?>"+id;
+            // location.href = "<?= base_url('master/imagegroup/edit/') ?>"+id;
             $("#load-form").html('loading...');
             
             $("#modal-form").modal();
-            $("#title-form").html('Edit Master Motor');
-            $("#load-form").load("<?= base_url('master/motor/edit/') ?>"+id);
+            $("#title-form").html('Edit Groub Gambar');
+            $("#load-form").load("<?= base_url('master/imagegroup/edit/') ?>"+id);
             
          }
 
       function create() {
             $("#load-form").html('loading...');
 
-            // location.href = "<?= base_url('master/motor/edit/') ?>"+id;
+            // location.href = "<?= base_url('master/imagegroup/edit/') ?>"+id;
             $("#modal-form").modal();
-            $("#title-form").html('Create Master Motor');
-            $("#load-form").load("<?= base_url('master/motor/create/') ?>");
+            $("#title-form").html('Create Groub Gambar');
+            $("#load-form").load("<?= base_url('master/imagegroup/create/') ?>");
             
          }
 

@@ -241,7 +241,7 @@ if($this->session->userdata('session_sop')=="") {
   <script src="<?= base_url('assets/') ?>custom/number-separator.js"></script>
 
   <script type="text/javascript">
- 
+
     $(document).ready(function(){
       $('#user-data-autocomplete').autocomplete({
         source: "<?php echo site_url('home/get_autocomplete');?>",
@@ -389,11 +389,20 @@ if($this->session->userdata('session_sop')=="") {
 
     $("#uploadFile").change(function(){
       $('#detail_image_open #detail_image_edit').remove();
-      $('#note_image').text('Detail Gambar Diubah !');
+      $('#note_image').text('');
 
       var total_file=document.getElementById("uploadFile").files.length;
       for(var i=0;i<total_file;i++){
-        $('#detail_image_open').append('<tr id="detail_image_edit"><td><img src="'+URL.createObjectURL(event.target.files[i])+'" class="round" alt="User Image" height="150px" style="margin: 15px"></td><td>'+event.target.files[i].name+'</td></tr>');
+        $('#detail_image_open').append('<tr id="detail_image_edit"><td><img src="'+URL.createObjectURL(event.target.files[i])+'" class="round" alt="User Image" height="150px" style="margin: 15px"></td><td>'+
+          '<div class="form-group">'+
+          '<label>Judul Gambar*</label>'+
+          '<input type="text" class="form-control" placeholder="Masukan Nama gambar" name="dt[title]['+i+']">'+
+          '</div>'+
+          '<div class="form-group">'+
+          '<label>Caption Gambar</label>'+
+          '<textarea class="form-control" name="dt[caption]['+i+']" rows="5"></textarea>'+
+          '</div>'+
+          '</td></tr>');
       }
       $("#btnFile-many").html('<i class="fa fa-file"></i> Pilih Gambar Kembali (<b>'+total_file+'</b> telah Terpilih)');
     });

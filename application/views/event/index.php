@@ -14,11 +14,9 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="pull-right">
-                  <?php if($this->session->userdata('role_id') == '17'){ ?>
-                    <a href="<?= base_url('event/create') ?>">
-                      <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Event</button>
-                    </a>
-                  <?php } ?>
+                  <a href="<?= base_url('event/create') ?>">
+                    <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Event</button>
+                  </a>
                   <a href="<?= base_url('fitur/ekspor/tbl_event') ?>" target="_blank">
                     <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-file-excel-o"></i> Ekspor Event</button>
                   </a>
