@@ -69,7 +69,9 @@
                                         $rowraider = $this->mymodel->selectWithQuery("SELECT count(id) as rowraider from tbl_raider WHERE team_id = '".$row['id']."'");?>
                                         <tr>
                                             <td><?= $i ?></td>
-                                            <td align="center"><img src="<?= $photo['url']?>" width="100px" height="100px" ></td>
+                                            <td align="center">
+                                                <img src="<?= $photo['url']?>" width="100px" height="100px" style="border-radius: 50%">
+                                            </td>
                                             <td><?= $row['name'] ?></td>
                                             <td><?= $row['email'] ?></td>
                                             <td><?= $row['alamat'] ?></td>
@@ -114,9 +116,9 @@
                                                     <button type="button" class="btn btn-sm btn-info" onclick="view(<?= $row['id'] ?>)">
                                                         <i class="fa fa-eye"></i>
                                                     </button>
-                                                    <button type="button" onclick="hapus(<?=$row['id']?>)" class="btn btn-sm btn-danger">
+                                                    <!-- <button type="button" onclick="hapus(<?=$row['id']?>)" class="btn btn-sm btn-danger">
                                                         <i class="fa fa-trash-o"></i>
-                                                    </button>
+                                                    </button> -->
                                                 </div>
                                             </td>
                                         </tr>

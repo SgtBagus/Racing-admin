@@ -18,7 +18,8 @@ class Team extends MY_Controller {
         $data['file_team'] = $this->mymodel->selectDataOne('file', array('table_id' => $id, 'table' => 'tbl_team'));
 
         $data['tbl_raider'] = $this->mymodel->selectWhere('tbl_raider', array('team_id' => $id));
-        $this->template->load('template/template', 'team/view', $data);
+		$data['tbl_manager'] = $this->mymodel->selectWhere('tbl_manager', array('team_id' => $data['tbl_team']['id']));
+        $this->template->load('template/template', 'team/view', $data); 
     }
 
 	public function status($id, $status){

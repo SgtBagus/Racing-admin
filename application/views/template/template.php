@@ -41,7 +41,12 @@ if($this->session->userdata('session_sop')=="") {
   <script type="text/javascript" src='https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyASx6JCkfcpuUIDho2q_G_ayRSsq4BpV2Q'></script>
   <script src="<?=base_url('assets/')?>maps/locationpicker.jquery.min.js"></script>
   <script src="<?= base_url('assets/') ?>bower_components/chart.js/Chart.js"></script>
-
+  <style type="text/css">
+    img {
+      object-fit: cover;
+      display: inline;
+    }
+  </style>
   <script type="text/javascript">
 
     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)

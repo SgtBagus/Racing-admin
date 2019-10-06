@@ -60,7 +60,7 @@
                                         <th>Nomor Whatsapp</th>
                                         <th>Verifikasi</th>
                                         <th>Status</th>
-                                        <th></th>
+                                        <!-- <th></th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,7 +72,9 @@
                                         <tr>
                                             <td><?= $i ?></td>
                                             <td><?= $team['name'] ?></td>
-                                            <td align="center"><img src="<?= $photo['url']?>" width="100px" height="100px" ></td>
+                                            <td align="center">
+                                                <img src="<?= $photo['url']?>" width="100px" height="100px" style="border-radius: 50%">
+                                            </td>
                                             <td>
                                                 <?= $row['name'] ?>
                                                 <small><?= $row['email'] ?></small>
@@ -116,13 +118,13 @@
                                                     </a>
                                                 <?php } ?>
                                             </td>
-                                            <td>
+                                            <!-- <td>
                                                 <div class="btn-group">
                                                     <button type="button" onclick="hapus(<?=$row['id']?>)" class="btn btn-sm btn-danger">
                                                         <i class="fa fa-trash-o"></i>
                                                     </button>
                                                 </div>
-                                            </td>
+                                            </td> -->
                                         </tr>
                                         <?php $i++;
                                     } ?>

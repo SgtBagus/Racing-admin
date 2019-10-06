@@ -168,7 +168,7 @@
 											<tr>
 												<td><?= $i ?></td>
 												<td>
-													<img src="<?= $filemanager['url']?>" witdh="50px" height="50px" style="border-radius: 50%">
+													<img src="<?= $filemanager['url']?>" width="50px" height="50px" style="border-radius: 50%">
 												</td>
 												<td><?= $row_manager['name'] ?></td>
 												<td><?= $row_manager['alamat'] ?></td>
@@ -214,7 +214,7 @@
 												<tr>
 													<td><?= $i ?></td>
 													<td>
-														<img src="<?= $fileraider['url']?>" witdh="50px" height="50px" style="border-radius: 50%">
+														<img src="<?= $fileraider['url']?>" width="50px" height="50px" style="border-radius: 50%">
 													</td>
 													<td>
 														<?= $raider['name'] ?>  <?php if ($raider['verificacion'] == 'ENABLE') {
