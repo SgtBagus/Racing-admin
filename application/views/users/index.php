@@ -32,7 +32,7 @@
       </div>
     </div>
   </section>
-</div>
+</div> 
 
 <div class="modal fade" id="addsite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="z-index: 9999">

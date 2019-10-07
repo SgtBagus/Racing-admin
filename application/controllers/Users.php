@@ -27,7 +27,7 @@ class Users extends MY_Controller {
 		$this->datatables->from('activity');
 		echo $this->datatables->generate();
 	}
-
+ 
 	public function store(){
 		$this->form_validation->set_error_delimiters('<li>', '</li>');
 		$this->form_validation->set_rules(

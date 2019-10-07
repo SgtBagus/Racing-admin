@@ -9,7 +9,7 @@
   </section>
   <section class="content">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="box">
           <div class="box-header">
             <h5 class="box-title">Tambah Gambar</h5>
@@ -18,7 +18,7 @@
             <div class="box-body">
               <div class="show_error"></div>
               <div class="form-group">
-                <label for="inputEmail3" class="col-sm-3 control-label">Groub Gambar*</label>
+                <label for="inputEmail3" class="col-sm-3 control-label">Kategori Gambar*</label>
                 <div class="col-sm-9">
                   <select class="form-control select2" name="dt[imagegroup_id]" disabled="disabled">
                     <option value="">-- Pilih Kategori Gambar --</option>
@@ -32,7 +32,7 @@
                 </div>
               </div>
               <div class="form-group"> 
-                <label for="inputEmail3" class="col-sm-3 control-label">Groub Gambar*</label>
+                <label for="inputEmail3" class="col-sm-3 control-label">Gambar*</label>
                 <div class="col-sm-9">
                   <div class="col-md-6 col-xs-12">
                     <img src="https://getuikit.com/v2/docs/images/placeholder_600x400.svg" alt="User Image" width="100%" height="250px" id="preview_image-add">

@@ -1,77 +1,83 @@
 
 
-  <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
 
 
 
-    <form method="POST" action="<?= base_url('master/imagegroup/update') ?>" id="upload-create" enctype="multipart/form-data">
+<form method="POST" action="<?= base_url('master/imagegroup/update') ?>" id="upload-create" enctype="multipart/form-data">
 
-    <input type="hidden" name="id" value="<?= $imagegroup['id'] ?>">
-
-
-
-                <div class="show_error"></div><div class="form-group">
-
-                      <label for="form-value">Nama Group Gambar</label>
-
-                      <input type="text" class="form-control" id="form-value" placeholder="Masukan Value" name="dt[value]" value="<?= $imagegroup['value'] ?>">
-
-                  </div>
-                <hr>
-
-                <button type="submit" class="btn btn-primary btn-send" ><i class="fa fa-save"></i> Save</button>
-
-                <button type="reset" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</button>
-
-             
-
-           
-      </form>
+  <input type="hidden" name="id" value="<?= $imagegroup['id'] ?>">
 
 
-  <!-- /.content-wrapper -->
 
-  <script type="text/javascript">
+  <div class="show_error"></div>
+  <div class="form-group">
+    <label for="form-value">Nama Kategori Gambar</label>
+    <input type="text" class="form-control" id="form-value" placeholder="Masukan Kategori" name="dt[value]" value="<?= $imagegroup['value'] ?>">
+  </div>
+  <div class="form-group"> 
+    <label for="form-value">Gambar*</label>
+    <img src="<?=$file['url']?>" alt="User Image" width="100%" height="250px" class="preview_image-add">
+    <br>
+    <br>
+    <input type="file" class="file fom-control" name="file" accept="image/x-png,image/jpeg,image/jpg" />
+    <p class="help-block">Gambar yang diupload disarankan memiliki format PNG, JPG, atau JPEG</p>
+  </div>
+  <hr>
 
-      $("#upload-create").submit(function(){
+  <button type="submit" class="btn btn-primary btn-send" ><i class="fa fa-save"></i> Save</button>
 
-            var form = $(this);
+  <button type="reset" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</button>
 
-            var mydata = new FormData(this);
 
-            $.ajax({
 
-                type: "POST",
 
-                url: form.attr("action"),
+</form>
 
-                data: mydata,
 
-                cache: false,
+<!-- /.content-wrapper -->
 
-                contentType: false,
+<script type="text/javascript">
 
-                processData: false,
+  $("#upload-create").submit(function(){
 
-                beforeSend : function(){
+    var form = $(this);
 
-                    $(".btn-send").addClass("disabled").html("<i class='la la-spinner la-spin'></i>  Processing...").attr('disabled',true);
+    var mydata = new FormData(this);
 
-                    form.find(".show_error").slideUp().html("");
+    $.ajax({
 
-                },
+      type: "POST",
 
-                success: function(response, textStatus, xhr) {
+      url: form.attr("action"),
+
+      data: mydata,
+
+      cache: false,
+
+      contentType: false,
+
+      processData: false,
+
+      beforeSend : function(){
+
+        $(".btn-send").addClass("disabled").html("<i class='la la-spinner la-spin'></i>  Processing...").attr('disabled',true);
+
+        form.find(".show_error").slideUp().html("");
+
+      },
+
+      success: function(response, textStatus, xhr) {
 
                     // alert(mydata);
 
-                   var str = response;
+                    var str = response;
 
                     if (str.indexOf("success") != -1){
 
-                        form.find(".show_error").hide().html(response).slideDown("fast");
+                      form.find(".show_error").hide().html(response).slideDown("fast");
 
-                        setTimeout(function(){ 
+                      setTimeout(function(){ 
 
                           // window.location.href = "<?= base_url('master/imagegroup') ?>";
                           $("#load-table").html('');
@@ -80,7 +86,7 @@
 
                         }, 1000);
 
-                        $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Save').attr('disabled',false);
+                      $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Save').attr('disabled',false);
 
 
 
@@ -88,19 +94,19 @@
 
                     }else{
 
-                        form.find(".show_error").hide().html(response).slideDown("fast");
+                      form.find(".show_error").hide().html(response).slideDown("fast");
 
-                        $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Save').attr('disabled',false);
+                      $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Save').attr('disabled',false);
 
-                        
+
 
                     }
 
-                },
+                  },
 
-                error: function(xhr, textStatus, errorThrown) {
+                  error: function(xhr, textStatus, errorThrown) {
 
-                  console.log(xhr);
+                    console.log(xhr);
 
                     $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Save').attr('disabled',false);
 
@@ -108,14 +114,14 @@
 
 
 
-                }
+                  }
 
-            });
+                });
 
-            return false;
+    return false;
 
     
 
-        });
+  });
 
-  </script>
+</script>

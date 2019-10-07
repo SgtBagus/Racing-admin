@@ -33,8 +33,8 @@
               <thead>
                 <tr class="bg-success">
                   <th>No</th>
-                  <th>Groub Gambar</th>
-                  <th>Gambar Utama</th>
+                  <th>Kategori Gambar</th>
+                  <th>Cover Kategori</th>
                   <th>Jumlah Gambar</th>
                   <th>Public</th>
                   <th></th>
@@ -42,14 +42,13 @@
               </thead>
               <tbody>
                 <?php $i = 1; foreach ($master_imagegroup as $row) {
-                  $main_image = $this->db->limit(1)->order_by('id')->get_where('tbl_gallery', array('status' => 'ENABLE', 'imagegroup_id' => $row['id']))->result_array(); 
-                  $file =  $this->mymodel->selectDataOne('file', array('table_id' => $main_image[0]['id'], 'table' => 'tbl_gallery'));
+                  $main_image = $this->mymodel->selectDataOne('file', array('table_id' => $row['id'], 'table' => 'master_gallery'));
                   $imagecount = $this->mymodel->selectWithQuery('SELECT count(id) as imagecount from tbl_gallery WHERE status = "ENABLE" AND imagegroup_id = '.$row['id']);?>
                   <tr>
                     <td><?= $i ?></td>
                     <td><?= $row['value'] ?></td>
                     <td>
-                      <img src="<?= $file['url']?>" width="250px" height="180px">
+                      <img src="<?= $main_image['url']?>" width="250px" height="180px">
                     </td>
                     <td><b><?= $imagecount[0]['imagecount'] ?></b> Gambar</td>
                     <td>

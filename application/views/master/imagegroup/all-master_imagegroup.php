@@ -2,224 +2,224 @@
 
 
 
- <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
 
-  <div class="content-wrapper">
+<div class="content-wrapper">
 
-    <!-- Content Header (Page header) -->
+  <!-- Content Header (Page header) -->
 
-    <section class="content-header">
+  <section class="content-header">
 
-      <h1> Groub Gambar </h1>
+    <h1> Kategori Gambar </h1>
 
-      <ol class="breadcrumb">
+    <ol class="breadcrumb">
 
-        <li><a href="<?= base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Groub Gambar</li>
+      <li><a href="<?= base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Kategori Gambar</li>
 
-      </ol>
+    </ol>
 
-    </section>
+  </section>
 
-    <!-- Main content -->
+  <!-- Main content -->
 
-    <section class="content">
+  <section class="content">
 
-      <div class="row">
+    <div class="row">
 
-        <div class="col-xs-12">
+      <div class="col-xs-12">
 
-          <div class="box">
+        <div class="box">
 
-            <!-- /.box-header -->
+          <!-- /.box-header -->
 
-            <div class="box-header">
+          <div class="box-header">
 
-              <div class="row">
+            <div class="row">
 
-                <div class="col-md-6">
+              <div class="col-md-6">
 
-                  <select onchange="loadtable(this.value)" id="select-status" style="width: 150px" class="form-control">
+                <select onchange="loadtable(this.value)" id="select-status" style="width: 150px" class="form-control">
 
-                      <option value="ENABLE">ENABLE</option>
+                  <option value="ENABLE">ENABLE</option>
 
-                      <option value="DISABLE">DISABLE</option>
-
-
-
-                  </select>
-
-                </div>
-
-                <div class="col-md-6">
-
-                  <div class="pull-right">          <a href="javascript::void(0)" onclick="create()">
-
-        <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Groub Gambar</button> 
-
-      </a>
+                  <option value="DISABLE">DISABLE</option>
 
 
-                  <a href="<?= base_url('fitur/ekspor/master_imagegroup') ?>" target="_blank">
 
-                    <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-file-excel-o"></i> Ekspor Groub Gambar</button> 
-
-                  </a>
-
-                  <button type="button" class="btn btn-sm btn-info" onclick="$('#modal-impor').modal()"><i class="fa fa-file-excel-o"></i> Import Groub Gambar</button>
-
-                  </div>
-
-                </div>  
+                </select>
 
               </div>
 
-              
+              <div class="col-md-6">
 
-            </div>
+                <div class="pull-right">          <a href="javascript::void(0)" onclick="create()">
 
-            <div class="box-body">
+                  <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Kategori Gambar</button> 
 
-                <div class="show_error"></div>
+                </a>
 
 
+                <a href="<?= base_url('fitur/ekspor/master_imagegroup') ?>" target="_blank">
 
-              <div class="table-responsive">
+                  <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-file-excel-o"></i> Ekspor Kategori Gambar</button> 
 
-                <div id="load-table"></div>
+                </a>
+
+                <button type="button" class="btn btn-sm btn-info" onclick="$('#modal-impor').modal()"><i class="fa fa-file-excel-o"></i> Import Kategori Gambar</button>
 
               </div>
 
-            </div>
-
-            <!-- /.box-body -->
+            </div>  
 
           </div>
 
-          <!-- /.box -->
+
 
         </div>
 
-        <!-- /.col -->
+        <div class="box-body">
+
+          <div class="show_error"></div>
+
+
+
+          <div class="table-responsive">
+
+            <div id="load-table"></div>
+
+          </div>
+
+        </div>
+
+        <!-- /.box-body -->
 
       </div>
 
-      <!-- /.row -->
+      <!-- /.box -->
 
-    </section>
+    </div>
 
-    <!-- /.content -->
+    <!-- /.col -->
 
   </div>
 
-  <!-- /.content-wrapper -->
-  
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" master_imagegroup="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-form">
+  <!-- /.row -->
 
-      <div class="modal-dialog modal-md">
+</section>
 
-          <div class="modal-content">
+<!-- /.content -->
+
+</div>
+
+<!-- /.content-wrapper -->
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" master_imagegroup="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-form">
+
+  <div class="modal-dialog modal-md">
+
+    <div class="modal-content">
 
 
-              <div class="modal-header">
+      <div class="modal-header">
 
-                  <h5 class="modal-title" id="title-form" ></h5>
+        <h5 class="modal-title" id="title-form" ></h5>
 
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
-                      <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true">&times;</span>
 
-                  </button>
-
-              </div>
-
-              <div class="modal-body">
-                <div id="load-form"></div>
-
-              </div>
-
-              
-
-          </div>
+        </button>
 
       </div>
 
-  </div> 
-
-
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" master_imagegroup="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-delete">
-
-      <div class="modal-dialog modal-sm">
-
-          <div class="modal-content">
-
-              <form id="upload-delete" action="<?= base_url('master/imagegroup/delete') ?>">
-
-              <div class="modal-header">
-
-                  <h5 class="modal-title">Confirm delete</h5>
-
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                      <span aria-hidden="true">&times;</span>
-
-                  </button>
-
-              </div>
-
-              <div class="modal-body">
-
-                  <input type="hidden" name="id" id="delete-input">
-
-                  <p>Are you sure to delete this data?</p>
-
-              </div>
-
-              <div class="modal-footer">
-
-                  <button type="submit" class="btn btn-danger btn-send">Yes, Delete</button>
-
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
-              </div>
-
-              </form>
-
-          </div>
+      <div class="modal-body">
+        <div id="load-form"></div>
 
       </div>
 
-  </div> 
 
 
+    </div>
 
-  <div class="modal fade" id="modal-impor">
+  </div>
 
-    <div class="modal-dialog">
+</div> 
 
-      <div class="modal-content">
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" master_imagegroup="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-delete">
+
+  <div class="modal-dialog modal-sm">
+
+    <div class="modal-content">
+
+      <form id="upload-delete" action="<?= base_url('master/imagegroup/delete') ?>">
 
         <div class="modal-header">
 
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h5 class="modal-title">Confirm delete</h5>
 
-          <h4 class="modal-title">Impor Groub Gambar</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+            <span aria-hidden="true">&times;</span>
+
+          </button>
 
         </div>
 
-        <form action="<?= base_url('fitur/impor/master_imagegroup') ?>" method="POST"  enctype="multipart/form-data">
+        <div class="modal-body">
+
+          <input type="hidden" name="id" id="delete-input">
+
+          <p>Are you sure to delete this data?</p>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="submit" class="btn btn-danger btn-send">Yes, Delete</button>
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div> 
+
+
+
+<div class="modal fade" id="modal-impor">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+        <h4 class="modal-title">Impor Groub Gambar</h4>
+
+      </div>
+
+      <form action="<?= base_url('fitur/impor/master_imagegroup') ?>" method="POST"  enctype="multipart/form-data">
 
 
 
         <div class="modal-body">
 
-            <div class="form-group">
+          <div class="form-group">
 
-              <label for="">File Excel</label>
+            <label for="">File Excel</label>
 
-              <input type="file" class="form-control" id="" name="file" placeholder="Input field">
+            <input type="file" class="form-control" id="" name="file" placeholder="Input field">
 
-            </div>
+          </div>
 
         </div>
 
@@ -231,43 +231,46 @@
 
         </div>
 
-        </form>
+      </form>
 
 
-
-      </div>
 
     </div>
 
   </div>
 
+</div>
 
 
-  <script type="text/javascript">
 
-    
+<script type="text/javascript">
 
-        function loadtable(status) {
 
-            var table = '<table class="table table-bordered" id="mytable">'+
 
-                   '     <thead>'+
+  function loadtable(status) {
 
-                   '     <tr class="bg-success">'+
+    var table = '<table class="table table-bordered" id="mytable">'+
 
-                   '       <th style="width:20px">No</th>'+'<th>Value</th>'+'       <th style="width:150px">Status</th>'+
+    '     <thead>'+
 
-                   '       <th style="width:150px"></th>'+
+    '     <tr class="bg-success">'+
 
-                   '     </tr>'+
+    '       <th style="width:20px">No</th>'+
 
-                   '     </thead>'+
+    '    <th>Image</th>' +
+    '<th>Kategori</th>'+'       <th style="width:150px">Status</th>'+
 
-                   '     <tbody>'+
+    '       <th style="width:150px"></th>'+
 
-                   '     </tbody>'+
+    '     </tr>'+
 
-                   ' </table>';
+    '     </thead>'+
+
+    '     <tbody>'+
+
+    '     </tbody>'+
+
+    ' </table>';
 
              // body...
 
@@ -275,119 +278,130 @@
 
 
 
-              var t = $("#mytable").dataTable({
+             var t = $("#mytable").dataTable({
 
-                initComplete: function() {
+              initComplete: function() {
 
-                    var api = this.api();
+                var api = this.api();
 
-                    $('#mytable_filter input')
+                $('#mytable_filter input')
 
-                            .off('.DT')
+                .off('.DT')
 
-                            .on('keyup.DT', function(e) {
+                .on('keyup.DT', function(e) {
 
-                                if (e.keyCode == 13) {
+                  if (e.keyCode == 13) {
 
-                                    api.search(this.value).draw();
+                    api.search(this.value).draw();
 
-                        }
+                  }
 
-                    });
+                });
 
-                },
+              },
 
-                oLanguage: {
+              oLanguage: {
 
-                    sProcessing: "loading..."
+                sProcessing: "loading..."
 
-                },
+              },
 
-                processing: true,
+              processing: true,
 
-                serverSide: true,
+              serverSide: true,
 
-                ajax: {"url": "<?= base_url('master/imagegroup/json?status=') ?>"+status, "type": "POST"},
+              ajax: {"url": "<?= base_url('master/imagegroup/json?status=') ?>"+status, "type": "POST"},
 
-                columns: [
+              columns: [
 
-                    {"data": "id","orderable": false},{"data": "value"},
+              {"data": "id","orderable": false},
+              {"data": ""},
+              {"data": "value"},
 
-                   {"data": "status"},
+              {"data": "status"},
 
-                    {   "data": "view",
+              {   "data": "view",
 
-                        "orderable": false
+              "orderable": false
 
-                    }
+            }
 
-                ],
+            ],
 
-                order: [[1, 'asc']],
+            order: [[1, 'asc']],
 
-                columnDefs : [
+            columnDefs : [
+            {
+              targets: [1],
+              render: function(data, type, row) {
+                console.log(row);
+                var a = '<object data="' + row['url'] + '" style="height: 100px">' +
+                '<img src="https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d" type="image/png" alt="example">' +
+                '</object>';
+                return a;
+              }
+            },
+            { targets : [3],
 
-                    { targets : [2],
+              render : function (data, type, row, meta) {
 
-                        render : function (data, type, row, meta) {
+                if(row['status']=='ENABLE'){
 
-                              if(row['status']=='ENABLE'){
+                  var htmls = '<a href="<?= base_url('master/imagegroup/status/') ?>'+row['id']+'/DISABLE">'+
 
-                                var htmls = '<a href="<?= base_url('master/imagegroup/status/') ?>'+row['id']+'/DISABLE">'+
+                  '    <button type="button" class="btn btn-sm btn-sm btn-success"><i class="fa fa-home"></i> ENABLE</button>'+
 
-                                            '    <button type="button" class="btn btn-sm btn-sm btn-success"><i class="fa fa-home"></i> ENABLE</button>'+
+                  '</a>';
 
-                                            '</a>';
+                }else{
 
-                              }else{
+                  var htmls = '<a href="<?= base_url('master/imagegroup/status/') ?>'+row['id']+'/ENABLE">'+
 
-                                var htmls = '<a href="<?= base_url('master/imagegroup/status/') ?>'+row['id']+'/ENABLE">'+
+                  '    <button type="button" class="btn btn-sm btn-sm btn-danger"><i class="fa fa-home"></i> DISABLE</button>'+
 
-                                            '    <button type="button" class="btn btn-sm btn-sm btn-danger"><i class="fa fa-home"></i> DISABLE</button>'+
-
-                                            '</a>';
+                  '</a>';
 
 
-
-                              }
-
-                              return htmls;
-
-                          }
-
-                      }
-
-                ],
-
-             
-
-                rowCallback: function(row, data, iDisplayIndex) {
-
-                    var info = this.fnPagingInfo();
-
-                    var page = info.iPage;
-
-                    var length = info.iLength;
-
-                    var index = page * length + (iDisplayIndex + 1);
-
-                    $('td:eq(0)', row).html(index);
 
                 }
 
-            });
+                return htmls;
 
-         }
+              }
+
+            }
+
+            ],
+
+
+
+            rowCallback: function(row, data, iDisplayIndex) {
+
+              var info = this.fnPagingInfo();
+
+              var page = info.iPage;
+
+              var length = info.iLength;
+
+              var index = page * length + (iDisplayIndex + 1);
+
+              $('td:eq(0)', row).html(index);
+
+            }
+
+          });
+
+           }
 
 
 
 
 
-         loadtable($("#select-status").val());
+           loadtable($("#select-status").val());
 
            
 
-      function edit(id) {
+           function edit(id) {
 
             // location.href = "<?= base_url('master/imagegroup/edit/') ?>"+id;
             $("#load-form").html('loading...');
@@ -396,9 +410,9 @@
             $("#title-form").html('Edit Groub Gambar');
             $("#load-form").load("<?= base_url('master/imagegroup/edit/') ?>"+id);
             
-         }
+          }
 
-      function create() {
+          function create() {
             $("#load-form").html('loading...');
 
             // location.href = "<?= base_url('master/imagegroup/edit/') ?>"+id;
@@ -406,12 +420,12 @@
             $("#title-form").html('Create Groub Gambar');
             $("#load-form").load("<?= base_url('master/imagegroup/create/') ?>");
             
-         }
+          }
 
 
 
 
-                  function hapus(id) {
+          function hapus(id) {
 
             $("#modal-delete").modal('show');
 
@@ -419,9 +433,9 @@
 
             
 
-         }
+          }
 
-         $("#upload-delete").submit(function(){
+          $("#upload-delete").submit(function(){
 
             event.preventDefault();
 
@@ -433,68 +447,68 @@
 
             $.ajax({
 
-                type: "POST",
+              type: "POST",
 
-                url: form.attr("action"),
+              url: form.attr("action"),
 
-                data: mydata,
+              data: mydata,
 
-                cache: false,
+              cache: false,
 
-                contentType: false,
+              contentType: false,
 
-                processData: false,
+              processData: false,
 
-                beforeSend : function(){
+              beforeSend : function(){
 
-                    $(".btn-send").addClass("disabled").html("<i class='la la-spinner la-spin'></i>  Processing...").attr('disabled',true);
+                $(".btn-send").addClass("disabled").html("<i class='la la-spinner la-spin'></i>  Processing...").attr('disabled',true);
 
-                    $(".show_error").slideUp().html("");
+                $(".show_error").slideUp().html("");
 
-                },
+              },
 
-                success: function(response, textStatus, xhr) {
+              success: function(response, textStatus, xhr) {
 
-                   var str = response;
+               var str = response;
 
-                    if (str.indexOf("success") != -1){
+               if (str.indexOf("success") != -1){
 
-                        $(".show_error").hide().html(response).slideDown("fast");
+                $(".show_error").hide().html(response).slideDown("fast");
 
-                       
 
-                        $(".btn-send").removeClass("disabled").html('Yes, Delete it').attr('disabled',false);
 
-                    }else{
+                $(".btn-send").removeClass("disabled").html('Yes, Delete it').attr('disabled',false);
 
-                         setTimeout(function(){ 
+              }else{
 
-                           $("#modal-delete").modal('hide');
+               setTimeout(function(){ 
 
-                        }, 1000);
+                 $("#modal-delete").modal('hide');
 
-                        $(".show_error").hide().html(response).slideDown("fast");
+               }, 1000);
 
-                        $(".btn-send").removeClass("disabled").html('Yes , Delete it').attr('disabled',false);
+               $(".show_error").hide().html(response).slideDown("fast");
 
-                        loadtable($("#select-status").val());
+               $(".btn-send").removeClass("disabled").html('Yes , Delete it').attr('disabled',false);
 
-                    }
+               loadtable($("#select-status").val());
 
-                },
+             }
 
-                error: function(xhr, textStatus, errorThrown) {
+           },
 
-            
+           error: function(xhr, textStatus, errorThrown) {
 
-                }
 
-            });
+
+           }
+
+         });
 
             return false;
 
-    
 
-        });
 
-  </script>
+          });
+
+        </script>
