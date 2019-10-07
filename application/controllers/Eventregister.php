@@ -8,7 +8,7 @@ class Eventregister extends MY_Controller {
 	public function index()
 	{
 		$data['page_name'] = "Pendaftar Event";
-		$data['tbl_event_register'] = $this->mymodel->selectData('tbl_event_register');
+		$data['tbl_event_register'] = $this->mymodel->selectData('tbl_event_register'); 
 		$this->template->load('template/template','eventregister/index', $data);
 	}
 
