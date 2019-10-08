@@ -1,9 +1,9 @@
  <div class="content-wrapper">
   <section class="content-header">
-    <h1> Event </h1>
+    <h1> Merchandise </h1>
     <ol class="breadcrumb">
       <li><a href="<?= base_url('admin') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Event</li>
+      <li class="active">Merchandise</li>
     </ol>
   </section>
   <section class="content">
@@ -14,10 +14,10 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="pull-right">
-                  <a href="<?= base_url('event/create') ?>">
-                    <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Event</button>
+                  <a href="<?= base_url('merchandise/create') ?>">
+                    <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Merchandise</button>
                   </a>
-                  <a href="<?= base_url('fitur/ekspor/tbl_event') ?>" target="_blank">
+                  <a href="<?= base_url('fitur/ekspor/tbl_merchandise') ?>" target="_blank">
                     <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-file-excel-o"></i> Ekspor Event</button>
                   </a>
                 </div>
@@ -32,59 +32,32 @@
                   <tr class="bg-success">
                     <th style="width:20px">No</th>
                     <th>Image</th>
-                    <th>Judul Event</th>
-                    <th>Phone</th>
-                    <th>Tanggal Event</th>
+                    <th>Judul Merchandise</th>
+                    <th>Harga</th>
                     <th>Deskripsi</th>
-                    <th>Minim Raider</th>
-                    <th>Maximum Raider</th>
-                    <th>Kota</th>
-                    <th>Alamat</th>
-                    <th>Public</th>
                     <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  $i = 1; foreach ($tbl_event as $row) {
-                    $file =  $this->mymodel->selectDataOne('file', array('table_id' => $row['id'], 'table' => 'tbl_event'));
+                  $i = 1; foreach ($tbl_merchandise as $row) {
+                    $file =  $this->mymodel->selectDataOne('file', array('table_id' => $row['id'], 'table' => 'tbl_merchandise'));
                     ?>
                     <tr>
                       <td><?= $i ?></td>
                       <td><img src="<?= $file['url']?>" width="250px" height="180px"></td>
                       <td><?= $row['title'] ?></td>
-                      <td><?= $row['phone'] ?></td>
-                      <td><?= date('Y-m-d', strtotime($row['tglevent'])) ?></td>
                       <td><?= $row['deskripsi'] ?></td>
-                      <td><?= $row['minraider'] ?></td>
-                      <td><?= $row['maxraider'] ?></td>
-                      <td><?= $row['kota'] ?></td>
-                      <td><?= $row['alamat'] ?></td>
-                      <td>
-                        <?php if($row['public']=='ENABLE'){?>
-                          <a href="<?= base_url('event/publicStatus/').$row['id'] ?>/DISABLE">
-                            <button type="button" class="btn btn-sm btn-sm btn-success">
-                              <i class="fa fa-check-circle"></i> ENABLE
-                            </button>
-                          </a>
-                        <?php }else { ?>
-                          <a href="<?= base_url('event/publicStatus/').$row['id'] ?>/ENABLE">
-                            <button type="button" class="btn btn-sm btn-sm btn-danger">
-                              <i class="fa fa-ban"></i> DISABLE
-                            </button>
-                          </a>
-                        <?php } ?>
-                      </td>
                       <td>
                         <?php if($row['status']=='ENABLE'){?>
-                          <a href="<?= base_url('event/status/').$row['id'] ?>/DISABLE">
+                          <a href="<?= base_url('merchandise/status/').$row['id'] ?>/DISABLE">
                             <button type="button" class="btn btn-sm btn-sm btn-success">
                               <i class="fa fa-check-circle"></i> ENABLE
                             </button>
                           </a>
                         <?php }else { ?>
-                          <a href="<?= base_url('event/status/').$row['id'] ?>/ENABLE">
+                          <a href="<?= base_url('merchandise/status/').$row['id'] ?>/ENABLE">
                             <button type="button" class="btn btn-sm btn-sm btn-danger">
                               <i class="fa fa-ban"></i> DISABLE
                             </button>
@@ -114,10 +87,10 @@
       </div>
     </section>
   </div>
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" tbl_event="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-delete">
+  <div class="modal fade bd-example-modal-sm" tabindex="-1" tbl_merchandise="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-delete">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-        <form id="upload-delete" action="<?= base_url('blogs/delete') ?>" method="POST">
+        <form id="upload-delete" action="<?= base_url('merchandise/delete') ?>" method="POST">
           <div class="modal-header">
             <h5 class="modal-title">Confirm delete</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -141,7 +114,7 @@
     loadtable($("#select-status").val());
 
     function edit(id) {
-      location.href = "<?= base_url('event/edit/') ?>"+id;
+      location.href = "<?= base_url('merchandise/edit/') ?>"+id;
     }
 
     function hapus(id) {
