@@ -30,32 +30,12 @@
                   <?php
                   $i = 1; foreach ($tbl_event_register as $row) {
                     $event = $this->mymodel->selectDataOne('tbl_event', array('id' => $row['event_id']));
-                    $file_event =  $this->mymodel->selectDataOne('file', array('table_id' => $row['event_id'], 'table' => 'tbl_event'));
                     $team = $this->mymodel->selectDataOne('tbl_team', array('id' => $row['team_id']));
-                    $file_team =  $this->mymodel->selectDataOne('file', array('table_id' => $row['team_id'], 'table' => 'tbl_team'));
                     ?>
                     <tr>
                       <td><?= $i ?></td>
-                      <td>
-                        <img src="<?= $file_event['url'] ?>" width="150px" height="80px" style="border-radius: 20px">
-                        <b> <?=  $event['title'] ?></b>
-                        <br><br>
-                        <a href="">
-                          <button class="btn btn-sm btn-info btn-block">
-                            <i class="fa fa-eye"></i>  Lihat Event
-                          </button>
-                        </a>
-                      </td>
-                      <td>
-                        <img src="<?= $file_team['url'] ?>" width="150px" height="80px" style="border-radius: 20px">
-                        <b> <?=  $team['name'] ?></b>
-                        <br><br>
-                        <a href="">
-                          <button class="btn btn-sm btn-info btn-block">
-                            <i class="fa fa-eye"></i>  Lihat Team
-                          </button>
-                        </a>
-                      </td>
+                      <td><?=  $event['title'] ?></td>
+                      <td><?=  $team['name'] ?></td>
                       <td align="center">
                         <?php
                         if ($row['approve'] == 'WAITING') {

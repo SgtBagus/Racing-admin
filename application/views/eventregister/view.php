@@ -126,60 +126,93 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-2">
-				<div class="col-md-12">   
-					<div class="box">
-						<div class="box-header">
-							<h3 class="box-title">Data Team</h3>
-						</div>
-						<div class="box-body">
+			<div class="col-md-4">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Data Team dan Manager</h3>
+					</div>
+					<div class="box-body">
+						<div class="col-md-6">   
 							<div class="form-group">
 								<center>
 									<img src="<?= $file_team['url'] ?>" style="width: 200px; height: 200px; border-radius: 20px" class="img img-thumbnail">
 									<br>
-									<h4><b><?= $tbl_team['name'] ?></b></h4>
+									<h4>
+										<b><?= $tbl_team['name'] ?></b><br>
+										<small>
+											<i class="fa fa-phone"></i> <?= $tbl_team['nowa']?> 
+											<a href="#" target="_blank">
+												<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
+											</a> 
+										</small>
+									</h4>
+								</center>        
+							</div>
+						</div>
+						<div class="col-md-6">  
+							<div class="form-group">
+								<center>
+									<img src="<?= $file_manager['url'] ?>" style="width: 200px; height: 200px; border-radius: 50%" class="img img-thumbnail">
+									<br>
+									<h4>
+										<b><?= $tbl_manager['name'] ?></b><br>
+										<small>
+											<i class="fa fa-phone"></i> <?= $tbl_manager['nowa']?> 
+											<a href="#" target="_blank">
+												<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
+											</a> 
+										</small>
+									</h4>
 								</center>        
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="col-md-12">   
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">Data Manager</h3>
+							<h3 class="box-title">Data Raider</h3>
 						</div>
 						<div class="box-body">
 							<div class="table-responsive">
-								<table class="table table-bordered table-striped" >
+								<table id="datatable" class="table table-bordered table-striped" >
 									<thead>
 										<tr class="bg-success">
 											<th>No</th>
 											<th></th>
 											<th>Nama</th>
 											<th>Alamat</th>
+											<th>Motor</th>
 											<th>Phone</th>
 										</tr>
 									</thead>
 									<tbody>
-										<?php $i = 1; foreach ($tbl_manager as $row_manager) { 
-											$filemanager = $this->mymodel->selectDataone('file', array('table_id' => $row_manager['id'], 'table' => 'tbl_manager')); ?>
+										<?php $i = 1; foreach ($tbl_event_register_raider as $row_raider) {
+											$raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $row_raider['raider_id']));
+											$motor = $this->mymodel->selectDataone('master_motor', array('id' => $raider['motor_id']));  
+											$fileraider = $this->mymodel->selectDataone('file', array('table_id' => $row_raider['raider_id'], 'table' => 'tbl_raider')); ?>
 											<tr>
 												<td><?= $i ?></td>
 												<td>
-													<img src="<?= $filemanager['url']?>" width="50px" height="50px" style="border-radius: 50%">
+													<img src="<?= $fileraider['url']?>" width="50px" height="50px" style="border-radius: 50%">
 												</td>
-												<td><?= $row_manager['name'] ?></td>
-												<td><?= $row_manager['alamat'] ?></td>
 												<td>
-													<?= $row_manager['nowa'] ?><br>
+													<?= $raider['name'] ?>  <?php if ($raider['verificacion'] == 'ENABLE') {
+														echo '<i class="fa fa-check-circle" style="color: #3b8dbc"> </i>';
+													} ?>
+												</td>
+												<td><?= $raider['alamat'] ?></td>
+												<td><?= $motor['value'] ?></td>
+												<td>
+													<?= $raider['nowa'] ?>
 													<a href="#" target="_blank">
-														<button type="button" class="btn btn-sm btn-success btn-block"><i class="fa fa-whatsapp"></i> Whatsapp</button>
+														<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
 													</a> 
 												</td>
 											</tr>
-											<?php $i++; }?>
+											<?php $i++;  }?>
 										</tbody>
 									</table>
 								</div>
@@ -187,256 +220,210 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<div class="col-md-12">   
 						<div class="box">
 							<div class="box-header">
-								<h3 class="box-title">Data Raider</h3>
+								<h3 class="box-title">Tambah Catatan</h3>
 							</div>
 							<div class="box-body">
-								<div class="table-responsive">
-									<table id="datatable" class="table table-bordered table-striped" >
-										<thead>
-											<tr class="bg-success">
-												<th>No</th>
-												<th></th>
-												<th>Nama</th>
-												<th>Alamat</th>
-												<th>Motor</th>
-												<th>Phone</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php $i = 1; foreach ($tbl_event_register_raider as $row_raider) { 
-												$raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $row_raider['id']));
-												$motor = $this->mymodel->selectDataone('master_motor', array('id' => $raider['motor_id']));  
-												$fileraider = $this->mymodel->selectDataone('file', array('table_id' => $row_raider['id'], 'table' => 'tbl_raider')); ?>
-												<tr>
-													<td><?= $i ?></td>
-													<td>
-														<img src="<?= $fileraider['url']?>" width="50px" height="50px" style="border-radius: 50%">
-													</td>
-													<td>
-														<?= $raider['name'] ?>  <?php if ($raider['verificacion'] == 'ENABLE') {
-															echo '<i class="fa fa-check-circle" style="color: #3b8dbc"> </i>';
-														} ?>
-													</td>
-													<td><?= $raider['alamat'] ?></td>
-													<td><?= $motor['value'] ?></td>
-													<td><?= $raider['nowa'] ?></td>
-												</tr>
-												<?php $i++;  }?>
-											</tbody>
-										</table>
+								<form action="<?=base_url('eventregister/addnote/').$tbl_event_register['id']?>" method="POST" id="notesumbit">
+									<div class="show_error"></div>
+									<div class="form-group">
+										<textarea class="form-control" rows="5" name="note"><?=$tbl_event_register['note']?></textarea>
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-2">
-						<div class="col-md-12">   
-							<div class="box">
-								<div class="box-header">
-									<h3 class="box-title">Tambah Catatan</h3>
-								</div>
-								<div class="box-body">
-									<form action="<?=base_url('eventregister/addnote/').$tbl_event_register['id']?>" method="POST" id="notesumbit">
-										<div class="show_error"></div>
-										<div class="form-group">
-											<textarea class="form-control" rows="5" name="note"><?=$tbl_event_register['note']?></textarea>
-										</div>
-										<button type="submit" class="btn btn-sm btn-sm btn-primary btn-send pull-right">
-											<i class="fa fa-save"></i> Simpan
-										</button>
-									</form>
-								</div>
+									<button type="submit" class="btn btn-sm btn-sm btn-primary btn-send pull-right">
+										<i class="fa fa-save"></i> Simpan
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row" align="center">
-					<a href="<?= base_url('eventregister')?>">
-						<button type="button" class="btn btn-sm btn-sm btn-info"><i class="fa fa-arrow-left"></i> Kembali</button>
-					</a>
-				</div>
-			</section>
-		</div>
+			</div>
+			<div class="row" align="center">
+				<a href="<?= base_url('eventregister')?>">
+					<button type="button" class="btn btn-sm btn-sm btn-info"><i class="fa fa-arrow-left"></i> Kembali</button>
+				</a>
+			</div>
+		</section>
+	</div>
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 
 
-			function approve(id) {
-				$.ajax({
-					type: "POST",
-					url: "<?= base_url('eventregister/approve/') ?>"+id,
-					cache: false,
-					contentType: false,
-					processData: false,
-					beforeSend : function(){
-						$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
-						$(".show_error").slideUp().html("");
-					},
-					success: function(response, textStatus, xhr) {
-						var str = response;
-						if (str.indexOf("success") != -1){
-							$(".show_error").hide().html(response).slideDown("fast");
-							$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-							$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-							location.reload();
-						}else{
-							setTimeout(function(){
-								$("#modal-delete").modal('hide');
-							}, 1000);
-							$(".show_error").hide().html(response).slideDown("fast");
-							$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-							$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-							location.reload();
-						}
-					},
-					error: function(xhr, textStatus, errorThrown) {
+		function approve(id) {
+			$.ajax({
+				type: "POST",
+				url: "<?= base_url('eventregister/approve/') ?>"+id,
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend : function(){
+					$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
+					$(".show_error").slideUp().html("");
+				},
+				success: function(response, textStatus, xhr) {
+					var str = response;
+					if (str.indexOf("success") != -1){
+						$(".show_error").hide().html(response).slideDown("fast");
+						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
+						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
+						location.reload();
+					}else{
+						setTimeout(function(){
+							$("#modal-delete").modal('hide');
+						}, 1000);
+						$(".show_error").hide().html(response).slideDown("fast");
+						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
+						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
+						location.reload();
 					}
-				});
-			}
-
-
-			function reject(id) {
-				$.ajax({
-					type: "POST",
-					url: "<?= base_url('eventregister/reject/') ?>"+id,
-					cache: false,
-					contentType: false,
-					processData: false,
-					beforeSend : function(){
-						$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
-						$(".show_error").slideUp().html("");
-					},
-					success: function(response, textStatus, xhr) {
-						var str = response;
-						if (str.indexOf("success") != -1){
-							$(".show_error").hide().html(response).slideDown("fast");
-							$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-							$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-							location.reload();
-						}else{
-							setTimeout(function(){
-								$("#modal-delete").modal('hide');
-							}, 1000);
-							$(".show_error").hide().html(response).slideDown("fast");
-							$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-							$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-							location.reload();
-						}
-					},
-					error: function(xhr, textStatus, errorThrown) {
-					}
-				});
-			}
-
-			function finish(id) {
-				$.ajax({
-					type: "POST",
-					url: "<?= base_url('eventregister/finish/') ?>"+id,
-					cache: false,
-					contentType: false,
-					processData: false,
-					beforeSend : function(){
-						$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
-						$(".show_error").slideUp().html("");
-					},
-					success: function(response, textStatus, xhr) {
-						var str = response;
-						if (str.indexOf("success") != -1){
-							$(".show_error").hide().html(response).slideDown("fast");
-							$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-							$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-							location.reload();
-						}else{
-							setTimeout(function(){
-								$("#modal-delete").modal('hide');
-							}, 1000);
-							$(".show_error").hide().html(response).slideDown("fast");
-							$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-							$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-							location.reload();
-						}
-					},
-					error: function(xhr, textStatus, errorThrown) {
-					}
-				});
-			}
-
-			function cancel(id) {
-				$.ajax({
-					type: "POST",
-					url: "<?= base_url('eventregister/cancel/') ?>"+id,
-					cache: false,
-					contentType: false,
-					processData: false,
-					beforeSend : function(){
-						$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
-						$(".show_error").slideUp().html("");
-					},
-					success: function(response, textStatus, xhr) {
-						var str = response;
-						if (str.indexOf("success") != -1){
-							$(".show_error").hide().html(response).slideDown("fast");
-							$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-							$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-							location.reload();
-						}else{
-							setTimeout(function(){
-								$("#modal-delete").modal('hide');
-							}, 1000);
-							$(".show_error").hide().html(response).slideDown("fast");
-							$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-							$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-							location.reload();
-						}
-					},
-					error: function(xhr, textStatus, errorThrown) {
-					}
-				});
-			}
-			
-			$(function () {
-
-				$("#notesumbit").submit(function(){
-					var form = $(this);
-					var mydata = new FormData(this);
-					$.ajax({
-						type: "POST",
-						url: form.attr("action"),
-						data: mydata,
-						cache: false,
-						contentType: false,
-						processData: false,
-						beforeSend : function(){
-							$(".btn-send").addClass("disabled").html("<i class='la la-spinner la-spin'></i>  Processing...").attr('disabled',true);
-							form.find(".show_error").slideUp().html("");
-						},
-
-						success: function(response, textStatus, xhr) {
-							var str = response;
-							if (str.indexOf("success") != -1){
-								form.find(".show_error").hide().html(response).slideDown("fast");
-								setTimeout(function(){
-									window.location.href = "<?= base_url('event') ?>";
-								}, 1000);
-
-								$(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Simpan').attr('disabled',false);
-							}else{
-								form.find(".show_error").hide().html(response).slideDown("fast");
-								$(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Simpan').attr('disabled',false);
-							}
-						},
-						error: function(xhr, textStatus, errorThrown) {
-							console.log(xhr);
-							$(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Save').attr('disabled',false);
-							form.find(".show_error").hide().html(xhr).slideDown("fast");
-						}
-					});
-					return false;
-				});
+				},
+				error: function(xhr, textStatus, errorThrown) {
+				}
 			});
+		}
 
-		</script>
+
+		function reject(id) {
+			$.ajax({
+				type: "POST",
+				url: "<?= base_url('eventregister/reject/') ?>"+id,
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend : function(){
+					$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
+					$(".show_error").slideUp().html("");
+				},
+				success: function(response, textStatus, xhr) {
+					var str = response;
+					if (str.indexOf("success") != -1){
+						$(".show_error").hide().html(response).slideDown("fast");
+						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
+						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
+						location.reload();
+					}else{
+						setTimeout(function(){
+							$("#modal-delete").modal('hide');
+						}, 1000);
+						$(".show_error").hide().html(response).slideDown("fast");
+						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
+						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
+						location.reload();
+					}
+				},
+				error: function(xhr, textStatus, errorThrown) {
+				}
+			});
+		}
+
+		function finish(id) {
+			$.ajax({
+				type: "POST",
+				url: "<?= base_url('eventregister/finish/') ?>"+id,
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend : function(){
+					$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
+					$(".show_error").slideUp().html("");
+				},
+				success: function(response, textStatus, xhr) {
+					var str = response;
+					if (str.indexOf("success") != -1){
+						$(".show_error").hide().html(response).slideDown("fast");
+						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
+						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
+						location.reload();
+					}else{
+						setTimeout(function(){
+							$("#modal-delete").modal('hide');
+						}, 1000);
+						$(".show_error").hide().html(response).slideDown("fast");
+						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
+						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
+						location.reload();
+					}
+				},
+				error: function(xhr, textStatus, errorThrown) {
+				}
+			});
+		}
+
+		function cancel(id) {
+			$.ajax({
+				type: "POST",
+				url: "<?= base_url('eventregister/cancel/') ?>"+id,
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend : function(){
+					$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
+					$(".show_error").slideUp().html("");
+				},
+				success: function(response, textStatus, xhr) {
+					var str = response;
+					if (str.indexOf("success") != -1){
+						$(".show_error").hide().html(response).slideDown("fast");
+						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
+						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
+						location.reload();
+					}else{
+						setTimeout(function(){
+							$("#modal-delete").modal('hide');
+						}, 1000);
+						$(".show_error").hide().html(response).slideDown("fast");
+						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
+						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
+						location.reload();
+					}
+				},
+				error: function(xhr, textStatus, errorThrown) {
+				}
+			});
+		}
+
+		$(function () {
+
+			$("#notesumbit").submit(function(){
+				var form = $(this);
+				var mydata = new FormData(this);
+				$.ajax({
+					type: "POST",
+					url: form.attr("action"),
+					data: mydata,
+					cache: false,
+					contentType: false,
+					processData: false,
+					beforeSend : function(){
+						$(".btn-send").addClass("disabled").html("<i class='la la-spinner la-spin'></i>  Processing...").attr('disabled',true);
+						form.find(".show_error").slideUp().html("");
+					},
+
+					success: function(response, textStatus, xhr) {
+						var str = response;
+						if (str.indexOf("success") != -1){
+							form.find(".show_error").hide().html(response).slideDown("fast");
+							setTimeout(function(){
+								window.location.href = "<?= base_url('event') ?>";
+							}, 1000);
+
+							$(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Simpan').attr('disabled',false);
+						}else{
+							form.find(".show_error").hide().html(response).slideDown("fast");
+							$(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Simpan').attr('disabled',false);
+						}
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						console.log(xhr);
+						$(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Save').attr('disabled',false);
+						form.find(".show_error").hide().html(xhr).slideDown("fast");
+					}
+				});
+				return false;
+			});
+		});
+
+	</script>

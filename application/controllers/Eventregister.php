@@ -15,14 +15,14 @@ class Eventregister extends MY_Controller {
 	public function view($id)
 	{
 		$data['page_name'] = "Pendaftar Event";
-		// $data['tbl_event_register'] = $this->mymodel->selectData('tbl_event_register');
 		$data['tbl_event_register'] = $this->mymodel->selectDataone('tbl_event_register', array('id' => $id));
 		$data['tbl_team'] = $this->mymodel->selectDataone('tbl_team', array('id' => $data['tbl_event_register']['team_id']));
 		$data['file_team'] = $this->mymodel->selectDataone('file', array('table_id' => $data['tbl_team']['id'], 'table' => 'tbl_team'));
-		$data['tbl_manager'] = $this->mymodel->selectWhere('tbl_manager', array('team_id' => $data['tbl_team']['id']));
 		$data['tbl_event'] = $this->mymodel->selectDataone('tbl_event', array('id' => $data['tbl_event_register']['event_id']));
 		$data['file_event'] = $this->mymodel->selectDataone('file', array('table_id' => $data['tbl_event']['id'], 'table' => 'tbl_event'));
 
+		$data['tbl_manager'] = $this->mymodel->selectDataone('tbl_manager', array('team_id' => $data['tbl_team']['id']));
+		$data['file_manager'] = $this->mymodel->selectDataone('file', array('table_id' => $data['tbl_manager']['id'], 'table' => 'tbl_manager'));
 		$data['tbl_event_register_raider'] = $this->mymodel->selectWhere('tbl_event_register_raider', array('event_register_id' => $id));
 		$this->template->load('template/template','eventregister/view', $data);
 	}
