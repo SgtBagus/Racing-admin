@@ -22,7 +22,7 @@ class Merchandise extends MY_Controller {
 		$this->form_validation->set_error_delimiters('<li>', '</li>');
 		$this->form_validation->set_rules('dt[title]', '<strong>Judul merchandise / Informasi</strong> Tidak Boleh Kosong', 'required');
 		$supported_file = array(
-			'jpg', 'jpeg', 'png'
+			'jpg', 'jpeg', 'png' 
 		);
 
 		$src_file_name = $_FILES['file']['name'];

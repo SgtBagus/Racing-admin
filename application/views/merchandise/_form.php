@@ -56,6 +56,13 @@ if($data_edit){
       </div>
     </div>
     <div class="form-group">
+      <label for="inputEmail3" class="col-sm-3 control-label">Nomor yang dapat dihubungi*</label>
+      <div class="col-sm-9">
+        <input type="text" name="dt[phone]" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask
+        <?php if($data_edit){echo "value='".$data_edit['phone']."'"; }  ?>>
+      </div>
+    </div>
+    <div class="form-group"> 
       <label for="inputEmail3" class="col-sm-3 control-label">Deskripsi </label>
       <div class="col-sm-9">
         <textarea class="textarea form-control" name="dt[deskripsi]"><?php if($data_edit){echo $data_edit['deskripsi']; }  ?></textarea>

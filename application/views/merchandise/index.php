@@ -34,6 +34,7 @@
                     <th>Image</th>
                     <th>Judul Merchandise</th>
                     <th>Harga</th>
+                    <th>Nomor</th>
                     <th>Deskripsi</th>
                     <th>Status</th>
                     <th></th>
@@ -48,6 +49,8 @@
                       <td><?= $i ?></td>
                       <td><img src="<?= $file['url']?>" width="250px" height="180px"></td>
                       <td><?= $row['title'] ?></td>
+                      <td><?= $row['harga'] ?></td>
+                      <td><?= $row['phone'] ?></td>
                       <td><?= $row['deskripsi'] ?></td>
                       <td>
                         <?php if($row['status']=='ENABLE'){?>
