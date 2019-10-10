@@ -47,7 +47,7 @@ if($data_edit){
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-3 control-label">Tanggal Event*</label>
       <div class="col-sm-9">
-        <input type="text" name="dt[tglevent]" class="form-control tgl" placeholder="Masukan Tanggal Lahir" <?php if ($data_edit['tglevent']) { ?>value="<?= date("d-m-Y", strtotime($data_edit['tglevent'])); ?>" <?php } ?>>
+        <input type="text" name="dt[tglevent]" class="form-control tgl" placeholder="Masukan Tanggal Event" <?php if ($data_edit) { ?>value="<?= date("d-m-Y", strtotime($data_edit['tglevent'])); ?>" <?php } ?>>
       </div>
     </div>
     <div class="form-group">
