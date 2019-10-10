@@ -50,37 +50,6 @@ class Eventregister extends MY_Controller {
 		$this->alert->alertreject();
 	}
 
-
-	public function finish($id){
-
-		$data = array(
-			'approve' => 'FINISH',
-			'updated_at' => date('Y-m-d H:i:s')
-		);
-
-		$register_id = $this->mymodel->selectDataone('tbl_event_register', array('event_id' => $id ));
-		$raider_data = $this->mymodel->selectWhere('tbl_event_register_raider', array('event_register_id' => $register_id['id']));
-
-		foreach ($raider_data as $raider) {
-			$raiderevent = $this->mymodel->selectDataone('tbl_raider', array('id' => $raider['raider_id']));
-
-			$dataevent = array(
-				'eventikut' => $raiderevent['eventikut'] + 1
-			);
-
-			$this->mymodel->updateData('tbl_raider', $dataevent , array('id'=>$raider['raider_id']));
-		}
-		$this->mymodel->updateData('tbl_event_register', $data , array('event_id'=>$id));
-	}
-
-	public function cancel($id){
-		$data = array(
-			'approve' => 'CANCEL',
-			'updated_at' => date('Y-m-d H:i:s')
-		);
-		$this->mymodel->updateData('tbl_event_register', $data , array('event_id'=>$id));
-	}
-
 	public function addnote($id){
 		$data = array(
 			'note' => $_POST['note'],

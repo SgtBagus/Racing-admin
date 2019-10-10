@@ -26,19 +26,9 @@
 								<button type="button" class="btn btn-send btn-reject btn-sm btn-sm btn-danger" onclick="reject('.$tbl_event_register['id'].')"><i class="fa fa-ban"></i> Tolak Pendaftaran</button>
 								</div>';
 							} else if($tbl_event_register['approve'] == "APPROVE") {
-								echo '<small class="label bg-green"><i class="fa fa-check"> </i> Pendaftaran Di Terima </small>
-								<br>
-								<br>
-								<div class="row" align="center">
-								<button type="button" class="btn btn-send btn-approve btn-sm btn-sm btn-success" onclick="finish('.$tbl_event_register['event_id'].')"><i class="fa fa-check-circle"></i> Event Selesai</button>
-								<button type="button" class="btn btn-send btn-reject btn-sm btn-sm btn-danger" onclick="cancel('.$tbl_event_register['event_id'].')"><i class="fa fa-ban"></i> Event Dibatalkan</button>
-								</div>';
+								echo '<small class="label bg-green"><i class="fa fa-check"> </i> Pendaftaran Di Terima </small>';
 							}else if($tbl_event_register['approve'] == "REJECT") {
 								echo '<small class="label bg-red"><i class="fa fa-ban"> </i> Pendaftaran Di Tolak </small>';
-							}else if($tbl_event_register['approve'] == "FINISH") {
-								echo '<small class="label bg-green"><i class="fa fa-check"> </i> Event Selesai </small>';
-							}else if($tbl_event_register['approve'] == "CANCEL") {
-								echo '<small class="label bg-red"><i class="fa fa-ban"> </i> Event Dibatalkan</small>';
 							}
 							?>
 						</center>       
@@ -290,72 +280,6 @@
 			$.ajax({
 				type: "POST",
 				url: "<?= base_url('eventregister/reject/') ?>"+id,
-				cache: false,
-				contentType: false,
-				processData: false,
-				beforeSend : function(){
-					$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
-					$(".show_error").slideUp().html("");
-				},
-				success: function(response, textStatus, xhr) {
-					var str = response;
-					if (str.indexOf("success") != -1){
-						$(".show_error").hide().html(response).slideDown("fast");
-						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-						location.reload();
-					}else{
-						setTimeout(function(){
-							$("#modal-delete").modal('hide');
-						}, 1000);
-						$(".show_error").hide().html(response).slideDown("fast");
-						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-						location.reload();
-					}
-				},
-				error: function(xhr, textStatus, errorThrown) {
-				}
-			});
-		}
-
-		function finish(id) {
-			$.ajax({
-				type: "POST",
-				url: "<?= base_url('eventregister/finish/') ?>"+id,
-				cache: false,
-				contentType: false,
-				processData: false,
-				beforeSend : function(){
-					$(".btn-send").addClass("disabled").html("<i class='fa fa-spinner'></i>").attr('disabled',true);
-					$(".show_error").slideUp().html("");
-				},
-				success: function(response, textStatus, xhr) {
-					var str = response;
-					if (str.indexOf("success") != -1){
-						$(".show_error").hide().html(response).slideDown("fast");
-						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-						location.reload();
-					}else{
-						setTimeout(function(){
-							$("#modal-delete").modal('hide');
-						}, 1000);
-						$(".show_error").hide().html(response).slideDown("fast");
-						$(".btn-approve").removeClass("disabled").html('<i class="fa fa-check-circle"></i> Terima Pendaftaran').attr('disabled',false);
-						$(".btn-reject").removeClass("disabled").html('<i class="fa fa-ban"></i> Tolak Pendaftaran').attr('disabled',false);
-						location.reload();
-					}
-				},
-				error: function(xhr, textStatus, errorThrown) {
-				}
-			});
-		}
-
-		function cancel(id) {
-			$.ajax({
-				type: "POST",
-				url: "<?= base_url('eventregister/cancel/') ?>"+id,
 				cache: false,
 				contentType: false,
 				processData: false,
