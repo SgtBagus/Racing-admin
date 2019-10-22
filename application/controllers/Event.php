@@ -37,7 +37,8 @@ class Event extends MY_Controller {
 			}
 		}
 
-		$this->form_validation->set_rules('dt[tglevent]', '<strong>Tanggal Even</strong> Tidak Boleh Kosong', 'required');
+		$this->form_validation->set_rules('dt[tgleventStart]', '<strong>Tanggal Even</strong> Tidak Boleh Kosong', 'required');
+		$this->form_validation->set_rules('dt[tgleventEnd]', '<strong>Tanggal Even</strong> Tidak Boleh Kosong', 'required');
 		$this->form_validation->set_rules('dt[kota]', '<strong>Kota Even</strong> Tidak Boleh Kosong', 'required');
 		$this->form_validation->set_rules('dt[alamat]', '<strong>Alamat Even</strong> Tidak Boleh Kosong', 'required');
 		$this->form_validation->set_rules('dt[minraider]', '<strong>Minim Raider</strong> Tidak Boleh Kosong', 'required');
@@ -57,6 +58,7 @@ class Event extends MY_Controller {
 			}
 			$dt['latitude'] = 0;
 			$dt['longitude'] = 0;
+			$dt['statusEvent'] = "STARTED";
 			$dt['public'] = "ENABLE";
 			$dt['status'] = "ENABLE";
 			$dt['created_at'] = date('Y-m-d H:i:s');
@@ -185,6 +187,30 @@ class Event extends MY_Controller {
 		header('Location: '.base_url('event'));
 	}
 
+	public function start(){
+		$id = $_POST['id'];
+		$dt['live_url'] = $_POST['dt']['live_url'];
+		$dt['statusEvent'] = 'BERJALAN';
+		$dt['updated_at'] = date("Y-m-d H:i:s");
+		$this->mymodel->updateData('tbl_event', $dt, array('id' => $id));
+		header('Location:'.base_url('event'));
+	}
+
+	public function cancel($id){
+		$dt['live_url'] = $_POST['dt']['live_url'];
+		$dt['statusEvent'] = 'BATAL';
+		$dt['updated_at'] = date("Y-m-d H:i:s");
+		$this->mymodel->updateData('tbl_event', $dt, array('id' => $id));
+		header('Location:'.base_url('event'));
+	}
+
+	public function finish($id){
+		$dt['live_url'] = $_POST['dt']['live_url'];
+		$dt['statusEvent'] = 'SELESAI';
+		$dt['updated_at'] = date("Y-m-d H:i:s");
+		$this->mymodel->updateData('tbl_event', $dt, array('id' => $id));
+		header('Location:'.base_url('event'));
+	}
 }
 /* End of file Home.php */
 /* Location: ./application/controllers/Home.php */

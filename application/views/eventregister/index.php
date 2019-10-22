@@ -46,8 +46,7 @@
                           <button type="button" class="btn btn-send btn-reject btn-sm btn-sm btn-danger" onclick="reject('.$row['id'].')"><i class="fa fa-ban"></i> Tolak Pendaftaran</button>
                           </div>';
                         } else if($row['approve'] == "APPROVE") {
-                          echo '<small class="label bg-green"><i class="fa fa-check"> </i> Pendaftaran Di Terima </small>
-                          <hr>';
+                          echo '<small class="label bg-green"><i class="fa fa-check"> </i> Pendaftaran Di Terima </small>';
                         }else if($row['approve'] == "REJECT") {
                           echo '<small class="label bg-red"><i class="fa fa-ban"> </i> Pendaftaran Di Tolak </small>';
                         }
