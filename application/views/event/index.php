@@ -63,15 +63,19 @@
                               echo '<small class="label bg-yellow"><i class="fa fa-warning"> </i> Belum Dimulai</small>
                           <hr>
                           <div class="row" align="center">
+                          <div class="col-md-12">
                           <button type="button" class="btn btn-send btn-approve btn-sm btn-sm btn-primary" onclick="start(' . $row['id'] . ')"><i class="fa fa-check-circle"></i> Mulai Event</button>
                           <button type="button" class="btn btn-send btn-reject btn-sm btn-sm btn-danger" onclick="cancel(' . $row['id'] . ')"><i class="fa fa-ban"></i> Batalkan Event</button>
+                          </div>
                           </div>';
                             } else if ($row['statusEvent'] == "BERJALAN") {
                               echo '<small class="label bg-green"><i class="fa fa-warning"> </i> Event Dimulai</small>
                           <hr>
                           <div class="row" align="center">
+                          <div class="col-md-12">
                           <button type="button" class="btn btn-send btn-approve btn-sm btn-sm btn-primary" onclick="finish(' . $row['id'] . ')"><i class="fa fa-check-circle"></i> Selesai Event</button>
                           <button type="button" class="btn btn-send btn-reject btn-sm btn-sm btn-danger" onclick="cancel(' . $row['id'] . ')"><i class="fa fa-ban"></i> Batalkan Event</button>
+                          </div>
                           </div>';
                             } else if ($row['statusEvent'] == "BATAL") {
                               echo '<small class="label bg-red"><i class="fa fa-ban"> </i> Event Dibatalkan </small>';
