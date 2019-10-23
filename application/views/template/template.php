@@ -276,7 +276,7 @@ if($this->session->userdata('session_sop')=="") {
     $('.select2').select2();
     $('.tgl').datepicker({
       autoclose: true,
-      format:'yyyy-mm-dd'
+      format:'dd M yyyy'
     });
 
     $(function () {

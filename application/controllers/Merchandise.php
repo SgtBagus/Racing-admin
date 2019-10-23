@@ -155,6 +155,9 @@ class Merchandise extends MY_Controller {
 	{
 		$id = $_POST['id'];
 		$file_dir = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'tbl_merchandise'));
+		if($file_dir['name'] != 'merchandise_default.jpg'){
+			@unlink($file_dir['dir']);
+		}
 		@unlink($file_dir['dir']);
 
 		$this->mymodel->deleteData('file',  array('id' => $file_dir['id']));

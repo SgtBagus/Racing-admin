@@ -236,8 +236,10 @@ class Imagegroup extends MY_Controller {
 			$id = $this->input->post('id', TRUE);
 
 			$file_dir = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'master_gallery'));
-			@unlink($file_dir['dir']);
 
+			if($file_dir['name'] != 'gallery_default.jpg'){
+				@unlink($file_dir['dir']);
+			}
 			$this->mymodel->deleteData('file',  array('id' => $file_dir['id']));
 			$this->mymodel->deleteData('master_gallery',  array('id' => $id));
 			header('Location:'.base_url('master/imagegroup'));

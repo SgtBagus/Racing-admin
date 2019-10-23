@@ -61,6 +61,8 @@ class Event extends MY_Controller {
 			$dt['statusEvent'] = "STARTED";
 			$dt['public'] = "ENABLE";
 			$dt['status'] = "ENABLE";
+			$dt['tgleventStart'] = date('Y-m-d', strtotime($_POST['dt']['tgleventStart']));
+			$dt['tgleventEnd'] = date('Y-m-d', strtotime($_POST['dt']['tgleventEnd']));
 			$dt['created_at'] = date('Y-m-d H:i:s');
 
 			$str = $this->db->insert('tbl_event', $dt);
@@ -128,6 +130,8 @@ class Event extends MY_Controller {
 		} else {
 			$id = $_POST['dt']['id'];
 			$dt = $_POST['dt'];
+			$dt['tgleventStart'] = date('Y-m-d', strtotime($_POST['dt']['tgleventStart']));
+			$dt['tgleventEnd'] = date('Y-m-d', strtotime($_POST['dt']['tgleventEnd']));
 			$dt['updated_at'] = date("Y-m-d H:i:s");
 			$this->mymodel->updateData('tbl_event', $dt, array('id' => $id));
 
@@ -169,11 +173,14 @@ class Event extends MY_Controller {
 	public function delete()
 	{
 		$id = $_POST['id'];
-		$file_dir = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'tbl_blog'));
+		$file_dir = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'tbl_event'));
+		if($file_dir['name'] != 'event_default.jpg'){
+			@unlink($file_dir['dir']);
+		}
 		@unlink($file_dir['dir']);
 
 		$this->mymodel->deleteData('file',  array('id' => $file_dir['id']));
-		$this->mymodel->deleteData('tbl_blog',  array('id' => $id));
+		$this->mymodel->deleteData('tbl_event',  array('id' => $id));
 		header('Location:'.base_url('event'));
 	}
 

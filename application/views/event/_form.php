@@ -18,8 +18,8 @@ if ($data_edit) {
           echo '<input type="hidden" name="dt[id]" value="' . $data_edit['id'] . '">';
         }  ?>
         <input type="text" class="form-control" placeholder="Masukan Kota Proyek ..." name="dt[title]" <?php if ($data_edit) {
-                                                                                                          echo "value='" . $data_edit['title'] . "'";
-                                                                                                        }  ?>>
+          echo "value='" . $data_edit['title'] . "'";
+        }  ?>>
       </div>
     </div> 
     <div class="form-group">
@@ -32,12 +32,12 @@ if ($data_edit) {
               if ($file['dir'] != "") {
                 ?>
                 <img src="<?= base_url() . $file['dir'] ?>" alt="User Image" width="100%" height="250px" id="preview_image">
-              <?php
-                }
-              } else {
-                ?>
+                <?php
+              }
+            } else {
+              ?>
               <img src="<?= base_url('webfiles/event/event_default.jpg') ?>" alt="User Image" width="100%" height="250px" id="preview_image">
-            <?php
+              <?php
             } ?>
           </div>
           <div class="col-md-7 col-xs-12">
@@ -55,7 +55,7 @@ if ($data_edit) {
           <div class="input-group-addon">
             Dimulai
           </div>
-          <input type="text" name="dt[tgleventStart]" class="form-control tgl" placeholder="Masukan Tanggal Event" <?php if ($data_edit) { ?>value="<?= date("d-m-Y", strtotime($data_edit['tgleventStart'])); ?>" <?php } ?>>
+          <input type="text" name="dt[tgleventStart]" class="form-control tgl" placeholder="Masukan Tanggal Event" <?php if ($data_edit) { ?>value="<?= date("d M Y", strtotime($data_edit['tgleventStart'])); ?>" <?php } ?>>
         </div>
       </div>
       <div class="col-sm-5">
@@ -63,7 +63,7 @@ if ($data_edit) {
           <div class="input-group-addon">
             Berakhir
           </div>
-          <input type="text" name="dt[tgleventEnd]" class="form-control tgl" placeholder="Masukan Tanggal Event" <?php if ($data_edit) { ?>value="<?= date("d-m-Y", strtotime($data_edit['tgleventEnd'])); ?>" <?php } ?>>
+          <input type="text" name="dt[tgleventEnd]" class="form-control tgl" placeholder="Masukan Tanggal Event" <?php if ($data_edit) { ?>value="<?= date("d M Y", strtotime($data_edit['tgleventEnd'])); ?>" <?php } ?>>
         </div>
       </div>
     </div>
@@ -71,32 +71,32 @@ if ($data_edit) {
       <label for="inputEmail3" class="col-sm-3 control-label">Nomor yang dapat dihubungi</label>
       <div class="col-sm-9">
         <input type="text" name="dt[phone]" class="form-control" <?php if ($data_edit) {
-                                                                    echo "value='" . $data_edit['phone'] . "'";
-                                                                  }  ?>>
+          echo "value='" . $data_edit['phone'] . "'";
+        }  ?>>
       </div>
     </div>
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-3 control-label">Deskripsi </label>
       <div class="col-sm-9">
         <textarea class="textarea form-control" name="dt[deskripsi]"><?php if ($data_edit) {
-                                                                        echo $data_edit['deskripsi'];
-                                                                      }  ?></textarea>
+          echo $data_edit['deskripsi'];
+        }  ?></textarea>
       </div>
     </div>
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-3 control-label">Kota Event*</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" placeholder="Masukan Kota Event ..." name="dt[kota]" <?php if ($data_edit) {
-                                                                                                        echo "value='" . $data_edit['kota'] . "'";
-                                                                                                      }  ?>>
+          echo "value='" . $data_edit['kota'] . "'";
+        }  ?>>
       </div>
     </div>
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-3 control-label">Alamat Lengkap Event*</label>
       <div class="col-sm-9">
         <textarea class="form-control" name="dt[alamat]" rows="5"><?php if ($data_edit) {
-                                                                    echo $data_edit['alamat'];
-                                                                  }  ?></textarea>
+          echo $data_edit['alamat'];
+        }  ?></textarea>
       </div>
     </div>
     <div class="form-group">
@@ -107,10 +107,10 @@ if ($data_edit) {
             Minim Raider
           </div>
           <input type="number" name="dt[minraider]" class="form-control" placeholder="Masukan Minim Raider" <?php if ($data_edit) {
-                                                                                                              echo "value='" . $data_edit['minraider'] . "'";
-                                                                                                            } else {
-                                                                                                              echo "value = '1'";
-                                                                                                            } ?>>
+            echo "value='" . $data_edit['minraider'] . "'";
+          } else {
+            echo "value = '1'";
+          } ?>>
         </div>
       </div>
       <div class="col-sm-5">
@@ -119,10 +119,10 @@ if ($data_edit) {
             Maximal Raider
           </div>
           <input type="number" name="dt[maxraider]" class="form-control" placeholder="Masukan Minim Raider" <?php if ($data_edit) {
-                                                                                                              echo "value='" . $data_edit['maxraider'] . "'";
-                                                                                                            } else {
-                                                                                                              echo "value = '1'";
-                                                                                                            } ?>>
+            echo "value='" . $data_edit['maxraider'] . "'";
+          } else {
+            echo "value = '1'";
+          } ?>>
         </div>
       </div>
     </div>
@@ -130,8 +130,8 @@ if ($data_edit) {
       <label for="inputEmail3" class="col-sm-3 control-label">Url Link Event</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" placeholder="Masukan Url Link Event ..." name="dt[live_url]" <?php if ($data_edit) {
-                                                                                                          echo "value='" . $data_edit['live_url'] . "'";
-                                                                                                        }  ?>>
+          echo "value='" . $data_edit['live_url'] . "'";
+        }  ?>>
       </div>
     </div> 
     <div class="show_error"></div>
