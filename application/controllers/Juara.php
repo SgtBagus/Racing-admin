@@ -28,27 +28,10 @@ class Juara extends MY_Controller
 
         $data['point'] = $tbl_juara_detail[0]['point'];
 
-        $this->template->load('template/template', 'juara/view', $data);
-    }
 
-    public function addDays($id)
-    {
-        $data['page_name'] = "Data Juara";
-        $data['id'] = $id;
-
+        
         $data['raider_terdaftar'] = $this->mymodel->selectWithQuery("SELECT a.raider_id as raider_id FROM tbl_event_register_raider a INNER JOIN tbl_event_register b ON a.event_register_id = b.id WHERE b.approve = 'APPROVE' AND b.event_id = " . $id);
-
-        $this->template->load('template/template', 'juara/addDays', $data);
-    }
-
-    public function viewDays($id)
-    {
-        $data['page_name'] = "Data Juara";
-        $data['tbl_juara'] = $this->mymodel->selectDataone('tbl_juara', array('id' => $id));
-        $data['raider_terdaftar'] = $this->mymodel->selectWithQuery("SELECT a.raider_id as raider_id FROM tbl_event_register_raider a INNER JOIN tbl_event_register b ON a.event_register_id = b.id WHERE b.approve = 'APPROVE' AND b.event_id = " . $data['tbl_juara']['id_event']);
-        $data['tbl_juara_detail'] = $this->mymodel->selectWhere('tbl_juara_detail', array('id_juara' => $data['tbl_juara']['id']));
-
-        $this->template->load('template/template', 'juara/viewDays', $data);
+        $this->template->load('template/template', 'juara/view', $data);
     }
 
     public function validate()
@@ -60,44 +43,80 @@ class Juara extends MY_Controller
         $this->form_validation->set_message('required', '%s');
     }
 
-    public function store()
+    public function addWinner_1($id)
     {
-        $id = $_POST['id_event'];
-        $this->validate();
-        if ($this->form_validation->run() == FALSE) {
-            $this->alert->alertdanger(validation_errors());
-        } else {
-            $tbl_juara = $this->mymodel->selectWithQuery("SELECT MAX(days) as day FROM tbl_juara WHERE id_event = '" . $id . "'");
+        $dtd['id_juara'] = $id;
+        $dtd['id_event'] = $_POST['dtd']['idEvent'];
+        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
+        $dtd['juara'] = 1;
+        $dtd['point'] = $_POST['dtd']['point'];
+        $dtd['status'] = 'ENABLE';
+        $dtd['created_at'] = date("Y-m-d H:i:s");
 
-            $days = 1;
-            if ($tbl_juara[0]['day']) {
-                $days = $tbl_juara[0]['day'] + 1;
-            }
+        $this->db->insert('tbl_juara_detail', $dtd);
 
-            $dt['id_event'] = $id;
-            $dt['days'] = $days;
-            $dt['status'] = 'ENABLE';
-            $dt['created_at'] = date("Y-m-d H:i:s");
-            $dt['updated_at'] = date("Y-m-d H:i:s");
-            $this->db->insert('tbl_juara', $dt);
-            $last_id = $this->db->insert_id();
-
-            $array = count($_POST['dtd']);
-
-            for ($i = 0; $i <= $array; $i++) {
-                $dtd['id_juara'] = $last_id;
-                $dtd['id_event'] = $id;
-                $dtd['id_raider'] = $_POST['dtd']['idRaider'][$i];
-                $dtd['point'] = $_POST['dtd']['point'][$i];
-                $dtd['status'] = 'ENABLE';
-                $dtd['created_at'] = date("Y-m-d H:i:s");
-                $dtd['updated_at'] = date("Y-m-d H:i:s");
-                $this->db->insert('tbl_juara_detail', $dtd);
-            }
-            $this->alert->alertsuccess('Success Send Data');
-        }
+		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
     }
 
+    public function updateWinner_1($id)
+    {
+        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
+        $dtd['point'] = $_POST['dtd']['point'];
+        $dtd['updated_at'] = date("Y-m-d H:i:s");
+
+        $this->mymodel->updateData('tbl_juara_detail', $dtd, array('id' => $id));
+		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
+    }
+
+    public function addWinner_2($id)
+    {
+        $dtd['id_juara'] = $id;
+        $dtd['id_event'] = $_POST['dtd']['idEvent'];
+        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
+        $dtd['juara'] = 2;
+        $dtd['point'] = $_POST['dtd']['point'];
+        $dtd['status'] = 'ENABLE';
+        $dtd['created_at'] = date("Y-m-d H:i:s");
+
+        $this->db->insert('tbl_juara_detail', $dtd);
+
+		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
+    }
+
+    public function updateWinner_2($id)
+    {
+        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
+        $dtd['point'] = $_POST['dtd']['point'];
+        $dtd['updated_at'] = date("Y-m-d H:i:s");
+
+        $this->mymodel->updateData('tbl_juara_detail', $dtd, array('id' => $id));
+		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
+    }
+
+    public function addWinner_3($id)
+    {
+        $dtd['id_juara'] = $id;
+        $dtd['id_event'] = $_POST['dtd']['idEvent'];
+        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
+        $dtd['juara'] = 3;
+        $dtd['point'] = $_POST['dtd']['point'];
+        $dtd['status'] = 'ENABLE';
+        $dtd['created_at'] = date("Y-m-d H:i:s");
+
+        $this->db->insert('tbl_juara_detail', $dtd);
+
+		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
+    }
+
+    public function updateWinner_3($id)
+    {
+        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
+        $dtd['point'] = $_POST['dtd']['point'];
+        $dtd['updated_at'] = date("Y-m-d H:i:s");
+
+        $this->mymodel->updateData('tbl_juara_detail', $dtd, array('id' => $id));
+		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
+    }
 
     public function update()
     {
@@ -111,15 +130,6 @@ class Juara extends MY_Controller
         $this->alert->alertsuccess('Success Update Data');
     }
 
-    
-	public function delete($id, $event_id)
-	{
-        var_dump($id);
-        var_dump($event_id);
-		$this->mymodel->deleteData('tbl_juara',  array('id' => $id));
-		$this->mymodel->deleteData('tbl_juara_detail',  array('id_juara' => $id));
-		header('Location:'.base_url('juara/view/'.$event_id));
-	}
 }
 /* End of file Home.php */
 /* Location: ./application/controllers/Home.php */

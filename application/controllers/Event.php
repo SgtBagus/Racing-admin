@@ -104,6 +104,19 @@ class Event extends MY_Controller {
 				);
 				$this->mymodel->insertData('file', $data);
 			}
+
+			$earlier = new DateTime(date('Y-m-d', strtotime($_POST['dt']['tgleventStart'])));
+			$later = new DateTime(date('Y-m-d', strtotime($_POST['dt']['tgleventEnd'])));
+			$diff = $later->diff($earlier)->format("%a")+1;
+            for ($i = 1; $i <= $diff; $i++) {
+				$juara['id_event'] = $last_id;
+				$juara['days'] = $i;
+				$juara['status'] = 'ENABLE';
+				$juara['created_at'] = date("Y-m-d H:i:s");
+				$juara['updated_at'] = date("Y-m-d H:i:s");
+				$this->db->insert('tbl_juara', $juara);
+			}
+			
 			$this->alert->alertsuccess('Success Send Data');
 		}
 	}

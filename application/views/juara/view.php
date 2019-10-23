@@ -142,56 +142,169 @@
                         <div class="box-header">
                             <h3 class="box-title">Data Juara</h3>
                         </div>
-                        <div class="box-header">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <a href="<?= base_url('juara/adddays/') . $tbl_event['id'] ?>">
-                                            <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Juara</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="box-body">
                             <div class="table-responsive">
                                 <table id="datatable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr class="bg-success">
                                             <th>No</th>
-                                            <th>Hari Ke</th>
-                                            <th>Juara Umum</th>
-                                            <th>Juara Point</th>
-                                            <th>Dibuat Pada</th>
-                                            <th>Diubah Pada</th>
-                                            <th></th>
+                                            <th>Hari ke / Tanggal</th>
+                                            <th>Juara Ke 1</th>
+                                            <th>Juara Ke 2</th>
+                                            <th>Juara Ke 3</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $i = 1;
                                         foreach ($tbl_juara as $row) {
-                                            $tbl_juara_detail = $this->mymodel->selectWithQuery("SELECT id_raider, MAX(point) as point FROM tbl_juara_detail WHERE id_juara = '" . $row['id'] . "'");
+                                            $tbl_juara_detail = $this->mymodel->selectWithQuery("SELECT id, id_raider, MAX(point) as point FROM tbl_juara_detail WHERE id_juara = '" . $row['id'] . "'");
                                             $tbl_raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $tbl_juara_detail[0]['id_raider']));
+                                            $winner1 = $this->mymodel->selectDataone('tbl_juara_detail', array('id_event' => $tbl_event['id'], 'id_juara' => $row['id'], 'juara' => '1'));
+                                            $winner2 = $this->mymodel->selectDataone('tbl_juara_detail', array('id_event' => $tbl_event['id'], 'id_juara' => $row['id'], 'juara' => '2'));
+                                            $winner3 = $this->mymodel->selectDataone('tbl_juara_detail', array('id_event' => $tbl_event['id'], 'id_juara' => $row['id'], 'juara' => '3'));
                                             ?>
                                             <tr>
                                                 <td><?= $i ?></td>
                                                 <td>
-                                                    <?= $row['days'] ?>
+                                                    <?php $days = $row['days']; ?>
+                                                    <?= $row['days'] . " / " . date('d M Y', strtotime($tbl_event['tgleventStart'] . ' +' . strval($days - 1) . ' day')) ?>
                                                 </td>
-                                                <td><?= $tbl_raider['name'] ?></td>
-                                                <td><?= $tbl_juara_detail[0]['point'] ?></td>
-                                                <td><?= date('d M Y', strtotime($row['created_at'])) ?></td>
-                                                <td><?= date('d M Y', strtotime($row['updated_at'])) ?></td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-sm btn-info" onclick="view(<?= $row['id'] ?> )">
-                                                            <i class="fa fa-eye"></i>
-                                                        </button>
+                                                <td style="width:300px">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <?php if ($winner1) { ?>
+                                                                <form method="POST" action="<?= base_url('juara/updateWinner_1/') . $tbl_juara_detail[0]['id'] ?>">
+                                                                <?php } else { ?>
+                                                                    <form method="POST" action="<?= base_url('juara/addWinner_1/') . $row['id'] ?>">
+                                                                    <?php } ?>
+                                                                    <div class="show_error"></div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <label>Rider : </label>
+                                                                            <select name="dtd[idRaider]" class="form-control select2" style="width:100%">
+                                                                                <?php
+                                                                                    foreach ($raider_terdaftar as $raider_terdaftar_record) {
+                                                                                        $name_raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $raider_terdaftar_record['raider_id'])); ?>
+
+                                                                                    <option value=<?= $raider_terdaftar_record['raider_id'] ?> <?php if ($winner1['id_raider'] == $raider_terdaftar_record['raider_id']) {
+                                                                                                                                                            echo "selected";
+                                                                                                                                                        } ?>> <?= $name_raider['name'] ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="col-md-12">
+                                                                            <label>Point : </label>
+                                                                            <input type="number" name="dtd[point]" class="form-control" style="width:100% !important" value="<?= $winner1['point'] ?>">
+                                                                            <input type="hidden" name="dtd[idEvent]" class="form-control" value="<?= $row['id_event'] ?>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div align="right">
+                                                                        <?php if ($winner1) { ?>
+                                                                            <button type="submit" class="btn btn-primary btn-send">
+                                                                                <i class="fa fa-edit"></i> Ubah
+                                                                            </button>
+                                                                        <?php } else { ?>
+                                                                            <button type="submit" class="btn btn-primary btn-send">
+                                                                                <i class="fa fa-save"></i> Simpan
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                    </form>
+                                                        </div>
                                                     </div>
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-sm btn-danger" onclick="hapus(<?= $row['id'] ?> )">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
+                                                </td>
+                                                <td style="width:300px">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <?php if ($winner2) { ?>
+                                                                <form method="POST" action="<?= base_url('juara/updateWinner_2/') . $tbl_juara_detail[0]['id'] ?>">
+                                                                <?php } else { ?>
+                                                                    <form method="POST" action="<?= base_url('juara/addWinner_2/') . $row['id'] ?>">
+                                                                    <?php } ?>
+                                                                    <div class="show_error"></div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <label>Rider : </label>
+                                                                            <select name="dtd[idRaider]" class="form-control select2" style="width:100%">
+                                                                                <?php
+                                                                                    foreach ($raider_terdaftar as $raider_terdaftar_record) {
+                                                                                        $name_raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $raider_terdaftar_record['raider_id'])); ?>
+
+                                                                                    <option value=<?= $raider_terdaftar_record['raider_id'] ?> <?php if ($winner2['id_raider'] == $raider_terdaftar_record['raider_id']) {
+                                                                                                                                                            echo "selected";
+                                                                                                                                                        } ?>> <?= $name_raider['name'] ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="col-md-12">
+                                                                            <label>Point : </label>
+                                                                            <input type="number" name="dtd[point]" class="form-control" style="width:100% !important" value="<?= $winner2['point'] ?>">
+                                                                            <input type="hidden" name="dtd[idEvent]" class="form-control" value="<?= $row['id_event'] ?>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div align="right">
+                                                                        <?php if ($winner2) { ?>
+                                                                            <button type="submit" class="btn btn-primary btn-send">
+                                                                                <i class="fa fa-edit"></i> Ubah
+                                                                            </button>
+                                                                        <?php } else { ?>
+                                                                            <button type="submit" class="btn btn-primary btn-send">
+                                                                                <i class="fa fa-save"></i> Simpan
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                    </form>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="width:300px">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <?php if ($winner3) { ?>
+                                                                <form method="POST" action="<?= base_url('juara/updateWinner_3/') . $tbl_juara_detail[0]['id'] ?>">
+                                                                <?php } else { ?>
+                                                                    <form method="POST" action="<?= base_url('juara/addWinner_3/') . $row['id'] ?>">
+                                                                    <?php } ?>
+                                                                    <div class="show_error"></div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <label>Rider : </label>
+                                                                            <select name="dtd[idRaider]" class="form-control select2" style="width:100%">
+                                                                                <?php
+                                                                                    foreach ($raider_terdaftar as $raider_terdaftar_record) {
+                                                                                        $name_raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $raider_terdaftar_record['raider_id'])); ?>
+
+                                                                                    <option value=<?= $raider_terdaftar_record['raider_id'] ?> <?php if ($winner3['id_raider'] == $raider_terdaftar_record['raider_id']) {
+                                                                                                                                                            echo "selected";
+                                                                                                                                                        } ?>> <?= $name_raider['name'] ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="col-md-12">
+                                                                            <label>Point : </label>
+                                                                            <input type="number" name="dtd[point]" class="form-control" style="width:100% !important" value="<?= $winner3['point'] ?>">
+                                                                            <input type="hidden" name="dtd[idEvent]" class="form-control" value="<?= $row['id_event'] ?>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div align="right">
+                                                                        <?php if ($winner3) { ?>
+                                                                            <button type="submit" class="btn btn-primary btn-send">
+                                                                                <i class="fa fa-edit"></i> Ubah
+                                                                            </button>
+                                                                        <?php } else { ?>
+                                                                            <button type="submit" class="btn btn-primary btn-send">
+                                                                                <i class="fa fa-save"></i> Simpan
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                    </form>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -212,13 +325,3 @@
         </div>
     </section>
 </div>
-
-<script type="text/javascript">
-    function view(id) {
-        location.href = "<?= base_url('juara/viewDays/') ?>" + id;
-    }
-    
-    function hapus(id) {
-        location.href = "<?= base_url('juara/delete/') ?>" + id + "/<?=$tbl_event['id']?>";
-    }
-</script>
