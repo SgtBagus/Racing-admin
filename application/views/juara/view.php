@@ -40,14 +40,6 @@
                                                             <input type="text" class="form-control" value="<?= $tbl_event['phone'] ?>" readonly>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label> Hubungi Melalui</label>
-                                                            <a href="#" target="_blank">
-                                                                <button type="button" class="btn btn-sm btn-success btn-block"><i class="fa fa-whatsapp"></i> Whatsapp</button>
-                                                            </a>
-                                                        </div>
-                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -108,210 +100,27 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">Juara Umum</h3>
-                    </div>
-                    <div class="box-body">
-                        <div class="form-group">
-                            <center>
-                                <?php if ($tbl_raider) { ?>
-                                    <img src="<?= $file_raider['url'] ?>" style="width: 200px; height: 200px; border-radius: 20px" class="img img-thumbnail">
-                                    <br>
-                                    <h4>
-                                        <b>
-                                            <?= $tbl_raider['name'] ?> <?php if ($tbl_raider['verificacion'] == 'ENABLE') {
-                                                                                echo '<i class="fa fa-check-circle" style="color: #3b8dbc"> </i>';
-                                                                            } ?>
-                                        </b>
-                                        <br>
-                                        Point : <?= $point ?>
-                                    </h4>
-                                <?php } else { ?>
-                                    Belum Tersedia
-                                <?php } ?>
-                            </center>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="col-md-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">Data Juara</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>Paket Juara</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="pull-right">
+                                        <a href="javascript::void(0)" onclick="create()">
+                                            <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Paket Juara</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="box-body">
+                            <div class="show_error"></div>
                             <div class="table-responsive">
-                                <table id="datatable" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr class="bg-success">
-                                            <th>No</th>
-                                            <th>Hari ke / Tanggal</th>
-                                            <th>Juara Ke 1</th>
-                                            <th>Juara Ke 2</th>
-                                            <th>Juara Ke 3</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1;
-                                        foreach ($tbl_juara as $row) {
-                                            $tbl_juara_detail = $this->mymodel->selectWithQuery("SELECT id, id_raider, MAX(point) as point FROM tbl_juara_detail WHERE id_juara = '" . $row['id'] . "'");
-                                            $tbl_raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $tbl_juara_detail[0]['id_raider']));
-                                            $winner1 = $this->mymodel->selectDataone('tbl_juara_detail', array('id_event' => $tbl_event['id'], 'id_juara' => $row['id'], 'juara' => '1'));
-                                            $winner2 = $this->mymodel->selectDataone('tbl_juara_detail', array('id_event' => $tbl_event['id'], 'id_juara' => $row['id'], 'juara' => '2'));
-                                            $winner3 = $this->mymodel->selectDataone('tbl_juara_detail', array('id_event' => $tbl_event['id'], 'id_juara' => $row['id'], 'juara' => '3'));
-                                            ?>
-                                            <tr>
-                                                <td><?= $i ?></td>
-                                                <td>
-                                                    <?php $days = $row['days']; ?>
-                                                    <?= $row['days'] . " / " . date('d M Y', strtotime($tbl_event['tgleventStart'] . ' +' . strval($days - 1) . ' day')) ?>
-                                                </td>
-                                                <td style="width:300px">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <?php if ($winner1) { ?>
-                                                                <form method="POST" action="<?= base_url('juara/updateWinner_1/') . $tbl_juara_detail[0]['id'] ?>">
-                                                                <?php } else { ?>
-                                                                    <form method="POST" action="<?= base_url('juara/addWinner_1/') . $row['id'] ?>">
-                                                                    <?php } ?>
-                                                                    <div class="show_error"></div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <label>Rider : </label>
-                                                                            <select name="dtd[idRaider]" class="form-control select2" style="width:100%">
-                                                                                <?php
-                                                                                    foreach ($raider_terdaftar as $raider_terdaftar_record) {
-                                                                                        $name_raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $raider_terdaftar_record['raider_id'])); ?>
-
-                                                                                    <option value=<?= $raider_terdaftar_record['raider_id'] ?> <?php if ($winner1['id_raider'] == $raider_terdaftar_record['raider_id']) {
-                                                                                                                                                            echo "selected";
-                                                                                                                                                        } ?>> <?= $name_raider['name'] ?></option>
-                                                                                <?php } ?>
-                                                                            </select>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="col-md-12">
-                                                                            <label>Point : </label>
-                                                                            <input type="number" name="dtd[point]" class="form-control" style="width:100% !important" value="<?= $winner1['point'] ?>">
-                                                                            <input type="hidden" name="dtd[idEvent]" class="form-control" value="<?= $row['id_event'] ?>">
-                                                                        </div>
-                                                                    </div>
-                                                                    <br>
-                                                                    <div align="right">
-                                                                        <?php if ($winner1) { ?>
-                                                                            <button type="submit" class="btn btn-primary btn-send">
-                                                                                <i class="fa fa-edit"></i> Ubah
-                                                                            </button>
-                                                                        <?php } else { ?>
-                                                                            <button type="submit" class="btn btn-primary btn-send">
-                                                                                <i class="fa fa-save"></i> Simpan
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                    </div>
-                                                                    </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td style="width:300px">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <?php if ($winner2) { ?>
-                                                                <form method="POST" action="<?= base_url('juara/updateWinner_2/') . $tbl_juara_detail[0]['id'] ?>">
-                                                                <?php } else { ?>
-                                                                    <form method="POST" action="<?= base_url('juara/addWinner_2/') . $row['id'] ?>">
-                                                                    <?php } ?>
-                                                                    <div class="show_error"></div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <label>Rider : </label>
-                                                                            <select name="dtd[idRaider]" class="form-control select2" style="width:100%">
-                                                                                <?php
-                                                                                    foreach ($raider_terdaftar as $raider_terdaftar_record) {
-                                                                                        $name_raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $raider_terdaftar_record['raider_id'])); ?>
-
-                                                                                    <option value=<?= $raider_terdaftar_record['raider_id'] ?> <?php if ($winner2['id_raider'] == $raider_terdaftar_record['raider_id']) {
-                                                                                                                                                            echo "selected";
-                                                                                                                                                        } ?>> <?= $name_raider['name'] ?></option>
-                                                                                <?php } ?>
-                                                                            </select>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="col-md-12">
-                                                                            <label>Point : </label>
-                                                                            <input type="number" name="dtd[point]" class="form-control" style="width:100% !important" value="<?= $winner2['point'] ?>">
-                                                                            <input type="hidden" name="dtd[idEvent]" class="form-control" value="<?= $row['id_event'] ?>">
-                                                                        </div>
-                                                                    </div>
-                                                                    <br>
-                                                                    <div align="right">
-                                                                        <?php if ($winner2) { ?>
-                                                                            <button type="submit" class="btn btn-primary btn-send">
-                                                                                <i class="fa fa-edit"></i> Ubah
-                                                                            </button>
-                                                                        <?php } else { ?>
-                                                                            <button type="submit" class="btn btn-primary btn-send">
-                                                                                <i class="fa fa-save"></i> Simpan
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                    </div>
-                                                                    </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td style="width:300px">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <?php if ($winner3) { ?>
-                                                                <form method="POST" action="<?= base_url('juara/updateWinner_3/') . $tbl_juara_detail[0]['id'] ?>">
-                                                                <?php } else { ?>
-                                                                    <form method="POST" action="<?= base_url('juara/addWinner_3/') . $row['id'] ?>">
-                                                                    <?php } ?>
-                                                                    <div class="show_error"></div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <label>Rider : </label>
-                                                                            <select name="dtd[idRaider]" class="form-control select2" style="width:100%">
-                                                                                <?php
-                                                                                    foreach ($raider_terdaftar as $raider_terdaftar_record) {
-                                                                                        $name_raider = $this->mymodel->selectDataone('tbl_raider', array('id' => $raider_terdaftar_record['raider_id'])); ?>
-
-                                                                                    <option value=<?= $raider_terdaftar_record['raider_id'] ?> <?php if ($winner3['id_raider'] == $raider_terdaftar_record['raider_id']) {
-                                                                                                                                                            echo "selected";
-                                                                                                                                                        } ?>> <?= $name_raider['name'] ?></option>
-                                                                                <?php } ?>
-                                                                            </select>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="col-md-12">
-                                                                            <label>Point : </label>
-                                                                            <input type="number" name="dtd[point]" class="form-control" style="width:100% !important" value="<?= $winner3['point'] ?>">
-                                                                            <input type="hidden" name="dtd[idEvent]" class="form-control" value="<?= $row['id_event'] ?>">
-                                                                        </div>
-                                                                    </div>
-                                                                    <br>
-                                                                    <div align="right">
-                                                                        <?php if ($winner3) { ?>
-                                                                            <button type="submit" class="btn btn-primary btn-send">
-                                                                                <i class="fa fa-edit"></i> Ubah
-                                                                            </button>
-                                                                        <?php } else { ?>
-                                                                            <button type="submit" class="btn btn-primary btn-send">
-                                                                                <i class="fa fa-save"></i> Simpan
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                    </div>
-                                                                    </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <?php $i++;
-                                        } ?>
-                                    </tbody>
-                                </table>
+                                <div id="load-table"></div>
                             </div>
                         </div>
                     </div>
@@ -325,3 +134,158 @@
         </div>
     </section>
 </div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" tbl_paket="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-form">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title-form"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="load-form"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-sm" tabindex="-1" tbl_paket="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-delete">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form id="upload-delete" action="<?= base_url('juara/paketdelete') ?>">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="delete-input">
+                    <p>Are you sure to delete this data?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-send">Yes, Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function loadtable(status) {
+
+        var table = '<table class="table table-bordered" id="mytable">' +
+            '     <thead>' +
+            '     <tr class="bg-success">' +
+            '       <th style="width:20px">No</th>' +
+            '       <th style="width:1000px">Judul Paket Juara</th>' +
+            '       <th></th>' +
+            '     </tr>' +
+            '     </thead>' +
+            '     <tbody>' +
+            '     </tbody>' +
+            ' </table>';
+        $("#load-table").html(table)
+
+        var t = $("#mytable").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input').off('.DT').on('keyup.DT', function(e) {
+                    if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                    }
+                });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": "<?= base_url('juara/paketjson/').$tbl_event['id'] ?>",
+            },
+            columns: [{
+                    "data": "id",
+                    "orderable": false
+                },
+                {
+                    "data": "title"
+                },
+                {
+                    "data": "view",
+                    "orderable": false
+                }
+            ],
+            order: [
+                [1, 'asc']
+            ],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+    }
+
+    loadtable($("#select-status").val());
+
+    function edit(id) {
+        $("#load-form").html('loading...');
+        $("#modal-form").modal();
+        $("#title-form").html('Edit Tbl Paket');
+        $("#load-form").load("<?= base_url('juara/paketedit/') ?>" + id + "/<?= $tbl_event['id'] ?>");
+    }
+    
+    function view(id) {
+        location.href = "<?= base_url('juara/paket/') ?>" + id + '/<?=$tbl_event['id']?>';
+    }
+
+    function create() {
+        $("#load-form").html('loading...');
+        $("#modal-form").modal();
+        $("#title-form").html('Create Tbl Paket');
+        $("#load-form").load("<?= base_url('juara/paketcreate/') . $tbl_event['id'] ?>");
+    }
+
+    function hapus(id) {
+        $("#modal-delete").modal('show');
+        $("#delete-input").val(id);
+    }
+
+    $("#upload-delete").submit(function() {
+        event.preventDefault();
+        var form = $(this);
+        var mydata = new FormData(this);
+        $.ajax({
+            type: "POST",
+            url: form.attr("action"),
+            data: mydata,
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+                $(".btn-send").addClass("disabled").html("<i class='la la-spinner la-spin'></i>  Processing...").attr('disabled', true);
+                $(".show_error").slideUp().html("");
+            },
+            success: function(response, textStatus, xhr) {
+                var str = response;
+                if (str.indexOf("success") != -1) {
+                    $(".show_error").hide().html(response).slideDown("fast");
+                    $(".btn-send").removeClass("disabled").html('Yes, Delete it').attr('disabled', false);
+                } else {
+                    setTimeout(function() {
+                        $("#modal-delete").modal('hide');
+                    }, 1000);
+                    $(".show_error").hide().html(response).slideDown("fast");
+                    $(".btn-send").removeClass("disabled").html('Yes , Delete it').attr('disabled', false);
+                    loadtable($("#select-status").val());
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {}
+        });
+        return false;
+    });
+</script>

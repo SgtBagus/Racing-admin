@@ -18,118 +18,148 @@ class Juara extends MY_Controller
         $data['page_name'] = "Data Juara";
         $data['tbl_event'] = $this->mymodel->selectDataone('tbl_event', array('id' => $id));
         $data['file_event'] = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'tbl_event'));
-
-        $data['tbl_juara'] = $this->mymodel->selectWhere('tbl_juara', array('id_event' => $id));
-
-        $tbl_juara_detail = $this->mymodel->selectWithQuery("SELECT id_raider, SUM(point) as point FROM tbl_juara_detail WHERE id_event = '" . $id . "' GROUP BY id_raider ORDER BY point DESC LIMIT 1");
-
-        $data['tbl_raider'] = $this->mymodel->selectDataone('tbl_raider', array('id' => $tbl_juara_detail[0]['id_raider']));
-        $data['file_raider'] = $this->mymodel->selectDataone('file', array('table_id' => $tbl_juara_detail[0]['id_raider'], 'table' => 'tbl_raider'));
-
-        $data['point'] = $tbl_juara_detail[0]['point'];
-
-
-        
-        $data['raider_terdaftar'] = $this->mymodel->selectWithQuery("SELECT a.raider_id as raider_id FROM tbl_event_register_raider a INNER JOIN tbl_event_register b ON a.event_register_id = b.id WHERE b.approve = 'APPROVE' AND b.event_id = " . $id);
         $this->template->load('template/template', 'juara/view', $data);
     }
 
-    public function validate()
+    public function paketcreate($event_id)
+    {
+        $data['event_id'] = $event_id;
+        $this->load->view('juara/add-tbl_paket', $data);
+    }
+
+    public function paketvalidate()
     {
         $this->form_validation->set_error_delimiters('<li>', '</li>');
-        $this->form_validation->set_rules('dtd[point][0]', '<strong>Point Raider Juara 1 </strong>Mohon Disini', 'required');
-        $this->form_validation->set_rules('dtd[point][1]', '<strong>Point Raider Juara 2 </strong>Mohon Disini', 'required');
-        $this->form_validation->set_rules('dtd[point][2]', '<strong>Point Raider Juara 3 </strong>Mohon Disini', 'required');
-        $this->form_validation->set_message('required', '%s');
+        $this->form_validation->set_rules('dt[title]', '<strong>Title</strong>', 'required');
     }
 
-    public function addWinner_1($id)
+    public function paketstore()
     {
-        $dtd['id_juara'] = $id;
-        $dtd['id_event'] = $_POST['dtd']['idEvent'];
-        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
-        $dtd['juara'] = 1;
-        $dtd['point'] = $_POST['dtd']['point'];
-        $dtd['status'] = 'ENABLE';
-        $dtd['created_at'] = date("Y-m-d H:i:s");
-
-        $this->db->insert('tbl_juara_detail', $dtd);
-
-		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
-    }
-
-    public function updateWinner_1($id)
-    {
-        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
-        $dtd['point'] = $_POST['dtd']['point'];
-        $dtd['updated_at'] = date("Y-m-d H:i:s");
-
-        $this->mymodel->updateData('tbl_juara_detail', $dtd, array('id' => $id));
-		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
-    }
-
-    public function addWinner_2($id)
-    {
-        $dtd['id_juara'] = $id;
-        $dtd['id_event'] = $_POST['dtd']['idEvent'];
-        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
-        $dtd['juara'] = 2;
-        $dtd['point'] = $_POST['dtd']['point'];
-        $dtd['status'] = 'ENABLE';
-        $dtd['created_at'] = date("Y-m-d H:i:s");
-
-        $this->db->insert('tbl_juara_detail', $dtd);
-
-		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
-    }
-
-    public function updateWinner_2($id)
-    {
-        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
-        $dtd['point'] = $_POST['dtd']['point'];
-        $dtd['updated_at'] = date("Y-m-d H:i:s");
-
-        $this->mymodel->updateData('tbl_juara_detail', $dtd, array('id' => $id));
-		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
-    }
-
-    public function addWinner_3($id)
-    {
-        $dtd['id_juara'] = $id;
-        $dtd['id_event'] = $_POST['dtd']['idEvent'];
-        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
-        $dtd['juara'] = 3;
-        $dtd['point'] = $_POST['dtd']['point'];
-        $dtd['status'] = 'ENABLE';
-        $dtd['created_at'] = date("Y-m-d H:i:s");
-
-        $this->db->insert('tbl_juara_detail', $dtd);
-
-		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
-    }
-
-    public function updateWinner_3($id)
-    {
-        $dtd['id_raider'] = $_POST['dtd']['idRaider'];
-        $dtd['point'] = $_POST['dtd']['point'];
-        $dtd['updated_at'] = date("Y-m-d H:i:s");
-
-        $this->mymodel->updateData('tbl_juara_detail', $dtd, array('id' => $id));
-		header('Location:'.base_url('juara/view/'.$_POST['dtd']['idEvent']));
-    }
-
-    public function update()
-    {
-        $array = count($_POST['dtd']);
-        for ($i = 0; $i <= $array; $i++) {
-            $dtd['id_raider'] = $_POST['dtd']['idRaider'][$i];
-            $dtd['point'] = $_POST['dtd']['point'][$i];
-            $dtd['updated_at'] = date("Y-m-d H:i:s");
-            $this->mymodel->updateData('tbl_juara_detail', $dtd, array('id' => $_POST['dtd']['id_juara'][$i]));
+        $this->paketvalidate();
+        if ($this->form_validation->run() == FALSE) {
+            $this->alert->alertdanger(validation_errors());
+        } else {
+            $dt = $_POST['dt'];
+            $dt['created_at'] = date('Y-m-d H:i:s');
+            $dt['status'] = "ENABLE";
+            $this->db->insert('tbl_paket', $dt);
+            $this->alert->alertsuccess('Success Send Data');
         }
-        $this->alert->alertsuccess('Success Update Data');
     }
 
+    public function paketjson($event_id)
+    {
+        header('Content-Type: application/json');
+        $this->datatables->select('id,id_event,title,status');
+        $this->datatables->from('tbl_paket');
+        $this->datatables->where('id_event', $event_id);
+        $this->datatables->add_column('view', '<div class="btn-group"><button type="button" class="btn btn-sm btn-info" onclick="view($1)"><i class="fa fa-eye"></i> Lihat</button><button type="button" class="btn btn-sm btn-primary" onclick="edit($1)"><i class="fa fa-pencil"></i> Edit</button><button type="button" onclick="hapus($1)" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Hapus</button></div>', 'id');
+        echo $this->datatables->generate();
+    }
+    public function paketedit($id, $event_id)
+    {
+        $data['tbl_paket'] = $this->mymodel->selectDataone('tbl_paket', array('id' => $id));
+        $data['page_name'] = "tbl_paket";
+        $this->load->view('juara/edit-tbl_paket', $data);
+    }
+
+
+    public function paketupdate()
+    {
+        $this->form_validation->set_error_delimiters('<li>', '</li>');
+        $this->paketvalidate();
+        if ($this->form_validation->run() == FALSE) {
+            $this->alert->alertdanger(validation_errors());
+        } else {
+            $id = $this->input->post('id', TRUE);
+            $dt = $_POST['dt'];
+            $dt['updated_at'] = date("Y-m-d H:i:s");
+            $this->mymodel->updateData('tbl_paket', $dt, array('id' => $id));
+            $this->alert->alertsuccess('Success Update Data');
+        }
+    }
+
+    public function paketdelete()
+    {
+        $id = $this->input->post('id', TRUE);
+        $this->mymodel->deleteData('tbl_paket',  array('id' => $id));
+        $this->alert->alertdanger('Success Delete Data');
+    }
+
+    public function paket($id, $event_id)
+    {
+        $data['tbl_event'] = $this->mymodel->selectDataone('tbl_event', array('id' => $event_id));
+        $data['tbl_paket'] = $this->mymodel->selectDataone('tbl_paket', array('id' => $id));
+
+        $this->template->load('template/template', 'juara/paket/index', $data);
+    }
+
+    public function detailpaketjson($id)
+    {
+        header('Content-Type: application/json');
+        $this->datatables->select('a.id,b.name as id_team,c.name as id_raider,a.number,a.keterangan');
+        $this->datatables->from('tbl_paket_detail a');
+        $this->datatables->join("tbl_team b", "b.id=a.id_team", 'left');
+        $this->datatables->join("tbl_raider c", "c.id=a.id_raider", 'left');
+        $this->datatables->where('a.id_paket', $id);
+        $this->datatables->add_column('view', '<div class="btn-group"><button type="button" class="btn btn-sm btn-primary" onclick="edit($1)"><i class="fa fa-pencil"></i> Edit</button><button type="button" onclick="hapus($1)" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Hapus</button></div>', 'id');
+        echo $this->datatables->generate();
+    }
+
+    public function detailpaketcreate($paket_id)
+    {
+        $data['paket_id'] = $paket_id;
+        $this->load->view('juara/paket/add-tbl_paket_detail', $data);
+    }
+
+    public function paketdetailvalidate()
+    {
+        $this->form_validation->set_error_delimiters('<li>', '</li>');
+        $this->form_validation->set_rules('dt[id_team]', '<strong>Id Team</strong>', 'required');
+        $this->form_validation->set_rules('dt[number]', '<strong>Number</strong>', 'required');
+    }
+
+    public function paketdetailstore()
+    {
+        $this->paketdetailvalidate();
+        if ($this->form_validation->run() == FALSE) {
+            $this->alert->alertdanger(validation_errors());
+        } else {
+            $dt = $_POST['dt'];
+            $dt['created_at'] = date('Y-m-d H:i:s');
+            $dt['status'] = "ENABLE";
+            $str = $this->db->insert('tbl_paket_detail', $dt);
+            $this->alert->alertsuccess('Success Send Data');
+        }
+    }
+
+    public function detailpaketedit($id)
+    {
+        $data['tbl_paket_detail'] = $this->mymodel->selectDataone('tbl_paket_detail', array('id' => $id));
+        $data['page_name'] = "tbl_paket_detail";
+        $this->load->view('juara/paket/edit-tbl_paket_detail', $data);
+    }
+
+    public function paketdetailupdate()
+    {
+        $this->paketdetailvalidate();
+        if ($this->form_validation->run() == FALSE) {
+            $this->alert->alertdanger(validation_errors());
+        } else {
+            $id = $this->input->post('id', TRUE);
+            $dt = $_POST['dt'];
+            $dt['updated_at'] = date("Y-m-d H:i:s");
+            $this->mymodel->updateData('tbl_paket_detail', $dt, array('id' => $id));
+            $this->alert->alertsuccess('Success Update Data');
+        }
+    }
+
+    public function pakedetaildelete()
+    {
+        $id = $this->input->post('id', TRUE);
+        $this->mymodel->deleteData('tbl_paket_detail',  array('id' => $id));
+        $this->alert->alertdanger('Success Delete Data');
+    }
 }
 /* End of file Home.php */
 /* Location: ./application/controllers/Home.php */
