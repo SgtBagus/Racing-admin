@@ -13,7 +13,7 @@
           <div class="box-header">
             <h5 class="box-title">Tambah Gambar</h5>
           </div>
-          <form method="POST" action="<?= base_url('gallery/add_image/'.$master_imagegroup['id'])?>" id="add-image" enctype="multipart/form-data" class="form-horizontal">
+          <form method="POST" action="<?= base_url('eventdokumentasi/add_image/'.$master_imagegroup['id'])?>" id="add-image" enctype="multipart/form-data" class="form-horizontal">
             <div class="box-body">
               <div class="show_error"></div>
               <div class="form-group">
@@ -22,10 +22,10 @@
                   <select class="form-control select2" name="dt[imagegroup_id]" disabled="disabled">
                     <option value="">-- Pilih Kategori Gambar --</option>
                     <?php
-                    $master_imagegroup = $this->mymodel->selectData("master_imagegroup");
-                    foreach ($master_imagegroup as $key => $value) {
+                    $master_image = $this->mymodel->selectData("master_imagegroup");
+                    foreach ($master_image as $key => $value) {
                       ?>
-                      <option value="<?= $value['id'] ?>" <?php if($tbl_gallery['imagegroup_id'] == $value['id']) { echo "selected"; } ?> ><?= $value['value'] ?></option>
+                      <option value="<?= $value['id'] ?>" <?php if($master_imagegroup['id'] == $value['id']) { echo "selected"; } ?> ><?= $value['value'] ?></option>
                     <?php } ?>
                   </select>
                 </div>
@@ -55,7 +55,7 @@
               </div>
             </div>
             <div class="box-footer" align="right">
-              <a href="<?= base_url('gallery/edit/').$master_imagegroup['id'] ?>">
+              <a href="<?= base_url('eventdokumentasi/imgedit/'.$master_imagegroup['id'].'/').$master_imagegroup['id_event'] ?>">
                 <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Kembali</button>
               </a>
               <button type="submit" class="btn btn-primary btn-send" ><i class="fa fa-save"></i> Tambah</button>
@@ -108,7 +108,7 @@
         if (str.indexOf("success") != -1){
           form.find(".show_error").hide().html(response).slideDown("fast");
           setTimeout(function(){ 
-            window.location.href = "<?= base_url('gallery/')?>";
+            window.location.href = "<?= base_url('eventdokumentasi/imgedit/'.$master_imagegroup['id'].'/'.$master_imagegroup['id_event'])?>";
           }, 1000);
 
           $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Tambah').attr('disabled',false);

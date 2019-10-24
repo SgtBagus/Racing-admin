@@ -258,19 +258,14 @@ class Gallery extends MY_Controller {
 		}
 		$this->alert->alertsuccess('Success Send Data');
 	}
-
-	public function publicStatus($id,$status){
-		$this->mymodel->updateData('master_imagegroup',array('public'=>$status),array('id'=>$id));
-		header('Location: '.base_url('gallery'));
-	}
- 
+	
 	public function delete_image($id){
 		$file_dir = $this->mymodel->selectDataone('file', array('table_id'=>$id, 'table' => 'tbl_gallery'));
 		@unlink($file_dir['dir']);
 
 		$this->mymodel->deleteData('file', array('table_id'=>$id, 'table' => 'tbl_gallery'));
 		$this->mymodel->deleteData('tbl_gallery', array('id'=>$id));
-		header('Location: '.base_url('gallery'.$project_slug['id']));
+		header('Location: '.base_url('gallery'));
 	}
 
 	public function delete_Allimage($id){

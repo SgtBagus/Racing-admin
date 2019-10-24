@@ -26,7 +26,7 @@ class Imagegroup extends MY_Controller {
 
 	}
 
-	public function create()
+	public function create() 
 
 	{
 
@@ -241,7 +241,7 @@ class Imagegroup extends MY_Controller {
 				@unlink($file_dir['dir']);
 			}
 			$this->mymodel->deleteData('file',  array('id' => $file_dir['id']));
-			$this->mymodel->deleteData('master_gallery',  array('id' => $id));
+			$this->mymodel->deleteData('master_imagegroup',  array('id' => $id));
 			header('Location:'.base_url('master/imagegroup'));
 
 			$this->alert->alertdanger('Success Delete Data');     

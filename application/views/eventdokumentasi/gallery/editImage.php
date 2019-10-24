@@ -11,21 +11,20 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header">
-            <h5 class="box-title">Tambah Gambar</h5>
+            <h5 class="box-title">Edit Gambar</h5>
           </div>
-          <form method="POST" action="<?= base_url('gallery/add_image/'.$master_imagegroup['id'])?>" id="add-image" enctype="multipart/form-data" class="form-horizontal">
+          <form method="POST" action="<?= base_url('eventdokumentasi/edit_image/'.$tbl_gallery['id'])?>" id="add-image" enctype="multipart/form-data" class="form-horizontal">
             <div class="box-body">
               <div class="show_error"></div>
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-3 control-label">Kategori Gambar*</label>
                 <div class="col-sm-9">
-                  <select class="form-control select2" name="dt[imagegroup_id]" disabled="disabled">
-                    <option value="">-- Pilih Kategori Gambar --</option>
+                  <select class="form-control select2" name="dt[imagegroup_id]">
                     <?php
-                    $master_imagegroup = $this->mymodel->selectData("master_imagegroup");
-                    foreach ($master_imagegroup as $key => $value) {
+                    $master_image = $this->mymodel->selectWhere("master_imagegroup", array("id_event" => $event_id));
+                    foreach ($master_image as $key => $value) {
                       ?>
-                      <option value="<?= $value['id'] ?>" <?php if($tbl_gallery['imagegroup_id'] == $value['id']) { echo "selected"; } ?> ><?= $value['value'] ?></option>
+                      <option value="<?= $value['id'] ?>" <?php if($master_imagegroup['id'] == $value['id']) { echo "selected"; } ?> ><?= $value['value'] ?></option>
                     <?php } ?>
                   </select>
                 </div>
@@ -34,7 +33,7 @@
                 <label for="inputEmail3" class="col-sm-3 control-label">Gambar*</label>
                 <div class="col-sm-9">
                   <div class="col-md-6 col-xs-12">
-                    <img src="https://getuikit.com/v2/docs/images/placeholder_600x400.svg" alt="User Image" width="100%" height="250px" id="preview_image-add">
+                    <img src="<?= $file['url'] ?>" alt="User Image" width="100%" height="250px" id="preview_image-add">
                   </div>
                   <div class="col-md-6 col-xs-12">
                     <button type="button" class="btn btn-sm btn-primary" id="btnFile-modal-add"><i class="fa fa-file"></i> Browser File</button>
@@ -43,11 +42,11 @@
                     <div class="col-md-10">
                       <div class="form-group">
                         <label>Judul Gambar*</label>
-                        <input type="text" class="form-control" placeholder="Masukan Nama gambar"name="dt[title]">
+                        <input type="text" class="form-control" placeholder="Masukan Nama gambar" value="<?= $tbl_gallery['title']?>" name="dt[title]">
                       </div>
                       <div class="form-group">
                         <label>Caption Gambar</label>
-                        <textarea class="form-control" rows="5" name="dt[caption]"></textarea>
+                        <textarea class="form-control" rows="5" name="dt[caption]"><?= $tbl_gallery['caption']?></textarea>
                       </div>
                     </div>
                   </div>
@@ -55,10 +54,10 @@
               </div>
             </div>
             <div class="box-footer" align="right">
-              <a href="<?= base_url('gallery/edit/').$master_imagegroup['id'] ?>">
+              <a href="<?= base_url('eventdokumentasi/imgedit/'.$master_imagegroup['id'].'/').$master_imagegroup['id_event'] ?>">
                 <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Kembali</button>
               </a>
-              <button type="submit" class="btn btn-primary btn-send" ><i class="fa fa-save"></i> Tambah</button>
+              <button type="submit" class="btn btn-primary btn-send" ><i class="fa fa-save"></i> Simpan</button>
             </div>
           </form>
         </div>
@@ -108,18 +107,18 @@
         if (str.indexOf("success") != -1){
           form.find(".show_error").hide().html(response).slideDown("fast");
           setTimeout(function(){ 
-            window.location.href = "<?= base_url('gallery/')?>";
+            window.location.href = "<?= base_url('eventdokumentasi/imgedit/'.$master_imagegroup['id'].'/'.$master_imagegroup['id_event'])?>";
           }, 1000);
 
-          $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Tambah').attr('disabled',false);
+          $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Simpan').attr('disabled',false);
         }else{
           form.find(".show_error").hide().html(response).slideDown("fast");
-          $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Tambah').attr('disabled',false);
+          $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Simpan').attr('disabled',false);
         }
       },
       error: function(xhr, textStatus, errorThrown) {
         console.log(xhr);
-        $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Tambah').attr('disabled',false);
+        $(".btn-send").removeClass("disabled").html('<i class="fa fa-save"></i> Simpan').attr('disabled',false);
         form.find(".show_error").hide().html(xhr).slideDown("fast");
       }
     });
