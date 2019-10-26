@@ -5,6 +5,10 @@
         <label for="form-title">Judul Paket Juara</label>
         <input type="text" class="form-control" id="form-title" placeholder="Masukan Title" name="dt[title]">
     </div>
+    <div class="form-group">
+        <label for="form-title">File Juara</label>
+        <input type="file" class="form-control" name="rule">
+    </div>
     <hr>
     <button type="submit" class="btn btn-primary btn-send"><i class="fa fa-save"></i> Save</button>
     <button type="reset" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</button>

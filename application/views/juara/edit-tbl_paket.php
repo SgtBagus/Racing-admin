@@ -5,6 +5,29 @@
         <label for="form-title">Judul Paket Juara</label>
         <input type="text" class="form-control" id="form-title" placeholder="Masukan Title" name="dt[title]" value="<?= $tbl_paket['title'] ?>">
     </div>
+    <div class="form-group">
+        <label for="form-title">File Juara</label>
+        <br>
+        <?php
+        if ($rule) {
+            $types = explode("/", $rule['mime']);
+            ?>
+            <i class="fa fa-file fa-5x text-danger"></i> <?= $rule['name'] ?>
+            <br>
+            <div class="col-md-12">
+                <a href="<?= base_url($rule['dir']) ?>" target="_blank">
+                    <button type="button" class="btn btn-send btn-info btn-sm btn-sm btn-primary"><i class="fa fa-eye"></i></button>
+                </a>
+                <a href="<?= base_url('download/downloadPDFPaket/' . $rule['id']) ?>">
+                    <button type="button" class="btn btn-send btn-warning btn-sm btn-sm btn-danger"><i class="fa fa-download"></i></button>
+                </a>
+            </div>
+            <br>
+            <br>
+        <?php
+        } ?>
+        <input type="file" class="form-control" name="rule">
+    </div>
     <hr>
     <button type="submit" class="btn btn-primary btn-send"><i class="fa fa-save"></i> Save</button>
     <button type="reset" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</button>

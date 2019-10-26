@@ -20,8 +20,6 @@
                                         <th>Judul Event</th>
                                         <th>Tgl Event Dimulai</th>
                                         <th>Tgl Event Berakhir</th>
-                                        <th>Juara Raider Umum Saat ini</th>
-                                        <th>Juara Point Umum Saat ini</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -36,8 +34,6 @@
                                             <td><?= $row['title'] ?></td>
                                             <td><?= date('d M Y', strtotime($row['tgleventStart'])) ?></td>
                                             <td><?= date('d M Y', strtotime($row['tgleventEnd'])) ?></td>
-                                            <td>Raider 1</td>
-                                            <td>23612</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-sm btn-info" onclick="view(<?= $row['id'] ?>)">

@@ -43,6 +43,35 @@ class Juara extends MY_Controller
             $dt['created_at'] = date('Y-m-d H:i:s');
             $dt['status'] = "ENABLE";
             $this->db->insert('tbl_paket', $dt);
+            $last_id = $this->db->insert_id();
+
+            if (!empty($_FILES['rule']['name'])) {
+                $dirrule  = "webfiles/juara/";
+                $configrule['upload_path']          = $dirrule;
+                $configrule['allowed_types']        = '*';
+                $configrule['file_name']           = md5('smartsoftstudio') . rand(1000, 100000);
+
+                $this->load->library('upload', $configrule);
+                if (!$this->upload->do_upload('rule')) {
+                    $error = $this->upload->display_errors();
+                    $this->alert->alertdanger($error);
+                } else {
+                    $rule = $this->upload->data();
+                    $datarule = array(
+                        'name' => $rule['file_name'],
+                        'mime' => $rule['file_type'],
+                        'dir' => $dirrule . $rule['file_name'],
+                        'table' => 'paket_file',
+                        'table_id' => $last_id,
+                        'status' => 'ENABLE',
+                        'url' => base_url() . $dirrule . $rule['file_name'],
+                        'created_at' => date('Y-m-d H:i:s')
+                    );
+                    $str = $this->db->insert('file', $datarule);
+                }
+            }
+
+
             $this->alert->alertsuccess('Success Send Data');
         }
     }
@@ -56,9 +85,12 @@ class Juara extends MY_Controller
         $this->datatables->add_column('view', '<div class="btn-group"><button type="button" class="btn btn-sm btn-info" onclick="view($1)"><i class="fa fa-eye"></i> Lihat</button><button type="button" class="btn btn-sm btn-primary" onclick="edit($1)"><i class="fa fa-pencil"></i> Edit</button><button type="button" onclick="hapus($1)" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Hapus</button></div>', 'id');
         echo $this->datatables->generate();
     }
+
     public function paketedit($id, $event_id)
     {
         $data['tbl_paket'] = $this->mymodel->selectDataone('tbl_paket', array('id' => $id));
+        $data['rule'] = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'paket_file'));
+
         $data['page_name'] = "tbl_paket";
         $this->load->view('juara/edit-tbl_paket', $data);
     }
@@ -75,6 +107,42 @@ class Juara extends MY_Controller
             $dt = $_POST['dt'];
             $dt['updated_at'] = date("Y-m-d H:i:s");
             $this->mymodel->updateData('tbl_paket', $dt, array('id' => $id));
+
+            if (!empty($_FILES['rule']['name'])) {
+                $dirrule  = "webfiles/juara/";
+                $confrule['upload_path']          = $dirrule;
+                $confrule['allowed_types']        = '*';
+                $confrule['file_name']           = md5('smartsoftstudio') . rand(1000, 100000);
+
+                $this->load->library('upload', $confrule);
+                if (!$this->upload->do_upload('rule')) {
+                    $error = $this->upload->display_errors();
+                    $this->alert->alertdanger($error);
+                } else {
+                    $filerule = $this->upload->data();
+                    $datarule = array(
+                        'name' => $filerule['file_name'],
+                        'mime' => $filerule['file_type'],
+                        'dir' => $dirrule . $filerule['file_name'],
+                        'table' => 'paket_file',
+                        'table_id' =>  $id,
+                        'url' => base_url() . $dirrule . $filerule['file_name'],
+                        'status' => 'ENABLE',
+                        'created_at' => date('Y-m-d H:i:s')
+                    );
+                    $filerulecheck = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'paket_file'));
+
+                    if ($filerulecheck['name']) {
+                        @unlink($filerulecheck['dir']);
+                    }
+
+                    if (!$filerulecheck) {
+                        $str = $this->db->insert('file', $datarule);
+                    } else {
+                        $this->mymodel->updateData('file', $datarule, array('table_id' =>  $id, 'table' => 'paket_file'));
+                    }
+                }
+            }
             $this->alert->alertsuccess('Success Update Data');
         }
     }
@@ -82,6 +150,13 @@ class Juara extends MY_Controller
     public function paketdelete()
     {
         $id = $this->input->post('id', TRUE);
+
+        $file_rule = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'paket_file'));
+        if ($file_rule['name']) {
+            @unlink($file_rule['dir']);
+        }
+        $this->mymodel->deleteData('file',  array('id' => $file_rule['id']));
+
         $this->mymodel->deleteData('tbl_paket',  array('id' => $id));
         $this->alert->alertdanger('Success Delete Data');
     }

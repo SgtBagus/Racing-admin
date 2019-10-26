@@ -32,11 +32,10 @@
                    <tr class="bg-success">
                      <th style="width:20px">No</th>
                      <th>Judul Event</th>
-                     <th>Nomor Petanggung Jawab</th>
+                     <th>Harga Pendaftaran</th>
                      <th>Tgl Event Dimulai</th>
                      <th>Tgl Event Berakhir</th>
-                     <th>Kota</th>
-                     <th>Alamat</th>
+                     <th>Aturan Event</th>
                      <th>Status Event</th>
                      <th>Public</th>
                      <th>Status Pendaftaran</th>
@@ -48,15 +47,34 @@
                     $i = 1;
                     foreach ($tbl_event as $row) {
                       $file =  $this->mymodel->selectDataOne('file', array('table_id' => $row['id'], 'table' => 'tbl_event'));
+                      $rule =  $this->mymodel->selectDataOne('file', array('table_id' => $row['id'], 'table' => 'event_rule'));
                       ?>
                      <tr>
                        <td><?= $i ?></td>
                        <td><?= $row['title'] ?></td>
-                       <td><?= $row['phone'] ?></td>
+                       <td>Rp <?= $row['harga'] ?>,-</td>
                        <td><?= date('d M Y', strtotime($row['tgleventStart'])) ?></td>
                        <td><?= date('d M Y', strtotime($row['tgleventEnd'])) ?></td>
-                       <td><?= $row['kota'] ?></td>
-                       <td><?= $row['alamat'] ?></td>
+                       <td align="center">
+                         <?php
+                            if ($rule) {
+                              echo '
+                          <div class="row" align="center">
+                          Peraturan Event - '.$row['title'].'
+                          <div class="col-md-12">
+                          <a href="'.base_url($rule['dir']).'" target="_blank">
+                          <button type="button" class="btn btn-send btn-info btn-sm btn-sm btn-primary"><i class="fa fa-eye"></i></button>
+                          </a>
+                          <a href="'.base_url('download/downloadPDFEvent/'.$rule['id']).'">
+                          <button type="button" class="btn btn-send btn-warning btn-sm btn-sm btn-danger"><i class="fa fa-download"></i></button>
+                          </a>
+                          </div>
+                          </div>';
+                            } else {
+                              echo "<p class='help-block'><i>Belum Tersedia</i></p>";
+                            }
+                            ?>
+                       </td>
                        <td align="center">
                          <?php
                             if ($row['statusEvent'] == 'STARTED') {

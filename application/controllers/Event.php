@@ -104,6 +104,33 @@ class Event extends MY_Controller {
 				);
 				$this->mymodel->insertData('file', $data);
 			}
+			
+			if (!empty($_FILES['rule']['name'])){
+				$dirrule  = "webfiles/event/";
+				$configrule['upload_path']          = $dirrule;
+				$configrule['allowed_types']        = '*';
+				$configrule['file_name']           = md5('smartsoftstudio').rand(1000,100000);
+
+				$this->load->library('upload', $configrule);
+				if (!$this->upload->do_upload('rule')){
+					$error = $this->upload->display_errors();
+					$this->alert->alertdanger($error);
+				}else{
+					$rule = $this->upload->data();
+					$datarule = array(
+						'name'=> $rule['file_name'],
+						'mime'=> $rule['file_type'],
+						'dir'=> $dirrule.$rule['file_name'],
+						'table'=> 'event_rule',
+						'table_id'=> $last_id,
+						'status'=>'ENABLE',
+						'url' => base_url() . $dirrule . $rule['file_name'],
+						'created_at'=>date('Y-m-d H:i:s')
+					);
+					$str = $this->db->insert('file', $datarule);
+				}
+			}
+
 			$this->alert->alertsuccess('Success Send Data');
 		}
 	}
@@ -111,6 +138,7 @@ class Event extends MY_Controller {
 	public function edit($id){
 		$data['tbl_event'] = $this->mymodel->selectDataone('tbl_event',array('id'=>$id));
 		$data['file'] = $this->mymodel->selectDataone('file',array('table_id'=>$id,'table'=>'tbl_event'));
+		$data['rule'] = $this->mymodel->selectDataone('file',array('table_id'=>$id,'table'=>'event_rule'));
 		$data['page_name'] = "Event";
 
 		if($data['tbl_event']){
@@ -165,6 +193,43 @@ class Event extends MY_Controller {
 					$this->mymodel->updateData('file', $data, array('table_id' =>  $id, 'table' => 'tbl_event'));
 				}
 			}
+
+			if (!empty($_FILES['rule']['name'])) {
+				$dirrule  = "webfiles/event/";
+				$confrule['upload_path']          = $dirrule;
+				$confrule['allowed_types']        = '*';
+				$confrule['file_name']           = md5('smartsoftstudio') . rand(1000, 100000);
+
+				$this->load->library('upload', $confrule);
+				if (!$this->upload->do_upload('rule')) {
+					$error = $this->upload->display_errors();
+					$this->alert->alertdanger($error);
+				} else {
+					$filerule = $this->upload->data();
+					$datarule = array(
+						'name' => $filerule['file_name'],
+						'mime' => $filerule['file_type'],
+						'dir' => $dirrule . $filerule['file_name'],
+						'table' => 'event_rule',
+						'table_id' =>  $id,
+						'url' => base_url() . $dirrule . $filerule['file_name'],
+						'status' => 'ENABLE',
+						'created_at' => date('Y-m-d H:i:s')
+					);
+					$filerulecheck = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'event_rule'));
+
+					if ($filerulecheck['name']) {
+						@unlink($filerulecheck['dir']);
+					}
+
+                    if (!$filerulecheck) {
+                        $str = $this->db->insert('file', $datarule);
+                    } else {
+                        $this->mymodel->updateData('file', $datarule, array('table_id' =>  $id, 'table' => 'event_rule'));
+					}
+				}
+			}
+
 			$this->alert->alertsuccess('Success Send Data');
 		}
 	}
@@ -177,9 +242,14 @@ class Event extends MY_Controller {
 		if($file_dir['name'] != 'event_default.jpg'){
 			@unlink($file_dir['dir']);
 		}
-		@unlink($file_dir['dir']);
-
 		$this->mymodel->deleteData('file',  array('id' => $file_dir['id']));
+
+		$file_rule = $this->mymodel->selectDataone('file', array('table_id' => $id, 'table' => 'event_rule'));
+		if($file_rule['name']){
+			@unlink($file_rule['dir']);
+		}
+		$this->mymodel->deleteData('file',  array('id' => $file_rule['id']));
+
 		$this->mymodel->deleteData('tbl_event',  array('id' => $id));
 		header('Location:'.base_url('event'));
 	}
