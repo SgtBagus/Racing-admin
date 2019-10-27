@@ -29,7 +29,7 @@
                     </div>
                     <div class="box-body">
                         <?php
-                        if($_GET['delete']){
+                        if ($_GET['delete']) {
                             echo '<div class="show_error">
                             <div class="alert alert-danger ks-solid ks-active-border" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -60,23 +60,29 @@
                                         <th>Nomor Whatsapp</th>
                                         <th>Verifikasi</th>
                                         <th>Status</th>
-                                        <!-- <th></th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1;
-                                    foreach ($tbl_raider as $row) { 
-                                        $photo = $this->mymodel->selectDataone('file', array('table' => 'tbl_raider', 'table_id' => $row['id'])); 
-                                        $team = $this->mymodel->selectDataone('tbl_team',  array('id' => $row['team_id'])); 
-                                        $motor = $this->mymodel->selectDataone('master_motor',  array('id' => $row['motor_id']));?>
+                                    foreach ($tbl_raider as $row) {
+                                        $photo = $this->mymodel->selectDataone('file', array('table' => 'tbl_raider', 'table_id' => $row['id']));
+                                        $team = $this->mymodel->selectDataone('tbl_team',  array('id' => $row['team_id']));
+                                        $motor = $this->mymodel->selectDataone('master_motor',  array('id' => $row['motor_id'])); ?>
                                         <tr>
                                             <td><?= $i ?></td>
-                                            <td><?= $team['name'] ?></td>
+                                            <td>
+                                                <?php if (!$team['name']) {
+                                                        echo "<p class='help-block'><i>Pendaftar Peorangan</i></p>";
+                                                    } else {
+                                                        echo $team['name'];
+                                                    } ?>
+                                            </td>
                                             <td align="center">
-                                                <img src="<?= $photo['url']?>" width="100px" height="100px" style="border-radius: 50%">
+                                                <img src="<?= $photo['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
                                             </td>
                                             <td>
                                                 <?= $row['name'] ?>
+                                                <br>
                                                 <small><?= $row['email'] ?></small>
                                             </td>
                                             <td><?= $row['alamat'] ?></td>
@@ -87,16 +93,16 @@
                                             <td><?= $motor['value'] ?></td>
                                             <td><?= $row['nowa'] ?></td>
                                             <td>
-                                                <?php if($row['verificacion']=='ENABLE'){?>
+                                                <?php if ($row['verificacion'] == 'ENABLE') { ?>
                                                     <p> Terverifikasikan </p>
-                                                    <a href="<?= base_url('raider/verificacion/').$row['id'] ?>/DISABLE">
+                                                    <a href="<?= base_url('raider/verificacion/') . $row['id'] ?>/DISABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-danger">
                                                             <i class="fa fa-ban"></i> LEPAS VERIFIKASI
                                                         </button>
                                                     </a>
-                                                <?php }else { ?>
+                                                <?php } else { ?>
                                                     <p> Belum Terverifikasi </p>
-                                                    <a href="<?= base_url('raider/verificacion/').$row['id'] ?>/ENABLE">
+                                                    <a href="<?= base_url('raider/verificacion/') . $row['id'] ?>/ENABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-primary">
                                                             <i class="fa fa-check-circle"></i> VERIFIKASI
                                                         </button>
@@ -104,29 +110,22 @@
                                                 <?php } ?>
                                             </td>
                                             <td>
-                                                <?php if($row['status']=='ENABLE'){?>
-                                                    <a href="<?= base_url('raider/status/').$row['id'] ?>/DISABLE">
+                                                <?php if ($row['status'] == 'ENABLE') { ?>
+                                                    <a href="<?= base_url('raider/status/') . $row['id'] ?>/DISABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-success">
                                                             <i class="fa fa-check-circle"></i> ENABLE
                                                         </button>
                                                     </a>
-                                                <?php }else { ?>
-                                                    <a href="<?= base_url('raider/status/').$row['id'] ?>/ENABLE">
+                                                <?php } else { ?>
+                                                    <a href="<?= base_url('raider/status/') . $row['id'] ?>/ENABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-danger">
                                                             <i class="fa fa-ban"></i> DISABLE
                                                         </button>
                                                     </a>
                                                 <?php } ?>
                                             </td>
-                                            <!-- <td>
-                                                <div class="btn-group">
-                                                    <button type="button" onclick="hapus(<?=$row['id']?>)" class="btn btn-sm btn-danger">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </button>
-                                                </div>
-                                            </td> -->
                                         </tr>
-                                        <?php $i++;
+                                    <?php $i++;
                                     } ?>
                                 </tbody>
                             </table>
@@ -143,14 +142,14 @@
     loadtable($("#select-status").val());
 
 
-    function modal(){
+    function modal() {
         $('#modal-impor').modal();
         $("#modal_title").text('Import Team');
     }
 
     function hapus(id) {
         $("#modal-delete").modal('show');
-        $('#upload-delete').attr('action', ' http://192.168.100.9:8000/raider/deleteapi/'+id);
+        $('#upload-delete').attr('action', ' http://192.168.100.9:8000/raider/deleteapi/' + id);
         $("#delete-input").val(id);
     }
 

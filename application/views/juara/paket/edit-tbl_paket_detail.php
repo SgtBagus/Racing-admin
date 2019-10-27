@@ -5,6 +5,7 @@
         <label>Team</label>
         <select class="form-control" name="dt[id_team]" id="team">
             <option value="">-- Pilih Team --</option>
+            <option value="0" <?php if ($tbl_paket_detail['id_team'] == "0") { echo "selected"; } ?> >Raider Tanpa Team</option>
             <?php
             $tbl_team = $this->mymodel->selectData("tbl_team");
             foreach ($tbl_team as $key => $value) {

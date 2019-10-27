@@ -69,20 +69,20 @@
 												</div>
 											</div>
 											<div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Tanggal Dimulai</label>
-                                                            <input type="text" class="form-control" value="<?= date('d M Y', strtotime($tbl_event['tgleventStart'])) ?>" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Tanggal Selesai</label>
-                                                            <input type="text" class="form-control" value="<?= date('d M Y', strtotime($tbl_event['tgleventEnd'])) ?>" readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>Tanggal Dimulai</label>
+															<input type="text" class="form-control" value="<?= date('d M Y', strtotime($tbl_event['tgleventStart'])) ?>" readonly>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>Tanggal Selesai</label>
+															<input type="text" class="form-control" value="<?= date('d M Y', strtotime($tbl_event['tgleventEnd'])) ?>" readonly>
+														</div>
+													</div>
+												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="row">
@@ -132,40 +132,44 @@
 						<h3 class="box-title">Data Team dan Manager</h3>
 					</div>
 					<div class="box-body">
-						<div class="col-md-6">
-							<div class="form-group">
-								<center>
-									<img src="<?= $file_team['url'] ?>" style="width: 200px; height: 200px; border-radius: 20px" class="img img-thumbnail">
-									<br>
-									<h4>
-										<b><?= $tbl_team['name'] ?></b><br>
-										<small>
-											<i class="fa fa-phone"></i> <?= $tbl_team['nowa'] ?>
-											<a href="#" target="_blank">
-												<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
-											</a>
-										</small>
-									</h4>
-								</center>
+						<?php if ($tbl_team != NULL) { ?>
+							<div class="col-md-6">
+								<div class="form-group">
+									<center>
+										<img src="<?= $file_team['url'] ?>" style="width: 200px; height: 200px; border-radius: 20px" class="img img-thumbnail">
+										<br>
+										<h4>
+											<b><?= $tbl_team['name'] ?></b><br>
+											<small>
+												<i class="fa fa-phone"></i> <?= $tbl_team['nowa'] ?>
+												<a href="#" target="_blank">
+													<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
+												</a>
+											</small>
+										</h4>
+									</center>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<center>
-									<img src="<?= $file_manager['url'] ?>" style="width: 200px; height: 200px; border-radius: 50%" class="img img-thumbnail">
-									<br>
-									<h4>
-										<b><?= $tbl_manager['name'] ?></b><br>
-										<small>
-											<i class="fa fa-phone"></i> <?= $tbl_manager['nowa'] ?>
-											<a href="#" target="_blank">
-												<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
-											</a>
-										</small>
-									</h4>
-								</center>
+							<div class="col-md-6">
+								<div class="form-group">
+									<center>
+										<img src="<?= $file_manager['url'] ?>" style="width: 200px; height: 200px; border-radius: 50%" class="img img-thumbnail">
+										<br>
+										<h4>
+											<b><?= $tbl_manager['name'] ?></b><br>
+											<small>
+												<i class="fa fa-phone"></i> <?= $tbl_manager['nowa'] ?>
+												<a href="#" target="_blank">
+													<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
+												</a>
+											</small>
+										</h4>
+									</center>
+								</div>
 							</div>
-						</div>
+						<?php } else { ?>
+							<h4 class='help-block'> Pendaftar Peorangan</h4>
+						<?php } ?>
 					</div>
 				</div>
 			</div>
@@ -208,9 +212,6 @@
 												<td><?= $motor['value'] ?></td>
 												<td>
 													<?= $raider['nowa'] ?>
-													<a href="#" target="_blank">
-														<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
-													</a>
 												</td>
 											</tr>
 										<?php $i++;

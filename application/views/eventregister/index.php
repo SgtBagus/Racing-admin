@@ -35,7 +35,13 @@
                     <tr>
                       <td><?= $i ?></td>
                       <td><?=  $event['title'] ?></td>
-                      <td><?=  $team['name'] ?></td>
+                      <td>
+                        <?php if (!$team['name']) { 
+                          echo "<p class='help-block'><i>Pendaftar Peorangan</i></p>";
+                        } else {
+                          echo $team['name'];
+                        }?>
+                      </td>
                       <td align="center">
                         <?php
                         if ($row['approve'] == 'WAITING') {
