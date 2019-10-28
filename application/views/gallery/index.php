@@ -36,7 +36,6 @@
                   <th>Kategori Gambar</th>
                   <th>Cover Kategori</th>
                   <th>Jumlah Gambar</th>
-                  <th>Public</th>
                   <th></th>
                 </tr>
               </thead>
@@ -51,21 +50,6 @@
                       <img src="<?= $main_image['url']?>" width="250px" height="180px">
                     </td>
                     <td><b><?= $imagecount[0]['imagecount'] ?></b> Gambar</td>
-                    <td>
-                      <?php if($row['public']=='ENABLE'){?>
-                        <a href="<?= base_url('gallery/publicStatus/').$row['id'] ?>/DISABLE">
-                          <button type="button" class="btn btn-sm btn-sm btn-success">
-                            <i class="fa fa-check-circle"></i> ENABLE
-                          </button>
-                        </a>
-                      <?php }else { ?>
-                        <a href="<?= base_url('gallery/publicStatus/').$row['id'] ?>/ENABLE">
-                          <button type="button" class="btn btn-sm btn-sm btn-danger">
-                            <i class="fa fa-ban"></i> DISABLE
-                          </button>
-                        </a>
-                      <?php } ?>
-                    </td>
                     <td>
                       <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-primary" onclick="edit(<?=$row['id']?>)">

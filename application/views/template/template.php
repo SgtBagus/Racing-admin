@@ -403,32 +403,23 @@ if ($this->session->userdata('session_sop') == "") {
         reader.readAsDataURL(input.files[0]);
       }
     };
+    
+    $('[data-mask]').inputmask();
 
     $("#btnFile-many").click(function() {
       document.getElementById('uploadFile').click();
     });
 
-    $("#uploadFile").change(function() {
+    $("#uploadFile").change(function(){
       $('#detail_image_open #detail_image_edit').remove();
-      $('#note_image').text('');
+      $('#note_image').text('Detail Gambar Diubah !');
 
-      var total_file = document.getElementById("uploadFile").files.length;
-      for (var i = 0; i < total_file; i++) {
-        $('#detail_image_open').append('<tr id="detail_image_edit"><td><img src="' + URL.createObjectURL(event.target.files[i]) + '" class="round" alt="User Image" height="150px" style="margin: 15px"></td><td>' +
-          '<div class="form-group">' +
-          '<label>Judul Gambar*</label>' +
-          '<input type="text" class="form-control" placeholder="Masukan Nama gambar" name="dt[title][' + i + ']">' +
-          '</div>' +
-          '<div class="form-group">' +
-          '<label>Caption Gambar</label>' +
-          '<textarea class="form-control" name="dt[caption][' + i + ']" rows="5"></textarea>' +
-          '</div>' +
-          '</td></tr>');
+      var total_file=document.getElementById("uploadFile").files.length;
+      for(var i=0;i<total_file;i++){
+        $('#detail_image_open').append('<tr id="detail_image_edit"><td><img src="'+URL.createObjectURL(event.target.files[i])+'" class="round" alt="User Image" height="150px" style="margin: 15px"></td><td>'+event.target.files[i].name+'</td></tr>');
       }
-      $("#btnFile-many").html('<i class="fa fa-file"></i> Pilih Gambar Kembali (<b>' + total_file + '</b> telah Terpilih)');
+      $("#btnFile-many").html('<i class="fa fa-file"></i> Pilih Gambar Kembali (<b>'+total_file+'</b> telah Terpilih)');
     });
-
-    $('[data-mask]').inputmask();
   </script>
 </body>
 
