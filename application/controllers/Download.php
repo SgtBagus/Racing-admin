@@ -6,14 +6,14 @@ class Download extends MY_Controller {
     }
     
 	public function downloadPDFEvent($id){
-		$file = $this->mymodel->selectDataone('file', array('table'=>'event_rule', 'id'=>$id));
+		$file = $this->mymodel->selectDataone('file', array('id'=>$id));
 		$eventname = $this->mymodel->selectDataone('tbl_event', array('id'=> $file['table_id']));
 
 		force_download('Peraturan Event - '.$eventname['title'].'/'.$file['name'], file_get_contents($file['dir'],NULL));	
 	}
 	
 	public function downloadPDFPaket($id){
-		$file = $this->mymodel->selectDataone('file', array('table'=>'paket_file', 'id'=>$id));
+		$file = $this->mymodel->selectDataone('file', array('id'=>$id));
 		$paketname = $this->mymodel->selectDataone('tbl_paket', array('id'=> $file['table_id']));
 
 		force_download('Paket Juara - '.$paketname['title'].'/'.$file['name'], file_get_contents($file['dir'],NULL));	

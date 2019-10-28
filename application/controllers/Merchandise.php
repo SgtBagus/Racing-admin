@@ -236,7 +236,7 @@ class Merchandise extends MY_Controller {
 	}
 	
 	public function editImage($id){
-		$data['page_name'] = "Event";
+		$data['page_name'] = "Merchandise";
 		$data['tbl_merchandise'] = $this->mymodel->selectDataone('tbl_merchandise',array('id'=>$id));
 		$data['file_detail'] = $this->mymodel->selectWhere('file',array('table_id'=>$id,'table'=>'tbl_merchandise_detail'));
 

@@ -29,6 +29,7 @@
           </div>
           <div class="box-body">
             <div class="show_error"></div>
+            <div class="table-responsive">
             <table id="datatable" class="table table-bordered table-striped" >
               <thead>
                 <tr class="bg-success">
@@ -67,6 +68,7 @@
                 </tbody>
               </table>
             </div>
+            </div>
           </div>
         </div>
       </div>
@@ -75,7 +77,7 @@
   <div class="modal fade bd-example-modal-sm" tabindex="-1" tbl_event="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-delete">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-        <form id="upload-delete" action="<?= base_url('gallery/delete') ?>">
+        <form id="upload-delete" action="<?= base_url('gallery/delete') ?>" method="POST">
           <div class="modal-header">
             <h5 class="modal-title">Confirm delete</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

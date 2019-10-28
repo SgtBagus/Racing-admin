@@ -15,21 +15,21 @@
                             <div class="col-md-6"> </div>
                             <div class="col-md-6">
                                 <div class="pull-right">
+                                    <a href="<?= base_url('team/create') ?>">
+                                        <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Team</button>
+                                    </a>
                                     <a href="<?= base_url('fitur/ekspor/tbl_team') ?>" target="_blank">
                                         <button type="button" class="btn btn-sm btn-warning">
                                             <i class="fa fa-file-excel-o"></i> Ekspor Tim
                                         </button>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-info" onclick="modal()">
-                                        <i class="fa fa-file-excel-o"></i> Import Tim
-                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="box-body">
                         <?php
-                        if($_GET['delete']){
+                        if ($_GET['delete']) {
                             echo '<div class="show_error">
                             <div class="alert alert-danger ks-solid ks-active-border" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -62,13 +62,13 @@
                                 </thead>
                                 <tbody>
                                     <?php $i = 1;
-                                    foreach ($tbl_team as $row) { 
-                                        $photo = $this->mymodel->selectDataone('file', array('table' => 'tbl_team', 'table_id' => $row['id'])); 
-                                        $rowraider = $this->mymodel->selectWithQuery("SELECT count(id) as rowraider from tbl_raider WHERE team_id = '".$row['id']."'");?>
+                                    foreach ($tbl_team as $row) {
+                                        $photo = $this->mymodel->selectDataone('file', array('table' => 'tbl_team', 'table_id' => $row['id']));
+                                        $rowraider = $this->mymodel->selectWithQuery("SELECT count(id) as rowraider from tbl_raider WHERE team_id = '" . $row['id'] . "'"); ?>
                                         <tr>
                                             <td><?= $i ?></td>
                                             <td align="center">
-                                                <img src="<?= $photo['url']?>" width="100px" height="100px" style="border-radius: 50%">
+                                                <img src="<?= $photo['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
                                             </td>
                                             <td><?= $row['name'] ?></td>
                                             <td><?= $row['email'] ?></td>
@@ -76,16 +76,16 @@
                                             <td><?= $row['kota'] ?></td>
                                             <td><?= $row['nowa'] ?></td>
                                             <td>
-                                                <?php if($row['verificacion']=='ENABLE'){?>
+                                                <?php if ($row['verificacion'] == 'ENABLE') { ?>
                                                     <p> Terverifikasikan </p>
-                                                    <a href="<?= base_url('team/verificacion/').$row['id'] ?>/DISABLE">
+                                                    <a href="<?= base_url('team/verificacion/') . $row['id'] ?>/DISABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-danger">
                                                             <i class="fa fa-ban"></i> LEPAS VERIFIKASI
                                                         </button>
                                                     </a>
-                                                <?php }else { ?>
+                                                <?php } else { ?>
                                                     <p> Belum Terverifikasi </p>
-                                                    <a href="<?= base_url('team/verificacion/').$row['id'] ?>/ENABLE">
+                                                    <a href="<?= base_url('team/verificacion/') . $row['id'] ?>/ENABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-primary">
                                                             <i class="fa fa-check-circle"></i> VERIFIKASI
                                                         </button>
@@ -93,14 +93,14 @@
                                                 <?php } ?>
                                             </td>
                                             <td>
-                                                <?php if($row['status']=='ENABLE'){?>
-                                                    <a href="<?= base_url('team/status/').$row['id'] ?>/DISABLE">
+                                                <?php if ($row['status'] == 'ENABLE') { ?>
+                                                    <a href="<?= base_url('team/status/') . $row['id'] ?>/DISABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-success">
                                                             <i class="fa fa-check-circle"></i> ENABLE
                                                         </button>
                                                     </a>
-                                                <?php }else { ?>
-                                                    <a href="<?= base_url('team/status/').$row['id'] ?>/ENABLE">
+                                                <?php } else { ?>
+                                                    <a href="<?= base_url('team/status/') . $row['id'] ?>/ENABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-danger">
                                                             <i class="fa fa-ban"></i> DISABLE
                                                         </button>
@@ -113,13 +113,13 @@
                                                     <button type="button" class="btn btn-sm btn-info" onclick="view(<?= $row['id'] ?>)">
                                                         <i class="fa fa-eye"></i>
                                                     </button>
-                                                    <!-- <button type="button" onclick="hapus(<?=$row['id']?>)" class="btn btn-sm btn-danger">
+                                                    <!-- <button type="button" onclick="hapus(<?= $row['id'] ?>)" class="btn btn-sm btn-danger">
                                                         <i class="fa fa-trash-o"></i>
                                                     </button> -->
                                                 </div>
                                             </td>
                                         </tr>
-                                        <?php $i++;
+                                    <?php $i++;
                                     } ?>
                                 </tbody>
                             </table>
@@ -140,16 +140,16 @@
     }
 
 
-    function modal(){
+    function modal() {
         $('#modal-impor').modal();
         $("#modal_title").text('Import Team');
     }
 
-    function hapus(id) {
-        $("#modal-delete").modal('show');
-        $('#upload-delete').attr('action', ' http://192.168.100.9:8000/team/delete/'+id);
-        $("#delete-input").val(id);
-    }
+    // function hapus(id) {
+    //     $("#modal-delete").modal('show');
+    //     $('#upload-delete').attr('action', ' http://192.168.100.9:8000/team/delete/' + id);
+    //     $("#delete-input").val(id);
+    // }
 
     $("#upload-delete").submit(function() {
         event.preventDefault();

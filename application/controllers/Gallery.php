@@ -279,6 +279,19 @@ class Gallery extends MY_Controller {
 		$this->mymodel->deleteData('tbl_gallery',  array('imagegroup_id'=>$id));
 		header('Location: '.base_url('gallery'));
 	}
+	
+	public function delete()
+	{
+	    $id = $_POST['id'];
+		$tbl_gallery = $this->mymodel->selectWhere('tbl_gallery',  array('imagegroup_id'=>$id));
+		foreach($tbl_gallery as $file){
+			$dir = $this->mymodel->selectDataone('file', array('table_id' => $file['id'], 'table' => 'tbl_gallery'));
+			unlink($dir['dir']);
+			$this->mymodel->deleteData('file',  array('table_id'=>$file['id'], 'table'=>'tbl_gallery'));
+		}
+		$this->mymodel->deleteData('tbl_gallery',  array('imagegroup_id'=>$id));
+		header('Location: '.base_url('gallery'));
+	}
 
 }
 /* End of file Home.php */

@@ -12,9 +12,14 @@
                 <div class="box">
                     <div class="box-header">
                         <div class="row">
-                            <div class="col-md-6"> </div>
+                            <div class="col-md-6">
+                                <h3 class="box-title">Data Raider</h3>
+                            </div>
                             <div class="col-md-6">
                                 <div class="pull-right">
+                                    <a href="<?= base_url('rider/create')?>">
+                                        <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Rider</button>
+                                    </a>
                                     <a href="<?= base_url('fitur/ekspor/tbl_team') ?>" target="_blank">
                                         <button type="button" class="btn btn-sm btn-warning">
                                             <i class="fa fa-file-excel-o"></i> Ekspor Raider
@@ -60,6 +65,7 @@
                                         <th>Nomor Whatsapp</th>
                                         <th>Verifikasi</th>
                                         <th>Status</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,6 +130,16 @@
                                                     </a>
                                                 <?php } ?>
                                             </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-info" onclick="view(<?= $row['id'] ?>)">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <!-- <button type="button" onclick="hapus(<?= $row['id'] ?>)" class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </button> -->
+                                                </div>
+                                            </td>
                                         </tr>
                                     <?php $i++;
                                     } ?>
@@ -141,17 +157,20 @@
 <script type="text/javascript">
     loadtable($("#select-status").val());
 
-
+    function view(id) {
+        location.href = "<?= base_url('rider/edit/') ?>" + id;
+    }
+    
     function modal() {
         $('#modal-impor').modal();
         $("#modal_title").text('Import Team');
     }
 
-    function hapus(id) {
-        $("#modal-delete").modal('show');
-        $('#upload-delete').attr('action', ' http://192.168.100.9:8000/raider/deleteapi/' + id);
-        $("#delete-input").val(id);
-    }
+    // function hapus(id) {
+    //     $("#modal-delete").modal('show');
+    //     $('#upload-delete').attr('action', ' http://192.168.100.9:8000/raider/deleteapi/' + id);
+    //     $("#delete-input").val(id);
+    // }
 
     $("#upload-delete").submit(function() {
         event.preventDefault();

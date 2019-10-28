@@ -30,6 +30,7 @@ if($data_edit){
       <div class="col-sm-9">
         <div class="box-body">
           <?php if($data_edit){ ?>
+          <div class="table-responsive">
             <table class="table table-bordered" style="width: 100%">
               <thead style="font-weight: bold;">
                 <tr>
@@ -39,14 +40,14 @@ if($data_edit){
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody id="detail_image_open">
+              <tbody id="detail_image_open_gallery">
                 <?php
                 $i = 0;
                 $file_detail = $this->mymodel->selectWhere("tbl_gallery", array('imagegroup_id' => $data_edit['id']));
                 foreach($file_detail as $img){
                   $nomor = $i + 1;
                   $file = $this->mymodel->selectDataone("file", array('table_id' => $img['id'], 'table' => 'tbl_gallery'));?>
-                  <tr id="detail_image_edit">
+                  <tr id="detail_image_edit_gallery">
                     <td>
                       <img id="image_previewDetail-<?=$i?>" src="<?= $file['url']?>" alt="User Image" height="150px" style="margin: 15px">
                     </td>
@@ -117,6 +118,7 @@ if($data_edit){
                 </td>
               </tfoot>
             </table>
+            </div>
             <div class="modal modal-default fade" id="modal-delete-image" style="display: none;">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -136,9 +138,10 @@ if($data_edit){
               </div>
             </div>
           <?php } else {?>
-            <button type="button" class="btn btn-sm btn-primary" id="btnFile-many"><i class="fa fa-file"></i> Masukan Gambar</button>
-            <input type="file" id="uploadFile" name="file_many[]" style="display: none" multiple accept="image/x-png,image/jpeg,image/jpg" />
+            <button type="button" class="btn btn-sm btn-primary" id="btnFile-gallery"><i class="fa fa-file"></i> Masukan Gambar</button>
+            <input type="file" id="uploadFileGallery" name="file_many[]" style="display: none" multiple accept="image/x-png,image/jpeg,image/jpg" />
             <p class="help-block" id="note_image">Gambar Bisa Multi Select</p>
+          <div class="table-responsive">
             <table class="table table-bordered" style="width: 100%">
               <thead style="font-weight: bold;">
                 <tr>
@@ -146,9 +149,10 @@ if($data_edit){
                   <th>Info Gambar</th>
                 </tr>
               </thead>
-              <tbody id="detail_image_open">
+              <tbody id="detail_image_open_gallery">
               </tbody>
             </table>
+        </div>
           <?php } ?>
         </div>
       </div>

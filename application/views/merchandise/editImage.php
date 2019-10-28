@@ -74,7 +74,7 @@
                                                         <button type="button" class="btn btn-sm btn-info"><i class="fa fa-arrow-left"></i> Kembali</button>
                                                     </a>
                                                     <?php
-                                                    $project_image = $this->mymodel->selectWithQuery("SELECT count(id) as count FROM FILE WHERE table_id = " . $tbl_merchandise['id'] . " AND file.table = 'tbl_merchandise_detail'");
+                                                    $project_image = $this->mymodel->selectWithQuery("SELECT count(id) as count FROM file WHERE table_id = " . $tbl_merchandise['id'] . " AND file.table = 'tbl_merchandise_detail'");
                                                     ?>
                                                     <?php if ($project_image[0]['count'] == 3) {
                                                         echo '<button type="button" class="btn btn-sm btn-primary" disabled><i class="fa fa-file"></i> Detail Gambar Tidak bisa lebih dari 3 Gambar</button>';

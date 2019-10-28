@@ -90,7 +90,7 @@ if ($data_edit) {
       </div>
     </div>
     <div class="form-group">
-      <label for="inputEmail3" class="col-sm-3 control-label">Total Harga Merchandise*</label>
+      <label for="inputEmail3" class="col-sm-3 control-label">Harga Merchandise*</label>
       <div class="col-sm-9">
         <div class="input-group">
           <div class="input-group-addon">

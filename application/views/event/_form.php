@@ -17,7 +17,7 @@ if ($data_edit) {
         <?php if ($data_edit) {
           echo '<input type="hidden" name="dt[id]" value="' . $data_edit['id'] . '">';
         }  ?>
-        <input type="text" class="form-control" placeholder="Masukan Kota Proyek ..." name="dt[title]" <?php if ($data_edit) {
+        <input type="text" class="form-control" placeholder="Masukan Judul Event ..." name="dt[title]" <?php if ($data_edit) {
                                                                                                           echo "value='" . $data_edit['title'] . "'";
                                                                                                         }  ?>>
       </div>
