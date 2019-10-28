@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="pull-right">
-                                    <a href="<?= base_url('rider/create')?>">
+                                    <a href="<?= base_url('rider/create') ?>">
                                         <button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Rider</button>
                                     </a>
                                     <a href="<?= base_url('fitur/ekspor/tbl_team') ?>" target="_blank">
@@ -84,7 +84,11 @@
                                                     } ?>
                                             </td>
                                             <td align="center">
-                                                <img src="<?= $photo['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
+                                                <?php if ($photo != NULL) { ?>
+                                                    <img src="<?= $photo['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
+                                                <?php } else { ?>
+                                                    <img src="https://dev.karyastudio.com/nso_mobile/webfiles/raider/raider_default.png" width="100px" height="100px" style="border-radius: 50%">
+                                                <?php } ?>
                                             </td>
                                             <td>
                                                 <?= $row['name'] ?>
@@ -160,7 +164,7 @@
     function view(id) {
         location.href = "<?= base_url('rider/edit/') ?>" + id;
     }
-    
+
     function modal() {
         $('#modal-impor').modal();
         $("#modal_title").text('Import Team');

@@ -13,7 +13,11 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<center>
-							<img src="<?= $file_team['url'] ?>" style="width: 500px; height: 400px; border-radius: 20px" class="img img-thumbnail">
+							<?php if ($file_team != NULL) { ?>
+								<img src="<?= $file_team['url'] ?>" style="width: 500px; height: 400px; border-radius: 20px" class="img img-thumbnail">
+							<?php } else { ?>
+								<img src="https://dev.karyastudio.com/nso_mobile/webfiles/team/team_default.png" style="width: 500px; height: 400px; border-radius: 20px" class="img img-thumbnail">
+							<?php } ?>
 							<h3><?= $tbl_team['name'] ?> <?php if ($tbl_team['verificacion'] == 'ENABLE') {
 																echo '<i class="fa fa-check-circle" style="color: #3b8dbc"> </i>';
 															} ?><br><small><?= $tbl_team['email'] ?></small></h3>
@@ -99,7 +103,11 @@
 												<tr>
 													<td><?= $i ?></td>
 													<td align="center">
-														<img src="<?= $filemanager['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
+														<?php if ($filemanager != NULL) { ?>
+															<img src="<?= $filemanager['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
+														<?php } else { ?>
+															<img src="https://dev.karyastudio.com/nso_mobile/webfiles/manager/manager_default.png" width="100px" height="100px" style="border-radius: 50%">
+														<?php } ?>
 													</td>
 													<td><?= $row_manager['name'] ?></td>
 													<td><?= $row_manager['alamat'] ?></td>
@@ -133,7 +141,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="pull-right">
-										<a href="<?= base_url('rider/create?team_id=').$tbl_team['id'] ?>">
+										<a href="<?= base_url('rider/create?team_id=') . $tbl_team['id'] ?>">
 											<button type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Rider</button>
 										</a>
 									</div>
@@ -171,7 +179,12 @@
 												<td><?= $i ?></td>
 												<td><?= $team['name'] ?></td>
 												<td align="center">
-													<img src="<?= $photo['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
+
+													<?php if ($photo != NULL) { ?>
+														<img src="<?= $photo['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
+													<?php } else { ?>
+														<img src="https://dev.karyastudio.com/nso_mobile/webfiles/raider/raider_default.png" width="100px" height="100px" style="border-radius: 50%">
+													<?php } ?>
 												</td>
 												<td>
 													<?= $row['name'] ?>
@@ -251,11 +264,3 @@
 		</div>
 	</section>
 </div>
-
-<script type="text/javascript">
-	function hapus(id) {
-		$("#modal-delete").modal('show');
-		$('#upload-delete').attr('action', ' http://192.168.100.9:8000/team/delete/' + id);
-		$("#delete-input").val(id);
-	}
-</script>

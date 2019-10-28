@@ -168,7 +168,11 @@
                 <li>
                   <a href="<?= base_url('team/view/') . $row_team['id'] ?>" style="color:black">
                     <?php $image_src = $this->mymodel->selectDataone('file', array('table' => 'tbl_team', 'table_id' => $row_team['id'])); ?>
+                    <?php if ($image_src != NULL) { ?>
                     <img style="height: 50px; width: 50px; object-fit: cover; display: inline;" src="<?= $image_src['url'] ?>" alt="User Image">
+                    <?php } else { ?>
+                    <img style="height: 50px; width: 50px; object-fit: cover; display: inline;" src="https://dev.karyastudio.com/nso_mobile/webfiles/team/team_default.png" alt="User Image">
+                    <?php } ?>
                     <br>
                     <?= strlen($row_team["name"]) > 15 ? substr($row_team["name"], 0, 15) . "..." : $row_team["name"] ?>
                     <br>

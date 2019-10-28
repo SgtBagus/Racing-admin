@@ -68,7 +68,11 @@
                                         <tr>
                                             <td><?= $i ?></td>
                                             <td align="center">
-                                                <img src="<?= $photo['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
+                                                <?php if ($photo != NULL) { ?>
+                                                    <img src="<?= $photo['url'] ?>" width="100px" height="100px" style="border-radius: 50%">
+                                                <?php } else { ?>
+                                                    <img src="https://dev.karyastudio.com/nso_mobile/webfiles/team/team_default.png" width="100px" height="100px" style="border-radius: 50%">
+                                                <?php } ?>
                                             </td>
                                             <td><?= $row['name'] ?></td>
                                             <td><?= $row['email'] ?></td>
