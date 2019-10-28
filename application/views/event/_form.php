@@ -72,7 +72,7 @@ if ($data_edit) {
       <div class="col-sm-9">
         <input type="text" name="dt[phone]" class="form-control" <?php if ($data_edit) {
                                                                     echo "value='" . $data_edit['phone'] . "'";
-                                                                  }  ?>>
+                                                                  } else { echo "value='62811333037'"; }  ?>>
       </div>
     </div>
     <div class="form-group">

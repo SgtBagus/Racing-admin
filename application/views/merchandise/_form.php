@@ -90,7 +90,7 @@ if ($data_edit) {
       </div>
     </div>
     <div class="form-group">
-      <label for="inputEmail3" class="col-sm-3 control-label">Total Harga Proyek*</label>
+      <label for="inputEmail3" class="col-sm-3 control-label">Total Harga Merchandise*</label>
       <div class="col-sm-9">
         <div class="input-group">
           <div class="input-group-addon">
@@ -107,7 +107,7 @@ if ($data_edit) {
       <div class="col-sm-9">
         <input type="text" name="dt[phone]" class="form-control" <?php if ($data_edit) {
                                                                     echo "value='" . $data_edit['phone'] . "'";
-                                                                  }  ?>>
+                                                                  } else { echo "value='62811333037'"; }  ?>>
       </div>
     </div>
     <div class="form-group">
