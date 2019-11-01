@@ -149,7 +149,7 @@
         $("#load-form").html('loading...');
         $("#modal-form").modal();
         $("#title-form").html('Tambah Juara');
-        $("#load-form").load("<?= base_url('juara/detailpaketcreate/').$tbl_paket['id']?>");
+        $("#load-form").load("<?= base_url('juara/detailpaketcreate/').$tbl_paket['id'].'/'.$tbl_event['id']?>");
     }
 
     function hapus(id) {

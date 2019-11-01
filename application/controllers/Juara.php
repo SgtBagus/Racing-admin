@@ -165,7 +165,6 @@ class Juara extends MY_Controller
     {
         $data['tbl_event'] = $this->mymodel->selectDataone('tbl_event', array('id' => $event_id));
         $data['tbl_paket'] = $this->mymodel->selectDataone('tbl_paket', array('id' => $id));
-
         $this->template->load('template/template', 'juara/paket/index', $data);
     }
 
@@ -181,9 +180,10 @@ class Juara extends MY_Controller
         echo $this->datatables->generate();
     }
 
-    public function detailpaketcreate($paket_id)
+    public function detailpaketcreate($paket_id, $event_id)
     {
         $data['paket_id'] = $paket_id;
+        $data['event_id'] = $event_id;
         $this->load->view('juara/paket/add-tbl_paket_detail', $data);
     }
 

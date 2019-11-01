@@ -4,20 +4,13 @@
         <input type="hidden" name="dt[id_paket]" value="<?= $paket_id ?>">
         <label>Team</label>
         <select class="form-control" name="dt[id_team]" id="team">
-            <option value="">-- Pilih Team --</option>
-            <option value="0">-- Raider Tanpa Team --</option>
-            <?php
-            $tbl_team = $this->mymodel->selectData("tbl_team");
-            foreach ($tbl_team as $key => $value) {
-                ?>
-                <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
-            <?php } ?>
+            <option value="">- Loading Team Pendaftar -</option>
         </select>
     </div>
     <div class="form-group">
         <label for="form-id_raider">Raider</label>
         <select class="form-control" name="dt[id_raider]" id="rider">
-            <option value="">-Mohon Pilih Team Terlebih Dahulu-</option>
+            <option value="">- Mohon Pilih Team Terlebih Dahulu -</option>
         </select>
     </div>
     <div class="form-group">
@@ -71,10 +64,32 @@
             return false;
         });
 
+        function get_team() {
+            $.ajax({
+                url: "<?= base_url() ?>ajax/get_team/<?=$event_id?>",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    $("#team").empty();
+                    if (!$.trim(data)) {
+                        $("#team").append('<option value="">Data Tidak Tersedia</option>');
+                    } else {
+                        $.each(data, function(key, value) {
+                            $("#team").append('<option value="' +
+                                value.team_id + '">' + value.name +
+                                '</option>');
+                        });
+                    }
+
+                    get_rider($("#team").val());
+                }
+            });
+        }
+
         function get_rider(team_id) {
             if (team_id) {
                 $.ajax({
-                    url: "<?= base_url() ?>ajax/get_rider/" + team_id,
+                    url: "<?= base_url() ?>ajax/get_rider/<?= $event_id ?>" + team_id + ,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
@@ -92,7 +107,7 @@
                 });
             } else {
                 $("#rider").empty();
-                $("#rider").append('<option value="">-Mohon Pilih Provinsi Terlebih Dahulu-</option>');
+                $("#rider").append('<option value="">-Mohon Pilih Team Terlebih Dahulu-</option>');
             }
         }
 
@@ -100,6 +115,7 @@
             get_rider($("#team").val());
         });
 
+        get_team();
         get_rider($("#team").val());
     });
 </script>

@@ -4,8 +4,13 @@ class Ajax extends MY_Controller {
 		parent::__construct();
 	}
 
+	public function get_team($id){
+		$team = $this->mymodel->selectWithQuery("SELECT a.team_id as team_id, b.name as name FROM tbl_event_register a INNER JOIN tbl_team b ON a.team_id = b.id WHERE a.approve = 'APPROVE' AND a.event_id = " . $id);
+		echo json_encode($team);
+	}
+
 	public function get_rider($id){
-		$rider = $this->db->get_where('tbl_raider',array('team_id' => $id))->result_array();
+		$rider = $this->mymodel->selectWithQuery("SELECT a.raider_id as raider_id FROM tbl_event_register_raider a INNER JOIN tbl_event_register b ON a.event_register_id = b.id WHERE b.approve = 'APPROVE' AND b.event_id = " . $id);
 		echo json_encode($rider);
 	}
 }
