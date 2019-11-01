@@ -4,29 +4,39 @@
     <div class="form-group">
         <label>Team</label>
         <select class="form-control" name="dt[id_team]" id="team">
-            <option value="">-- Pilih Team --</option>
-            <option value="0" <?php if ($tbl_paket_detail['id_team'] == "0") { echo "selected"; } ?> >Raider Tanpa Team</option>
+            <option value=""> - SEMUA RIDER TERDAFTAR - </option>
             <?php
-            $tbl_team = $this->mymodel->selectData("tbl_team");
-            foreach ($tbl_team as $key => $value) {
+            $tbl_team = $this->mymodel->selectWithQuery("SELECT a.team_id as team_id, b.name as name FROM tbl_event_register a LEFT JOIN tbl_team b ON a.team_id = b.id WHERE a.approve = 'APPROVE' AND a.event_id = " . $event_id . " ORDER BY a.team_id ASC");
+            foreach ($tbl_team as $key => $row) {
+                $value = $row['team_id'];
+                $name = $row['name'];
+
+                if ($row['team_id'] == 0) {
+                    $value = 0;
+                    $name = 'Rider Tanpa Team';
+                }
+
                 ?>
-                <option value="<?= $value['id'] ?>" <?php if ($value['id'] == $tbl_paket_detail['id_team']) {
-                                                            echo "selected";
-                                                        } ?>><?= $value['name'] ?></option>
+                <option value="<?= $value ?>" <?php if ($value == $tbl_paket_detail['id_team']) {
+                                                        echo "selected";
+                                                    } ?>><?= $name ?></option>
             <?php } ?>
         </select>
     </div>
     <div class="form-group">
         <label for="form-id_raider">Raider</label>
         <select class="form-control" name="dt[id_raider]" id="rider">
-            <option value="">-- Pilih Team --</option>
             <?php
-            $tbl_raider = $this->mymodel->selectWhere("tbl_raider", array('team_id' => $tbl_paket_detail['id_team']));
-            foreach ($tbl_raider as $key => $value) {
+            $tbl_raider = $this->mymodel->selectWithQuery("SELECT a.raider_id as raider_id, c.name as nameraider, c.nostart as nostart, d.name as nameteam FROM tbl_event_register_raider a LEFT JOIN tbl_event_register b ON a.event_register_id = b.id LEFT JOIN tbl_raider c ON a.raider_id = c.id LEFT JOIN tbl_team d ON b.team_id = d.id WHERE b.approve = 'APPROVE' AND b.event_id = " . $event_id . " AND b.team_id = " . $tbl_paket_detail['id_team']);
+            foreach ($tbl_raider as $key => $row) {
+                $nameteam = $row['nameteam'];
+                if (!$nameteam) {
+                    $nameteam = 'INDIVIDU';
+                }
                 ?>
-                <option value="<?= $value['id'] ?>" <?php if ($value['id'] == $tbl_paket_detail['id_raider']) {
-                                                            echo "selected";
-                                                        } ?>><?= $value['name'] ?></option>
+                <option value="<?= $row['raider_id'] ?>" <?php if ($row['raider_id'] == $tbl_paket_detail['id_raider']) {
+                                                                    echo "selected";
+                                                                } ?>><?= $row['nameraider'] ?> - #<?= $row['nostart'] ?> - <?= $nameteam ?></option>
             <?php } ?>
         </select>
     </div>
@@ -82,28 +92,28 @@
         });
 
         function get_rider(team_id) {
-            if (team_id) {
-                $.ajax({
-                    url: "<?= base_url() ?>ajax/get_rider/" + team_id,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        $("#rider").empty();
-                        if (!$.trim(data)) {
-                            $("#rider").append('<option value="">Data Tidak Tersedia</option>');
-                        } else {
-                            $.each(data, function(key, value) {
-                                $("#rider").append('<option value="' +
-                                    value.id + '">' + value.name +
-                                    '</option>');
-                            });
-                        }
+            $.ajax({
+                url: "<?= base_url() ?>ajax/get_rider/<?= $event_id ?>/" + team_id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    $("#rider").empty();
+                    if (!$.trim(data)) {
+                        $("#rider").append('<option value="">Data Tidak Tersedia</option>');
+                    } else {
+                        $.each(data, function(key, value) {
+                            var nameteam = value.nameteam;
+                            if (!nameteam) {
+                                nameteam = 'INDIVIDU';
+                            }
+
+                            $("#rider").append('<option value="' +
+                                value.id + '">' + value.nameraider + ' - #' + value.nostart + " - " + nameteam +
+                                '</option>');
+                        });
                     }
-                });
-            } else {
-                $("#rider").empty();
-                $("#rider").append('<option value="">-Mohon Pilih Provinsi Terlebih Dahulu-</option>');
-            }
+                }
+            });
         }
 
         $("#team").change(function() {

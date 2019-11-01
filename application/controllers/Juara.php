@@ -208,9 +208,10 @@ class Juara extends MY_Controller
         }
     }
 
-    public function detailpaketedit($id)
+    public function detailpaketedit($id, $event_id)
     {
         $data['tbl_paket_detail'] = $this->mymodel->selectDataone('tbl_paket_detail', array('id' => $id));
+        $data['event_id'] = $event_id;
         $data['page_name'] = "tbl_paket_detail";
         $this->load->view('juara/paket/edit-tbl_paket_detail', $data);
     }

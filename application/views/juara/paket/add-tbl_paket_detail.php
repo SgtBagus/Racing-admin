@@ -66,7 +66,7 @@
 
         function get_team() {
             $.ajax({
-                url: "<?= base_url() ?>ajax/get_team/<?=$event_id?>",
+                url: "<?= base_url() ?>ajax/get_team/<?= $event_id ?>",
                 type: "GET",
                 dataType: "json",
                 success: function(data) {
@@ -74,9 +74,14 @@
                     if (!$.trim(data)) {
                         $("#team").append('<option value="">Data Tidak Tersedia</option>');
                     } else {
+                        $("#team").append('<option value=""> - SEMUA RIDER TERDAFTAR - </option>');
                         $.each(data, function(key, value) {
+                            var name = value.name;
+                            if (!name) {
+                                name = 'RIDER TANPA TEAM';
+                            }
                             $("#team").append('<option value="' +
-                                value.team_id + '">' + value.name +
+                                value.team_id + '">' + name +
                                 '</option>');
                         });
                     }
@@ -87,28 +92,28 @@
         }
 
         function get_rider(team_id) {
-            if (team_id) {
-                $.ajax({
-                    url: "<?= base_url() ?>ajax/get_rider/<?= $event_id ?>" + team_id + ,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        $("#rider").empty();
-                        if (!$.trim(data)) {
-                            $("#rider").append('<option value="">Data Tidak Tersedia</option>');
-                        } else {
-                            $.each(data, function(key, value) {
-                                $("#rider").append('<option value="' +
-                                    value.id + '">' + value.name +
-                                    '</option>');
-                            });
-                        }
+            $.ajax({
+                url: "<?= base_url() ?>ajax/get_rider/<?= $event_id ?>/" + team_id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    $("#rider").empty();
+                    if (!$.trim(data)) {
+                        $("#rider").append('<option value="">Data Tidak Tersedia</option>');
+                    } else {
+                        $.each(data, function(key, value) {
+                            var nameteam = value.nameteam;
+                            if (!nameteam) {
+                                nameteam = 'INDIVIDU';
+                            }
+
+                            $("#rider").append('<option value="' +
+                                value.id + '">' + value.nameraider + ' - #' + value.nostart + " - " + nameteam +
+                                '</option>');
+                        });
                     }
-                });
-            } else {
-                $("#rider").empty();
-                $("#rider").append('<option value="">-Mohon Pilih Team Terlebih Dahulu-</option>');
-            }
+                }
+            });
         }
 
         $("#team").change(function() {

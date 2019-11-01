@@ -142,7 +142,7 @@
         $("#load-form").html('loading...');
         $("#modal-form").modal();
         $("#title-form").html('Edit Juara');
-        $("#load-form").load("<?= base_url('juara/detailpaketedit/') ?>" + id);
+        $("#load-form").load("<?= base_url('juara/detailpaketedit/') ?>" + id + "/<?= $tbl_event['id'] ?>");
     }
 
     function create() {
