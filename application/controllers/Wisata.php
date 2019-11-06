@@ -44,10 +44,21 @@ class Wisata extends MY_Controller {
 		if ($this->form_validation->run() == FALSE){
 			$this->alert->alertdanger(validation_errors());
 		}else{
+			
+			$tglwisataStart = NULL;
+			$tglwisataEnd = NULL;
+			if($_POST['dt']['tglwisataStart']){
+				$tglwisataStart = date('Y-m-d', strtotime($_POST['dt']['tglwisataStart']));
+			}
+
+			if($_POST['dt']['tglwisataEnd']){
+				$tglwisataEnd = date('Y-m-d', strtotime($_POST['dt']['tglwisataEnd']));
+			}
+
 			$dt = $_POST['dt'];
 			$dt['status'] = "ENABLE";
-			$dt['tglwisataStart'] = date('Y-m-d', strtotime($_POST['dt']['tglwisataStart']));
-			$dt['tglwisataEnd'] = date('Y-m-d', strtotime($_POST['dt']['tglwisataEnd']));
+			$dt['tglwisataStart'] = $tglwisataStart;
+			$dt['tglwisataEnd'] = $tglwisataEnd;
 			$dt['created_at'] = date('Y-m-d H:i:s');
 
 			$str = $this->db->insert('tbl_wisata', $dt);
@@ -114,10 +125,22 @@ class Wisata extends MY_Controller {
 		if ($this->form_validation->run() == FALSE) {
 			$this->alert->alertdanger(validation_errors());
 		} else {
+			
+			$tglwisataStart = NULL;
+			$tglwisataEnd = NULL;
+			if($_POST['dt']['tglwisataStart']){
+				$tglwisataStart = date('Y-m-d', strtotime($_POST['dt']['tglwisataStart']));
+			}
+
+			if($_POST['dt']['tglwisataEnd']){
+				$tglwisataEnd = date('Y-m-d', strtotime($_POST['dt']['tglwisataEnd']));
+			}
+
+			
 			$id = $_POST['dt']['id'];
 			$dt = $_POST['dt'];
-			$dt['tglwisataStart'] = date('Y-m-d', strtotime($_POST['dt']['tglwisataStart']));
-			$dt['tglwisataEnd'] = date('Y-m-d', strtotime($_POST['dt']['tglwisataEnd']));
+			$dt['tglwisataStart'] = $tglwisataStart;
+			$dt['tglwisataEnd'] = $tglwisataEnd;
 			$dt['updated_at'] = date("Y-m-d H:i:s");
 			$this->mymodel->updateData('tbl_wisata', $dt, array('id' => $id));
 

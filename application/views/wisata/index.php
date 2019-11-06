@@ -47,8 +47,24 @@
                       <td><img src="<?= $file['url']?>" width="250px" height="180px"></td>
                       <td><?= $row['title'] ?></td>
                       <td><?= $row['desk'] ?></td>
-                      <td><?= date('d M Y', strtotime($row['tglwisataStart'])) ?></td>
-                      <td><?= date('d M Y', strtotime($row['tglwisataEnd'])) ?></td>
+                      <td>
+                         <?php
+                            if ($row['tglwisataStart']) {
+                              echo date('d M Y', strtotime($row['tglwisataStart']));
+                            } else {
+                              echo "<p class='help-block'><i>Belum Tersedia</i></p>";
+                            }
+                            ?>
+                       </td>
+                       <td>
+                         <?php
+                            if ($row['tglwisataEnd']) {
+                              echo date('d M Y', strtotime($row['tglwisataEnd']));
+                            } else {
+                              echo "<p class='help-block'><i>Belum Tersedia</i></p>";
+                            }
+                            ?>
+                       </td>
                       <td>
                         <?php if($row['status']=='ENABLE'){?>
                           <a href="<?= base_url('wisata/status/').$row['id'] ?>/DISABLE">

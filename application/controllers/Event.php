@@ -37,8 +37,8 @@ class Event extends MY_Controller {
 			}
 		}
 
-		$this->form_validation->set_rules('dt[tgleventStart]', '<strong>Tanggal Even</strong> Tidak Boleh Kosong', 'required');
-		$this->form_validation->set_rules('dt[tgleventEnd]', '<strong>Tanggal Even</strong> Tidak Boleh Kosong', 'required');
+		// $this->form_validation->set_rules('dt[tgleventStart]', '<strong>Tanggal Even</strong> Tidak Boleh Kosong', 'required');
+		// $this->form_validation->set_rules('dt[tgleventEnd]', '<strong>Tanggal Even</strong> Tidak Boleh Kosong', 'required');
 		$this->form_validation->set_rules('dt[kota]', '<strong>Kota Even</strong> Tidak Boleh Kosong', 'required');
 		$this->form_validation->set_rules('dt[alamat]', '<strong>Alamat Even</strong> Tidak Boleh Kosong', 'required');
 		$this->form_validation->set_rules('dt[minraider]', '<strong>Minim Raider</strong> Tidak Boleh Kosong', 'required');
@@ -56,13 +56,24 @@ class Event extends MY_Controller {
 				$this->alert->alertdanger('<strong>Maximal Raider</strong> tidak bisa kurang dari <strong>Minim Raider</strong');
 				return false;
 			}
+
+			$tgleventStart = NULL;
+			$tgleventEnd = NULL;
+			if($_POST['dt']['tgleventStart']){
+				$tgleventStart = date('Y-m-d', strtotime($_POST['dt']['tgleventStart']));
+			}
+
+			if($_POST['dt']['tgleventStart']){
+				$tgleventEnd = date('Y-m-d', strtotime($_POST['dt']['tgleventEnd']));
+			}
+
 			$dt['latitude'] = 0;
 			$dt['longitude'] = 0;
 			$dt['statusEvent'] = "STARTED";
 			$dt['public'] = "ENABLE";
 			$dt['status'] = "ENABLE";
-			$dt['tgleventStart'] = date('Y-m-d', strtotime($_POST['dt']['tgleventStart']));
-			$dt['tgleventEnd'] = date('Y-m-d', strtotime($_POST['dt']['tgleventEnd']));
+			$dt['tgleventStart'] = $tgleventStart;
+			$dt['tgleventEnd'] = $tgleventEnd;
 			$dt['created_at'] = date('Y-m-d H:i:s');
 
 			$str = $this->db->insert('tbl_event', $dt);
@@ -156,10 +167,21 @@ class Event extends MY_Controller {
 		if ($this->form_validation->run() == FALSE) {
 			$this->alert->alertdanger(validation_errors());
 		} else {
+
+			$tgleventStart = NULL;
+			$tgleventEnd = NULL;
+			if($_POST['dt']['tgleventStart']){
+				$tgleventStart = date('Y-m-d', strtotime($_POST['dt']['tgleventStart']));
+			}
+
+			if($_POST['dt']['tgleventStart']){
+				$tgleventEnd = date('Y-m-d', strtotime($_POST['dt']['tgleventEnd']));
+			}
+
 			$id = $_POST['dt']['id'];
 			$dt = $_POST['dt'];
-			$dt['tgleventStart'] = date('Y-m-d', strtotime($_POST['dt']['tgleventStart']));
-			$dt['tgleventEnd'] = date('Y-m-d', strtotime($_POST['dt']['tgleventEnd']));
+			$dt['tgleventStart'] = $tgleventStart;
+			$dt['tgleventEnd'] = $tgleventEnd;
 			$dt['updated_at'] = date("Y-m-d H:i:s");
 			$this->mymodel->updateData('tbl_event', $dt, array('id' => $id));
 

@@ -57,7 +57,7 @@ if($data_edit){
           <div class="input-group-addon">
             Dimulai
           </div>
-          <input type="text" name="dt[tglwisataStart]" class="form-control tgl" placeholder="Masukan Tanggal Wisata" <?php if ($data_edit) { ?>value="<?= date("d M Y", strtotime($data_edit['tglwisataStart'])); ?>" <?php } ?>>
+          <input type="text" name="dt[tglwisataStart]" class="form-control tgl" placeholder="Masukan Tanggal Wisata" <?php if ($data_edit['tglwisataStart'] != NULL) { ?>value="<?= date("d M Y", strtotime($data_edit['tglwisataStart'])); ?>" <?php } ?>>
         </div>
       </div>
       <div class="col-sm-5">
@@ -65,7 +65,7 @@ if($data_edit){
           <div class="input-group-addon">
             Berakhir
           </div>
-          <input type="text" name="dt[tglwisataEnd]" class="form-control tgl" placeholder="Masukan Tanggal Wisata" <?php if ($data_edit) { ?>value="<?= date("d M Y", strtotime($data_edit['tglwisataEnd'])); ?>" <?php } ?>>
+          <input type="text" name="dt[tglwisataEnd]" class="form-control tgl" placeholder="Masukan Tanggal Wisata" <?php if ($data_edit['tglwisataEnd'] != NULL) { ?>value="<?= date("d M Y", strtotime($data_edit['tglwisataEnd'])); ?>" <?php } ?>>
         </div>
       </div>
     </div>

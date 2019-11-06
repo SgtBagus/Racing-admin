@@ -55,7 +55,7 @@ if ($data_edit) {
           <div class="input-group-addon">
             Dimulai
           </div>
-          <input type="text" name="dt[tgleventStart]" class="form-control tgl" placeholder="Masukan Tanggal Event" <?php if ($data_edit) { ?>value="<?= date("d M Y", strtotime($data_edit['tgleventStart'])); ?>" <?php } ?>>
+          <input type="text" name="dt[tgleventStart]" class="form-control tgl" placeholder="Masukan Tanggal Event" <?php if ($data_edit['tgleventStart'] != NULL) { ?>value="<?= date("d M Y", strtotime($data_edit['tgleventStart'])); ?>" <?php } ?>>
         </div>
       </div>
       <div class="col-sm-5">
@@ -63,7 +63,7 @@ if ($data_edit) {
           <div class="input-group-addon">
             Berakhir
           </div>
-          <input type="text" name="dt[tgleventEnd]" class="form-control tgl" placeholder="Masukan Tanggal Event" <?php if ($data_edit) { ?>value="<?= date("d M Y", strtotime($data_edit['tgleventEnd'])); ?>" <?php } ?>>
+          <input type="text" name="dt[tgleventEnd]" class="form-control tgl" placeholder="Masukan Tanggal Event" <?php if ($data_edit['tgleventEnd'] != NULL) { ?>value="<?= date("d M Y", strtotime($data_edit['tgleventEnd'])); ?>" <?php } ?>>
         </div>
       </div>
     </div>

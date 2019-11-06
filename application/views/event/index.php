@@ -53,19 +53,35 @@
                        <td><?= $i ?></td>
                        <td><?= $row['title'] ?></td>
                        <td>Rp <?= $row['harga'] ?>,-</td>
-                       <td><?= date('d M Y', strtotime($row['tgleventStart'])) ?></td>
-                       <td><?= date('d M Y', strtotime($row['tgleventEnd'])) ?></td>
+                       <td>
+                         <?php
+                            if ($row['tgleventStart']) {
+                              echo date('d M Y', strtotime($row['tgleventStart']));
+                            } else {
+                              echo "<p class='help-block'><i>Belum Tersedia</i></p>";
+                            }
+                            ?>
+                       </td>
+                       <td>
+                         <?php
+                            if ($row['tgleventEnd']) {
+                              echo date('d M Y', strtotime($row['tgleventEnd']));
+                            } else {
+                              echo "<p class='help-block'><i>Belum Tersedia</i></p>";
+                            }
+                            ?>
+                       </td>
                        <td align="center">
                          <?php
                             if ($rule) {
                               echo '
                           <div class="row" align="center">
-                          Peraturan Event - '.$row['title'].'
+                          Peraturan Event - ' . $row['title'] . '
                           <div class="col-md-12">
-                          <a href="'.base_url($rule['dir']).'" target="_blank">
+                          <a href="' . base_url($rule['dir']) . '" target="_blank">
                           <button type="button" class="btn btn-send btn-info btn-sm btn-sm btn-primary"><i class="fa fa-eye"></i></button>
                           </a>
-                          <a href="'.base_url('download/downloadPDFEvent/'.$rule['id']).'">
+                          <a href="' . base_url('download/downloadPDFEvent/' . $rule['id']) . '">
                           <button type="button" class="btn btn-send btn-warning btn-sm btn-sm btn-danger"><i class="fa fa-download"></i></button>
                           </a>
                           </div>
