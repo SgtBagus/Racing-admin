@@ -26,10 +26,10 @@ if ($this->session->userdata('session_sop') == "") {
   <link rel="stylesheet" href="<?= base_url('assets/') ?>bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="<?= base_url('assets/') ?>plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-  <link rel="icon" href="https://dev.karyastudio.com/nso_mobile/assets/img/logo.jpg">
   <link rel="stylesheet" href="<?= base_url('assets/') ?>plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css">
 
+  <link rel="icon" href="<?= base_url('assets/') ?>logoku.jpg">
   <link rel="stylesheet" href="<?= base_url('assets/') ?>dist/css/main.css">
   <script src="<?= base_url('assets/') ?>bower_components/jquery/dist/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

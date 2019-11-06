@@ -21,7 +21,7 @@ if($this->session->userdata('session_sop')!="") {
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/login/')?>/css/util.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/login/')?>/css/main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="icon" href="<?= base_url('assets/')?>icon.png">
+  <link rel="icon" href="<?= base_url('assets/') ?>logoku.jpg">
   
 </head>
 <body class="hold-transition login-page">

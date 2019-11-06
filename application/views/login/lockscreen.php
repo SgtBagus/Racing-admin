@@ -23,7 +23,7 @@ if($file['dir']!=""){
   <link rel="stylesheet" href="<?= base_url('assets') ?>/dist/css/AdminLTE.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/') ?>dist/css/main.css">
 
-  <link rel="icon" href="<?= base_url('assets/')?>icon.png">
+  <link rel="icon" href="<?= base_url('assets/') ?>logoku.jpg">
   
   <style type="text/css">
     .login{
