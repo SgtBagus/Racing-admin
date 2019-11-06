@@ -101,6 +101,7 @@
                     if (!$.trim(data)) {
                         $("#rider").append('<option value="">Data Tidak Tersedia</option>');
                     } else {
+                        $("#rider").append('<option value="">-Pilih Tanpa Rider-</option>');
                         $.each(data, function(key, value) {
                             var nameteam = value.nameteam;
                             if (!nameteam) {

@@ -11,7 +11,7 @@ class Rider extends MY_Controller
 	public function index()
 	{
 		$data['page_name'] = "Rider";
-		$data['tbl_raider'] = $this->mymodel->selectData('tbl_raider');
+		$data['tbl_raider'] = $this->mymodel->selectWithQuery('SELECT * FROM tbl_raider ORDER BY id DESC'); 
 		$this->template->load('template/template', 'raider/index', $data);
 	}
 
@@ -69,6 +69,7 @@ class Rider extends MY_Controller
 
 			$dt = $_POST['dt'];
 			$dt['eventikut'] = 0;
+			$dt['tgllahir'] = date('Y-m-d', strtotime($_POST['dt']['tgllahir']));
 			$dt['password'] = md5($_POST['password']);
 			$dt['verificacion'] = 'DISABLE';
 			$dt['status'] = 'ENABLE';
@@ -80,7 +81,7 @@ class Rider extends MY_Controller
 			$file['dir'] = 'webfiles/raider/raider_default.png';
 			$file['table'] = 'tbl_raider';
 			$file['table_id'] = $this->db->insert_id();
-			$file['url'] = 'http://192.168.100.9:8000/' . $file['dir'];
+			$file['url'] = 'https://dev.karyastudio.com/nso_mobile/' . $file['dir'];
 			$file['status'] = 'ENABLE';
 			$file['created_at'] = date('Y-m-d H:i:s');
 			$this->db->insert('file', $file);
@@ -105,6 +106,7 @@ class Rider extends MY_Controller
 	{
 		$id = $_POST['dt']['id'];
 		$dt = $_POST['dt'];
+		$dt['tgllahir'] = date('Y-m-d H:i:s', strtotime($_POST['dt']['tgllahir']));
 		$dt['password'] = md5($_POST['password']);
 		$dt['updated_at'] = date("Y-m-d H:i:s");
 		$this->mymodel->updateData('tbl_raider', $dt, array('id' => $id));

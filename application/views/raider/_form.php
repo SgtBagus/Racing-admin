@@ -89,8 +89,8 @@ if ($data_edit) {
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-3 control-label">Tanggal Lahir</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control tgl" name="dt[kota]" <?php if ($data_edit) {
-                                                                                echo "value='" . $data_edit['tgllahir'] . "'";
+                <input type="text" class="form-control tgl" name="dt[tgllahir]" <?php if ($data_edit) {
+                                                                                echo "value='" . date('d M Y ', strtotime($data_edit['tgllahir'])). "'";
                                                                             }  ?>>
             </div>
         </div>

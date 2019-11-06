@@ -9,7 +9,7 @@ class Eventdokumentasi extends MY_Controller
     public function index()
     {
         $data['page_name'] = "Dokumentasi";
-        $data['tbl_event'] = $this->mymodel->selectData('tbl_event');
+		$data['tbl_event'] = $this->mymodel->selectWithQuery('SELECT * FROM tbl_event ORDER BY tgleventStart DESC'); 
         $this->template->load('template/template', 'eventdokumentasi/index', $data);
     }
 
@@ -236,7 +236,7 @@ class Eventdokumentasi extends MY_Controller
             $this->form_validation->set_rules('dt[gambar]', '<strong>Gambar</strong> Tidak Boleh Kosong', 'required');
         }
 
-        $this->form_validation->set_rules('dt[title]', '<strong>Judul Gambar</strong> Tidak Boleh Kosong', 'required');
+        // $this->form_validation->set_rules('dt[title]', '<strong>Judul Gambar</strong> Tidak Boleh Kosong', 'required');
         $this->form_validation->set_message('required', '%s');
     }
 

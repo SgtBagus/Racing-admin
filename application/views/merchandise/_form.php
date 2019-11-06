@@ -96,7 +96,7 @@ if ($data_edit) {
           <div class="input-group-addon">
             <i class="fa fa-money"></i> Rp.
           </div>
-          <input type="text" name="dt[harga]" class="number-separator form-control" <?php if ($data_edit) {
+          <input type="number" name="dt[harga]" class="form-control" <?php if ($data_edit) {
                                                                                       echo "value='" . $data_edit['harga'] . "'";
                                                                                     }  ?>>
         </div>
@@ -107,7 +107,7 @@ if ($data_edit) {
       <div class="col-sm-9">
         <input type="text" name="dt[phone]" class="form-control" <?php if ($data_edit) {
                                                                     echo "value='" . $data_edit['phone'] . "'";
-                                                                  } else { echo "value='62811333037'"; }  ?>>
+                                                                  } else { echo "value='628122223827'"; }  ?>>
       </div>
     </div>
     <div class="form-group">

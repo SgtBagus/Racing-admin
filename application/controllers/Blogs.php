@@ -8,7 +8,7 @@ class Blogs extends MY_Controller {
 	public function index()
 	{
 		$data['page_name'] = "Blog / Informasi";
-		$data['tbl_blog'] = $this->mymodel->selectData('tbl_blog');
+		$data['tbl_blog'] = $this->mymodel->selectWithQuery('SELECT * FROM tbl_blog ORDER BY id DESC'); 
 		$this->template->load('template/template','blogs/index', $data);
 	}
 

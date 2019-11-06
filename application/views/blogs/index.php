@@ -33,7 +33,6 @@
                      <th style="width:20px">No</th>
                      <th>Image</th>
                      <th>Judul Blog / Informasi</th>
-                     <th>Deskripsi</th>
                      <th>Status</th>
                      <th></th>
                    </tr>
@@ -48,7 +47,6 @@
                        <td><?= $i ?></td>
                        <td><img src="<?= $file['url'] ?>" width="250px" height="180px"></td>
                        <td><?= $row['title'] ?></td>
-                       <td><?= $row['deskripsi'] ?></td>
                        <td>
                          <?php if ($row['status'] == 'ENABLE') { ?>
                            <a href="<?= base_url('blogs/status/') . $row['id'] ?>/DISABLE">

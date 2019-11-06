@@ -1,9 +1,9 @@
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Raider</h1>
+        <h1>Rider</h1>
         <ol class="breadcrumb">
             <li><a href="<?= base_url() ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Raider</li>
+            <li class="active">Rider</li>
         </ol>
     </section>
     <section class="content">
@@ -13,7 +13,7 @@
                     <div class="box-header">
                         <div class="row">
                             <div class="col-md-6">
-                                <h3 class="box-title">Data Raider</h3>
+                                <h3 class="box-title">Data Rider</h3>
                             </div>
                             <div class="col-md-6">
                                 <div class="pull-right">
@@ -22,7 +22,7 @@
                                     </a>
                                     <a href="<?= base_url('fitur/ekspor/tbl_team') ?>" target="_blank">
                                         <button type="button" class="btn btn-sm btn-warning">
-                                            <i class="fa fa-file-excel-o"></i> Ekspor Raider
+                                            <i class="fa fa-file-excel-o"></i> Ekspor Rider
                                         </button>
                                     </a>
                                     <!-- <button type="button" class="btn btn-sm btn-info" onclick="modal()">
@@ -121,13 +121,13 @@
                                             </td>
                                             <td>
                                                 <?php if ($row['status'] == 'ENABLE') { ?>
-                                                    <a href="<?= base_url('raider/status/') . $row['id'] ?>/DISABLE">
+                                                    <a href="<?= base_url('rider/status/') . $row['id'] ?>/DISABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-success">
                                                             <i class="fa fa-check-circle"></i> ENABLE
                                                         </button>
                                                     </a>
                                                 <?php } else { ?>
-                                                    <a href="<?= base_url('raider/status/') . $row['id'] ?>/ENABLE">
+                                                    <a href="<?= base_url('rider/status/') . $row['id'] ?>/ENABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-danger">
                                                             <i class="fa fa-ban"></i> DISABLE
                                                         </button>

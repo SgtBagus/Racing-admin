@@ -174,7 +174,7 @@
                     <img style="height: 50px; width: 50px; object-fit: cover; display: inline;" src="https://dev.karyastudio.com/nso_mobile/webfiles/team/team_default.png" alt="User Image">
                     <?php } ?>
                     <br>
-                    <?= strlen($row_team["name"]) > 15 ? substr($row_team["name"], 0, 15) . "..." : $row_team["name"] ?>
+                    <?= strlen($row_team["name"]) > 10 ? substr($row_team["name"], 0, 10) . "..." : $row_team["name"] ?>
                     <br>
                     <small>Total Rider : <?= $rowraider[0]['rowraider'] ?></small>
                   </a>
@@ -191,7 +191,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-6">
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">5 Wisata Terbaru</h3>
@@ -207,6 +207,7 @@
                 <thead>
                   <tr class="bg-success">
                     <th style="width:20px">No</th>
+                    <th>Gambar</th>
                     <th>Judul</th>
                     <th>Tanggal Dimulai</th>
                     <th>Tanggal Selesai</th>
@@ -236,7 +237,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-6">
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">5 Blog / Informasi Terbaru</h3>
@@ -280,7 +281,9 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+    </div>
+    <div class="row">
+      <div class="col-md-6">
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">5 Kategori Gallery Terbaru</h3>
@@ -324,7 +327,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-6">
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">5 Merchandise Terbaru</h3>

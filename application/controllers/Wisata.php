@@ -8,7 +8,7 @@ class Wisata extends MY_Controller {
 	public function index()
 	{
 		$data['page_name'] = "Wisata";
-		$data['tbl_wisata'] = $this->mymodel->selectData('tbl_wisata');
+		$data['tbl_wisata'] = $this->mymodel->selectWithQuery('SELECT * FROM tbl_wisata ORDER BY id DESC'); 
 		$this->template->load('template/template','wisata/index', $data);
 	}
 

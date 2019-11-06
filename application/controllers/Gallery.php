@@ -8,7 +8,7 @@ class Gallery extends MY_Controller {
 	public function index()
 	{
 		$data['page_name'] = "Gallery";
-		$data['master_imagegroup'] = $this->mymodel->selectWithQuery('SELECT a.*, b.imagegroup_id FROM master_imagegroup a INNER JOIN tbl_gallery b ON a.id = b.imagegroup_id GROUP BY b.imagegroup_id');
+		$data['master_imagegroup'] = $this->mymodel->selectWithQuery('SELECT a.*, b.imagegroup_id FROM master_imagegroup a INNER JOIN tbl_gallery b ON a.id = b.imagegroup_id GROUP BY b.imagegroup_id ORDER BY a.id DESC');
 		$this->template->load('template/template','gallery/index',$data);
 		
 	}
@@ -66,8 +66,8 @@ class Gallery extends MY_Controller {
 						$this->form_validation->set_rules('file[image_detail]', '<strong>Gambar </strong> Harus berformat PNG, JPG, JPEG semuanya', 'required');
 					}
 				}
-				$nomor = $i+1;
-				$this->form_validation->set_rules('dt[title]['.$i.']', '<strong>Judul Gambar ke-'.$nomor.'</strong> Tidak Boleh Kosong', 'required');
+				// $nomor = $i+1;
+				// $this->form_validation->set_rules('dt[title]['.$i.']', '<strong>Judul Gambar ke-'.$nomor.'</strong> Tidak Boleh Kosong', 'required');
 			}
 		}else{
 			$this->form_validation->set_rules('dt[gambar]', '<strong>Gambar*</strong> Tidak Boleh Kosong', 'required');

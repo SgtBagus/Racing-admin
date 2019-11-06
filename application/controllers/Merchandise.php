@@ -8,7 +8,7 @@ class Merchandise extends MY_Controller {
 	public function index()
 	{
 		$data['page_name'] = "Merchandise";
-		$data['tbl_merchandise'] = $this->mymodel->selectData('tbl_merchandise');
+		$data['tbl_merchandise'] = $this->mymodel->selectWithQuery('SELECT * FROM tbl_merchandise ORDER BY id DESC'); 
 		$this->template->load('template/template','merchandise/index', $data);
 	}
 

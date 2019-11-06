@@ -26,6 +26,9 @@
     <div class="form-group">
         <label for="form-id_raider">Raider</label>
         <select class="form-control" name="dt[id_raider]" id="rider">
+                <option value="" <?php if (!$row['raider_id']) {
+                                                                    echo "selected";
+                                                                } ?>>-Pilih Tanpa Rider-</option>
             <?php
             $tbl_raider = $this->mymodel->selectWithQuery("SELECT a.raider_id as raider_id, c.name as nameraider, c.nostart as nostart, d.name as nameteam FROM tbl_event_register_raider a LEFT JOIN tbl_event_register b ON a.event_register_id = b.id LEFT JOIN tbl_raider c ON a.raider_id = c.id LEFT JOIN tbl_team d ON b.team_id = d.id WHERE b.approve = 'APPROVE' AND b.event_id = " . $event_id . " AND b.team_id = " . $tbl_paket_detail['id_team']);
             foreach ($tbl_raider as $key => $row) {
@@ -101,6 +104,7 @@
                     if (!$.trim(data)) {
                         $("#rider").append('<option value="">Data Tidak Tersedia</option>');
                     } else {
+                        $("#rider").append('<option value="">-Pilih Tanpa Rider-</option>');
                         $.each(data, function(key, value) {
                             var nameteam = value.nameteam;
                             if (!nameteam) {

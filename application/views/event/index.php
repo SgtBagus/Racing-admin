@@ -37,8 +37,8 @@
                      <th>Tgl Event Berakhir</th>
                      <th>Aturan Event</th>
                      <th>Status Event</th>
-                     <th>Pendaftar</th>
                      <th>Public</th>
+                     <th>Status Pendaftaran</th>
                      <th></th>
                    </tr>
                  </thead>
@@ -60,12 +60,12 @@
                             if ($rule) {
                               echo '
                           <div class="row" align="center">
-                          Peraturan Event - ' . $row['title'] . '
+                          Peraturan Event - '.$row['title'].'
                           <div class="col-md-12">
-                          <a href="' . base_url($rule['dir']) . '" target="_blank">
+                          <a href="'.base_url($rule['dir']).'" target="_blank">
                           <button type="button" class="btn btn-send btn-info btn-sm btn-sm btn-primary"><i class="fa fa-eye"></i></button>
                           </a>
-                          <a href="' . base_url('download/downloadPDFEvent/' . $rule['id']) . '">
+                          <a href="'.base_url('download/downloadPDFEvent/'.$rule['id']).'">
                           <button type="button" class="btn btn-send btn-warning btn-sm btn-sm btn-danger"><i class="fa fa-download"></i></button>
                           </a>
                           </div>
@@ -103,11 +103,19 @@
                             ?>
                        </td>
                        <td>
-                         <a href="<?= base_url('eventregister/?id_event=') . $row['id'] ?>">
-                           <button type="button" class="btn btn-sm btn-sm btn-info">
-                             <i class="fa fa-users"></i>
-                           </button>
-                         </a>
+                         <?php if ($row['public'] == 'ENABLE') { ?>
+                           <a href="<?= base_url('event/publicStatus/') . $row['id'] ?>/DISABLE">
+                             <button type="button" class="btn btn-sm btn-sm btn-success">
+                               <i class="fa fa-check-circle"></i> ENABLE
+                             </button>
+                           </a>
+                         <?php } else { ?>
+                           <a href="<?= base_url('event/publicStatus/') . $row['id'] ?>/ENABLE">
+                             <button type="button" class="btn btn-sm btn-sm btn-danger">
+                               <i class="fa fa-ban"></i> DISABLE
+                             </button>
+                           </a>
+                         <?php } ?>
                        </td>
                        <td>
                          <?php if ($row['status'] == 'ENABLE') { ?>

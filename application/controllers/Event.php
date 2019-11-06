@@ -8,7 +8,7 @@ class Event extends MY_Controller {
 	public function index()
 	{
 		$data['page_name'] = "Event";
-		$data['tbl_event'] = $this->mymodel->selectData('tbl_event');
+		$data['tbl_event'] = $this->mymodel->selectWithQuery('SELECT * FROM tbl_event ORDER BY tgleventStart DESC'); 
 		$this->template->load('template/template','event/index', $data);
 	}
 

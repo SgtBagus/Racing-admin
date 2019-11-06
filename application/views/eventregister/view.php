@@ -52,18 +52,10 @@
 											</div>
 											<div class="col-md-6">
 												<div class="row">
-													<div class="col-md-8">
+													<div class="col-md-12">
 														<div class="form-group">
 															<label>Nomor Petanggung Jawab Event</label>
 															<input type="text" class="form-control" value="<?= $tbl_event['phone'] ?>" readonly>
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group">
-															<label> Hubungi Melalui</label>
-															<a href="#" target="_blank">
-																<button type="button" class="btn btn-sm btn-success btn-block"><i class="fa fa-whatsapp"></i> Whatsapp</button>
-															</a>
 														</div>
 													</div>
 												</div>
@@ -136,16 +128,13 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<center>
+									    <?php if($file_team){ ?>
 										<img src="<?= $file_team['url'] ?>" style="width: 200px; height: 200px; border-radius: 20px" class="img img-thumbnail">
+										<?php } else { ?>					<img src="https://dev.karyastudio.com/nso_mobile/webfiles/team/team_default.png" style="width: 200px; height: 200px; border-radius: 20px" class="img img-thumbnail">
+										<?php } ?>
 										<br>
 										<h4>
 											<b><?= $tbl_team['name'] ?></b><br>
-											<small>
-												<i class="fa fa-phone"></i> <?= $tbl_team['nowa'] ?>
-												<a href="#" target="_blank">
-													<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
-												</a>
-											</small>
 										</h4>
 									</center>
 								</div>
@@ -153,18 +142,19 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<center>
-										<img src="<?= $file_manager['url'] ?>" style="width: 200px; height: 200px; border-radius: 50%" class="img img-thumbnail">
+							<?php if($$tbl_manager) {?>
+									    <?php if($file_manager){ ?>
+										<img src="<?= $file_manager['url'] ?>" style="width: 200px; height: 200px; border-radius: 20px" class="img img-thumbnail">
+										<?php } else { ?>					<img src="https://dev.karyastudio.com/nso_mobile/webfiles/manager/manager_default.png" style="width: 200px; height: 200px; border-radius: 20px" class="img img-thumbnail">
+										<?php } ?>
 										<br>
 										<h4>
 											<b><?= $tbl_manager['name'] ?></b><br>
-											<small>
-												<i class="fa fa-phone"></i> <?= $tbl_manager['nowa'] ?>
-												<a href="#" target="_blank">
-													<button type="button" class="btn btn-sm btn-success"><i class="fa fa-whatsapp"></i></button>
-												</a>
-											</small>
 										</h4>
 									</center>
+						<?php } else { ?>
+							<h4 class='help-block'> Manager Belum Terdaftar</h4>
+						<?php } ?>
 								</div>
 							</div>
 						<?php } else { ?>
@@ -201,17 +191,41 @@
 											<tr>
 												<td><?= $i ?></td>
 												<td>
+												    <?php if($fileraider){?>
 													<img src="<?= $fileraider['url'] ?>" width="50px" height="50px" style="border-radius: 50%">
+													<?php } else { ?>
+													<img src="https://dev.karyastudio.com/nso_mobile/webfiles/raider/raider_default.png" width="50px" height="50px" style="border-radius: 50%">
+													<?php } ?>
 												</td>
 												<td>
+												    <?php if($raider['name']){?>
 													<?= $raider['name'] ?> <?php if ($raider['verificacion'] == 'ENABLE') {
 																					echo '<i class="fa fa-check-circle" style="color: #3b8dbc"> </i>';
 																				} ?>
-												</td>
-												<td><?= $raider['alamat'] ?></td>
-												<td><?= $motor['value'] ?></td>
+													<?php } else { ?>
+													<p class="help-block"><i>Pendaftar Peorangan</i></p>
+													<?php } ?>
+												</td>		
 												<td>
+												    <?php if($raider['alamat']) { ?>
+													<?= $raider['alamat'] ?>
+													<?php } else { ?>
+													<p class="help-block"><i>Pendaftar Peorangan</i></p>
+													<?php } ?>
+												</td>
+												<td>
+												    <?php if($motor['value']) { ?>
+													<?= $motor['value'] ?>
+													<?php } else { ?>
+													<p class="help-block"><i>Pendaftar Peorangan</i></p>
+													<?php } ?>
+												</td>
+												<td>
+												    <?php if($raider['nowa']) { ?>
 													<?= $raider['nowa'] ?>
+													<?php } else { ?>
+													<p class="help-block"><i>Pendaftar Peorangan</i></p>
+													<?php } ?>
 												</td>
 											</tr>
 										<?php $i++;

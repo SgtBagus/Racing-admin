@@ -11,7 +11,7 @@ class Team extends MY_Controller
 	public function index()
 	{
 		$data['page_name'] = "Team";
-		$data['tbl_team'] = $this->mymodel->selectData('tbl_team');
+		$data['tbl_team'] = $this->mymodel->selectWithQuery('SELECT * FROM tbl_team ORDER BY id DESC'); 
 		$this->template->load('template/template', 'team/index', $data);
 	}
 
@@ -107,7 +107,7 @@ class Team extends MY_Controller
 				$file['dir'] = 'webfiles/team/team_default.png';
 				$file['table'] = 'tbl_team';
 				$file['table_id'] = $this->db->insert_id();
-				$file['url'] = 'http://192.168.100.9:8000/' . $file['dir'];
+				$file['url'] = 'https://dev.karyastudio.com/nso_mobile/' . $file['dir'];
 				$file['status'] = 'ENABLE';
 				$file['created_at'] = date('Y-m-d H:i:s');
 				$this->db->insert('file', $file);

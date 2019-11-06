@@ -1,9 +1,9 @@
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Tim</h1>
+        <h1>Team</h1>
         <ol class="breadcrumb">
             <li><a href="<?= base_url() ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Tim</li>
+            <li class="active">Team</li>
         </ol>
     </section>
     <section class="content">
@@ -20,7 +20,7 @@
                                     </a>
                                     <a href="<?= base_url('fitur/ekspor/tbl_team') ?>" target="_blank">
                                         <button type="button" class="btn btn-sm btn-warning">
-                                            <i class="fa fa-file-excel-o"></i> Ekspor Tim
+                                            <i class="fa fa-file-excel-o"></i> Ekspor Team
                                         </button>
                                     </a>
                                 </div>
