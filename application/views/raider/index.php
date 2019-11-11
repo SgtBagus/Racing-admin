@@ -105,14 +105,14 @@
                                             <td>
                                                 <?php if ($row['verificacion'] == 'ENABLE') { ?>
                                                     <p> Terverifikasikan </p>
-                                                    <a href="<?= base_url('raider/verificacion/') . $row['id'] ?>/DISABLE">
+                                                    <a href="<?= base_url('rider/verificacion/') . $row['id'] ?>/DISABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-danger">
                                                             <i class="fa fa-ban"></i> LEPAS VERIFIKASI
                                                         </button>
                                                     </a>
                                                 <?php } else { ?>
                                                     <p> Belum Terverifikasi </p>
-                                                    <a href="<?= base_url('raider/verificacion/') . $row['id'] ?>/ENABLE">
+                                                    <a href="<?= base_url('rider/verificacion/') . $row['id'] ?>/ENABLE">
                                                         <button type="button" class="btn btn-sm btn-sm btn-primary">
                                                             <i class="fa fa-check-circle"></i> VERIFIKASI
                                                         </button>
