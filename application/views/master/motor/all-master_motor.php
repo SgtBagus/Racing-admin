@@ -112,7 +112,7 @@
 
   </div>
 
-  <!-- /.content-wrapper -->
+  <!-- /.content-wrapper --> 
   
   <div class="modal fade bd-example-modal-sm" tabindex="-1" master_motor="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-form">
 
